@@ -1,0 +1,22 @@
+<?xml version="1.0" encoding="UTF-8" standalone="yes"?>
+<model type="com.apple.IDECoreDataModeler.DataModel" documentVersion="1.0" lastSavedToolsVersion="11232" systemVersion="15G1004" minimumToolsVersion="Automatic" sourceLanguage="Objective-C" userDefinedModelVersionIdentifier="">
+    <entity name="Race" representedClassName="Race" syncable="YES">
+        <attribute name="date" optional="YES" attributeType="Date" usesScalarValueType="NO" syncable="YES"/>
+        <attribute name="distance" optional="YES" attributeType="Float" defaultValueString="0.0" usesScalarValueType="YES" syncable="YES"/>
+        <attribute name="milePace" optional="YES" attributeType="String" syncable="YES"/>
+        <attribute name="time" optional="YES" attributeType="String" syncable="YES"/>
+        <relationship name="raceToRunner" optional="YES" maxCount="1" deletionRule="Nullify" destinationEntity="Runner" inverseName="runnerToRace" inverseEntity="Runner" syncable="YES"/>
+    </entity>
+    <entity name="Runner" representedClassName="Runner" syncable="YES">
+        <attribute name="email" optional="YES" attributeType="String" syncable="YES"/>
+        <attribute name="gender" optional="YES" attributeType="String" syncable="YES"/>
+        <attribute name="name" optional="YES" attributeType="String" syncable="YES"/>
+        <attribute name="picture" optional="YES" attributeType="Binary" syncable="YES"/>
+        <attribute name="team" optional="YES" attributeType="String" syncable="YES"/>
+        <relationship name="runnerToRace" optional="YES" toMany="YES" deletionRule="Cascade" destinationEntity="Race" inverseName="raceToRunner" inverseEntity="Race" syncable="YES"/>
+    </entity>
+    <elements>
+        <element name="Runner" positionX="-63" positionY="-18" width="128" height="135"/>
+        <element name="Race" positionX="-54" positionY="27" width="128" height="120"/>
+    </elements>
+</model>

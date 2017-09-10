@@ -1,0 +1,48 @@
+<?xml version="1.0" encoding="UTF-8" standalone="yes"?>
+<model type="com.apple.IDECoreDataModeler.DataModel" documentVersion="1.0" lastSavedToolsVersion="12141" systemVersion="16G29" minimumToolsVersion="Automatic" sourceLanguage="Swift" userDefinedModelVersionIdentifier="">
+    <entity name="Race" syncable="YES">
+        <attribute name="dateString" optional="YES" attributeType="String" syncable="YES"/>
+        <attribute name="distance" optional="YES" attributeType="String" syncable="YES"/>
+        <attribute name="gender" optional="YES" attributeType="String" syncable="YES"/>
+        <attribute name="group" optional="YES" attributeType="String" syncable="YES"/>
+        <attribute name="meet" optional="YES" attributeType="String" syncable="YES"/>
+        <attribute name="runnerOrder" optional="YES" attributeType="Transformable" syncable="YES"/>
+        <attribute name="status" optional="YES" attributeType="String" syncable="YES"/>
+        <attribute name="team" optional="YES" attributeType="String" syncable="YES"/>
+        <relationship name="raceToResult" optional="YES" toMany="YES" deletionRule="Cascade" destinationEntity="Result" inverseName="resultToRace" inverseEntity="Result" syncable="YES"/>
+    </entity>
+    <entity name="Result" syncable="YES">
+        <attribute name="dateString" optional="YES" attributeType="String" syncable="YES"/>
+        <attribute name="distance" optional="YES" attributeType="String" syncable="YES"/>
+        <attribute name="email" optional="YES" attributeType="String" syncable="YES"/>
+        <attribute name="email2" optional="YES" attributeType="String" syncable="YES"/>
+        <attribute name="laps" optional="YES" attributeType="String" syncable="YES"/>
+        <attribute name="meet" optional="YES" attributeType="String" syncable="YES"/>
+        <attribute name="name" optional="YES" attributeType="String" syncable="YES"/>
+        <attribute name="pace" optional="YES" attributeType="String" syncable="YES"/>
+        <attribute name="time" optional="YES" attributeType="String" syncable="YES"/>
+        <relationship name="resultToRace" optional="YES" maxCount="1" deletionRule="Nullify" destinationEntity="Race" inverseName="raceToResult" inverseEntity="Race" syncable="YES"/>
+        <relationship name="resultToRunner" optional="YES" maxCount="1" deletionRule="Nullify" destinationEntity="Runner" inverseName="runnerToResult" inverseEntity="Runner" syncable="YES"/>
+    </entity>
+    <entity name="Runner" syncable="YES">
+        <attribute name="averageMileTime" optional="YES" attributeType="String" syncable="YES"/>
+        <attribute name="currentlyRunning" optional="YES" attributeType="String" syncable="YES"/>
+        <attribute name="currentTime" optional="YES" attributeType="String" syncable="YES"/>
+        <attribute name="email" optional="YES" attributeType="String" syncable="YES"/>
+        <attribute name="email2" optional="YES" attributeType="String" syncable="YES"/>
+        <attribute name="fileName" optional="YES" attributeType="String" syncable="YES"/>
+        <attribute name="gender" optional="YES" attributeType="String" syncable="YES"/>
+        <attribute name="lap1" optional="YES" attributeType="String" syncable="YES"/>
+        <attribute name="lap2" optional="YES" attributeType="String" syncable="YES"/>
+        <attribute name="lap3" optional="YES" attributeType="String" syncable="YES"/>
+        <attribute name="name" optional="YES" attributeType="String" syncable="YES"/>
+        <attribute name="photoOrientation" optional="YES" attributeType="String" syncable="YES"/>
+        <attribute name="team" optional="YES" attributeType="String" syncable="YES"/>
+        <relationship name="runnerToResult" optional="YES" toMany="YES" deletionRule="Cascade" destinationEntity="Result" inverseName="resultToRunner" inverseEntity="Result" syncable="YES"/>
+    </entity>
+    <elements>
+        <element name="Race" positionX="9" positionY="99" width="128" height="180"/>
+        <element name="Result" positionX="27" positionY="108" width="128" height="210"/>
+        <element name="Runner" positionX="-45" positionY="0" width="128" height="255"/>
+    </elements>
+</model>
