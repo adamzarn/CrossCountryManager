@@ -42,15 +42,12 @@
         self.presentRunners = [results mutableCopy];
         
     } else {
-        NSLog(@"%@", self.runnerOrder);
         for (NSString *name in [self.runnerOrder objectAtIndex:0]) {
             RunnerClass *newRunner = [GlobalFunctions getCurrentRunner:@"Runner" pred:@"name == %@" name:name context:context];
-            NSLog(@"%@", newRunner.name);
             [self.presentRunners addObject:newRunner];
         }
         for (NSString *name in [self.runnerOrder objectAtIndex:1]) {
             RunnerClass *newRunner = [GlobalFunctions getCurrentRunner:@"Runner" pred:@"name == %@" name:name context:context];
-            NSLog(@"%@", newRunner.name);
             [self.absentRunners addObject:newRunner];
         }
     }
@@ -64,9 +61,19 @@
             NSArray *results = [GlobalFunctions getData:@"Result" pred:@"resultToRunner = %@" predArray:[NSArray arrayWithObjects: managedRunner, nil] context:context];
             runner.averageMileTime = [GlobalFunctions getAverageMileTime:results];
         }
-    
-        sortedResults = [self.presentRunners sortedArrayUsingDescriptors:[GlobalFunctions sortWithKey:@"averageMileTime"]];
-    
+        
+        sortedResults = [self.presentRunners sortedArrayUsingComparator: ^(RunnerClass *runner1, RunnerClass *runner2) {
+            double key1 = [GlobalFunctions getSecondsPerMile:runner1.averageMileTime];
+            double key2 = [GlobalFunctions getSecondsPerMile:runner2.averageMileTime];
+            if (key1 > key2) {
+                return (NSComparisonResult)NSOrderedDescending;
+            }
+            if (key1 < key2) {
+                return (NSComparisonResult)NSOrderedAscending;
+            }
+            return (NSComparisonResult)NSOrderedSame;
+        }];
+        
         self.presentRunners = [sortedResults mutableCopy];
         
     }
@@ -75,6 +82,16 @@
     
     self.saveForLaterButton.style = UIBarButtonItemStyleDone;
     self.saveForLaterButton.tintColor = appDelegate.darkBlue;
+    
+    self.toolbar.translucent = NO;
+    
+    if (self.savedRace == nil) {
+        UIView *twoLineTitleView = [GlobalFunctions configureTwoLineTitleView:@"Runner Order" bottomLine:self.race.group];
+        self.navigationItem.titleView = twoLineTitleView;
+    } else {
+        UIView *twoLineTitleView = [GlobalFunctions configureTwoLineTitleView:@"Runner Order" bottomLine:[self.savedRace valueForKey:@"group"]];
+        self.navigationItem.titleView = twoLineTitleView;
+    }
     
 }
 
@@ -99,7 +116,7 @@
 }
 
 -(NSString *)tableView:(UITableView *)tableView titleForHeaderInSection:(NSInteger)section {
-    return [[NSArray arrayWithObjects: @"Present", @"Absent", nil] objectAtIndex:section];
+    return [[NSArray arrayWithObjects:@"Present", @"Absent", nil] objectAtIndex:section];
 }
 
 -(UITableViewCell *)tableView:(UITableView *)tableView cellForRowAtIndexPath:(NSIndexPath *)indexPath {
@@ -167,19 +184,20 @@
     [runnerOrder addObject:absentArray];
     
     if (self.savedRace == nil) {
-        
+
         NSManagedObject *savedRace = [NSEntityDescription insertNewObjectForEntityForName:@"Race" inManagedObjectContext:context];
-        [savedRace setValue:appDelegate.dateString forKey:@"dateString"];
-        [savedRace setValue:appDelegate.meet forKey:@"meet"];
-        [savedRace setValue:appDelegate.distance forKey:@"distance"];
-        [savedRace setValue:appDelegate.gender forKey:@"gender"];
-        [savedRace setValue:appDelegate.team forKey:@"team"];
-        [savedRace setValue:appDelegate.group forKey:@"group"];
+        [savedRace setValue:self.race.dateString forKey:@"dateString"];
+        [savedRace setValue:self.race.meet forKey:@"meet"];
+        [savedRace setValue:self.race.distance forKey:@"distance"];
+        [savedRace setValue:self.race.gender forKey:@"gender"];
+        [savedRace setValue:self.race.team forKey:@"team"];
+        [savedRace setValue:self.race.group forKey:@"group"];
         [savedRace setValue:runnerOrder forKey:@"runnerOrder"];
         [savedRace setValue:@"pending" forKey:@"status"];
+        self.savedRace = savedRace;
         
     } else {
-        
+
         [self.savedRace setValue:runnerOrder forKey:@"runnerOrder"];
         
     }
@@ -213,12 +231,12 @@
     if (self.savedRace == nil) {
         
         NSManagedObject *savedRace = [NSEntityDescription insertNewObjectForEntityForName:@"Race" inManagedObjectContext:context];
-        [savedRace setValue:appDelegate.dateString forKey:@"dateString"];
-        [savedRace setValue:appDelegate.meet forKey:@"meet"];
-        [savedRace setValue:appDelegate.distance forKey:@"distance"];
-        [savedRace setValue:appDelegate.gender forKey:@"gender"];
-        [savedRace setValue:appDelegate.team forKey:@"team"];
-        [savedRace setValue:appDelegate.group forKey:@"group"];
+        [savedRace setValue:self.race.dateString forKey:@"dateString"];
+        [savedRace setValue:self.race.meet forKey:@"meet"];
+        [savedRace setValue:self.race.distance forKey:@"distance"];
+        [savedRace setValue:self.race.gender forKey:@"gender"];
+        [savedRace setValue:self.race.team forKey:@"team"];
+        [savedRace setValue:self.race.group forKey:@"group"];
         [savedRace setValue:runnerOrder forKey:@"runnerOrder"];
         [savedRace setValue:@"pending" forKey:@"status"];
         

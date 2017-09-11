@@ -45,6 +45,9 @@
     self.saveButton.style = UIBarButtonSystemItemDone;
     self.pastRaceResultsButton.style = UIBarButtonItemStyleDone;
     self.pastRaceResultsButton.tintColor = appDelegate.darkBlue;
+    
+    self.toolbar.translucent = NO;
+    
 }
 
 //UITableViewDelegate Methods*********************************************************************************
@@ -99,7 +102,7 @@
 }
 
 -(NSString *)tableView:(UITableView *)tableView titleForHeaderInSection:(NSInteger)section {
-    return [NSString stringWithFormat:@"%@ - %@ miles",appDelegate.group,appDelegate.distance];
+    return [NSString stringWithFormat:@"%@ - %@ miles",[self.savedRace valueForKey:@"group"],[self.savedRace valueForKey:@"distance"]];
 }
 
 //IBActions***************************************************************************************************
@@ -139,7 +142,7 @@
     
     [appDelegate saveContext];
     
-    vc.race = (RaceClass *) self.savedRace;
+    vc.savedRace = self.savedRace;
     vc.results = self.allResults;
     vc.comingFromLogRace = YES;
     

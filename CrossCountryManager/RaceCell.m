@@ -178,10 +178,9 @@
     }
     
     ResultClass *newResult = [[ResultClass alloc] init:currentRunner.name time:self.timeLabel.text pace:@"" email:currentRunner.email email2:currentRunner.email2 laps:laps];
-    AppDelegate *appDelegate = (AppDelegate *)[[UIApplication sharedApplication] delegate];
-    newResult.meet = appDelegate.meet;
-    newResult.distance = appDelegate.distance;
-    newResult.dateString = appDelegate.dateString;
+    newResult.meet = [vc.savedRace valueForKey:@"meet"];
+    newResult.distance = [vc.savedRace valueForKey:@"distance"];
+    newResult.dateString = [vc.savedRace valueForKey:@"dateString"];
     
     int j = 0;
     BOOL replaced = NO;

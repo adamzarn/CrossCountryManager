@@ -27,6 +27,7 @@
 @property (weak, nonatomic) IBOutlet UIBarButtonItem *resetButton;
 @property (weak, nonatomic) IBOutlet UIBarButtonItem *pastRaceResultsButton;
 @property (nonatomic, retain) NSManagedObject *savedRace;
+@property (weak, nonatomic) IBOutlet UIToolbar *toolbar;
 
 
 - (IBAction)startButtonPressed:(id)sender;

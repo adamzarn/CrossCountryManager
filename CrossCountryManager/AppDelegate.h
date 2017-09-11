@@ -15,12 +15,6 @@
 
 @property (readonly, strong) NSPersistentContainer *persistentContainer;
 
-@property NSString *meet;
-@property NSString *dateString;
-@property NSString *team;
-@property NSString *distance;
-@property NSString *gender;
-@property NSString *group;
 @property UIColor *darkBlue;
 @property UIColor *lightBlue;
 

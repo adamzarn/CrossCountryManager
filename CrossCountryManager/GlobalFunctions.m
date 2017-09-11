@@ -67,7 +67,6 @@
     
     NSError *error = nil;
     NSArray *results = [context executeFetchRequest:request error:&error];
-    NSLog(@"%@", results);
     
     if (!results) {
         NSLog(@"Error fetching objects: %@\n%@", [error localizedDescription], [error userInfo]);
@@ -103,7 +102,7 @@
         
         totalSeconds = totalSeconds + [s floatValue] + [m floatValue]*60.0;
     }
-    
+
     double secondsPerMile = totalSeconds/totalMiles;
     
     int min = floor(secondsPerMile/60);
@@ -115,7 +114,9 @@
     
     NSString *averageMileTime = [[NSString alloc] init];
     
-    if (min > 9) {
+    if (min > 59) {
+        averageMileTime = [NSString stringWithFormat:@"%02d:%02d",59,59];
+    } else if (min > 9) {
         averageMileTime = [NSString stringWithFormat:@"%02d:%02d",min,sec];
     } else {
         averageMileTime = [NSString stringWithFormat:@"%01d:%02d",min,sec];
@@ -123,6 +124,29 @@
     
     return averageMileTime;
     
+}
+
++ (double)getSecondsPerMile:(NSString *)averageMileTime {
+    
+    if ([averageMileTime isEqualToString:@"0:00"]) {
+        return 10000;
+    }
+    
+    NSNumberFormatter *f = [[NSNumberFormatter alloc] init];
+    f.numberStyle = NSNumberFormatterDecimalStyle;
+    
+    NSUInteger l = [averageMileTime length];
+    NSRange secondsRange = NSMakeRange(l-2,2);
+    NSRange minutesRange = NSMakeRange(0,l-3);
+        
+    NSString *seconds = [averageMileTime substringWithRange:secondsRange];
+    NSString *minutes = [averageMileTime substringWithRange:minutesRange];
+        
+    NSNumber *s = [f numberFromString:seconds];
+    NSNumber *m = [f numberFromString:minutes];
+        
+    return [s floatValue] + [m floatValue]*60.0;
+
 }
 
 + (UIView *)configureTwoLineTitleView:(NSString *)topLine bottomLine:(NSString *)bottomLine {

@@ -63,7 +63,6 @@
     
     SavedRaceCell *cell = [tableView dequeueReusableCellWithIdentifier:simpleTableIdentifier];
     RaceClass *currentRace = [[racesByDate objectAtIndex:indexPath.section] objectAtIndex:indexPath.row];
-    NSLog(@"%@", currentRace.meet);
     [cell setUpCell:currentRace quickView:true];
     
     return cell;
@@ -74,16 +73,10 @@
     
     RaceResults *vc = [self.navigationController.storyboard instantiateViewControllerWithIdentifier:@"RaceResults"];
     
-    RaceClass *selectedRace = [[racesByDate objectAtIndex:indexPath.section] objectAtIndex:indexPath.row];
+    NSManagedObject *selectedRace = [[racesByDate objectAtIndex:indexPath.section] objectAtIndex:indexPath.row];
     
     vc.comingFromLogRace = NO;
-    appDelegate.meet = [selectedRace valueForKey:@"meet"];
-    appDelegate.dateString = [selectedRace valueForKey:@"dateString"];
-    appDelegate.team = [selectedRace valueForKey:@"team"];
-    appDelegate.distance = [selectedRace valueForKey:@"distance"];
-    appDelegate.gender = [selectedRace valueForKey:@"gender"];
-    appDelegate.group = [selectedRace valueForKey:@"group"];
-    vc.race = selectedRace;
+    vc.savedRace = selectedRace;
     
     [self.navigationController pushViewController:vc animated:true];
     
@@ -107,7 +100,6 @@
     NSMutableArray *uniqueDates = [[NSMutableArray alloc] init];
     for (RaceClass*race in allRaces) {
         NSString *string = race.meet;
-        NSLog(@"%@", string);
         if (![uniqueDates containsObject: race.dateString]) {
             [uniqueDates addObject:race.dateString];
         }

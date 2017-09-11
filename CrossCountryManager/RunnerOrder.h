@@ -21,5 +21,7 @@
 @property (nonatomic, retain) NSMutableArray *absentRunners;
 @property (nonatomic, retain) NSMutableArray *runnerOrder;
 @property (nonatomic, retain) NSManagedObject *savedRace;
+@property (nonatomic, retain) RaceClass *race;
+@property (weak, nonatomic) IBOutlet UIToolbar *toolbar;
 
 @end

@@ -16,7 +16,7 @@
 @property (weak, nonatomic) IBOutlet UITableView *myTableView;
 
 @property BOOL comingFromLogRace;
-@property RaceClass *race;
+@property NSManagedObject *savedRace;
 @property NSMutableArray *results;
 
 - (IBAction)emailButtonPressed:(id)sender;

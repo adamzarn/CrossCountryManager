@@ -118,7 +118,7 @@
             [recipients addObject:result.email2];
         }
         
-        [mail setSubject: [NSString stringWithFormat:@"%@ Meet Results - %@ - %@ miles",appDelegate.meet,appDelegate.group,appDelegate.distance]];
+        [mail setSubject: [NSString stringWithFormat:@"%@ Meet Results - %@ - %@ miles",[self.savedRace valueForKey:@"meet"],[self.savedRace valueForKey:@"group"],[self.savedRace valueForKey:@"distance"]]];
         [mail setMessageBody:messageBody isHTML:NO];
         [mail setToRecipients:recipients];
         
@@ -141,10 +141,10 @@
  }
 
 -(void) update {
-    NSArray *results = [GlobalFunctions getData:@"Result" pred:@"resultToRace = %@" predArray:[NSArray arrayWithObjects: self.race, nil] context:context];
+    NSArray *results = [GlobalFunctions getData:@"Result" pred:@"resultToRace = %@" predArray:[NSArray arrayWithObjects: self.savedRace, nil] context:context];
     self.results = [results mutableCopy];
     sortedResults = [self.results sortedArrayUsingDescriptors:[GlobalFunctions sortWithKey:@"time"]];
-    UIView *twoLineTitleView = [GlobalFunctions configureTwoLineTitleView:[NSString stringWithFormat:@"%@ - %@ miles",appDelegate.group,appDelegate.distance] bottomLine:[NSString stringWithFormat:@"At %@ on %@",appDelegate.meet,appDelegate.dateString]];
+    UIView *twoLineTitleView = [GlobalFunctions configureTwoLineTitleView:[NSString stringWithFormat:@"%@ - %@ miles",[self.savedRace valueForKey:@"group"],[self.savedRace valueForKey:@"distance"]] bottomLine:[NSString stringWithFormat:@"At %@ on %@",[self.savedRace valueForKey:@"meet"],[self.savedRace valueForKey:@"dateString"]]];
     
     self.navigationItem.titleView = twoLineTitleView;
 }

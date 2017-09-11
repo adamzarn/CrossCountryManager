@@ -179,12 +179,6 @@
         RunnerOrder *vc = [self.navigationController.storyboard instantiateViewControllerWithIdentifier:@"RunnerOrder"];
         vc.runnerOrder = selectedRace.runnerOrder;
         vc.savedRace = selectedRaceMO;
-        appDelegate.meet = [selectedRace valueForKey:@"meet"];
-        appDelegate.dateString = [selectedRace valueForKey:@"dateString"];
-        appDelegate.team = [selectedRace valueForKey:@"team"];
-        appDelegate.distance = [selectedRace valueForKey:@"distance"];
-        appDelegate.gender = [selectedRace valueForKey:@"gender"];
-        appDelegate.group = [selectedRace valueForKey:@"group"];
         
         [self.navigationController pushViewController:vc animated:true];
         
@@ -193,13 +187,7 @@
         RaceResults *vc = [self.navigationController.storyboard instantiateViewControllerWithIdentifier:@"RaceResults"];
     
         vc.comingFromLogRace = NO;
-        appDelegate.meet = [selectedRace valueForKey:@"meet"];
-        appDelegate.dateString = [selectedRace valueForKey:@"dateString"];
-        appDelegate.team = [selectedRace valueForKey:@"team"];
-        appDelegate.distance = [selectedRace valueForKey:@"distance"];
-        appDelegate.gender = [selectedRace valueForKey:@"gender"];
-        appDelegate.group = [selectedRace valueForKey:@"group"];
-        vc.race = selectedRace;
+        vc.savedRace = selectedRaceMO;
     
         [self.navigationController pushViewController:vc animated:true];
     
@@ -393,12 +381,7 @@
         
         RaceClass *newRace = [[RaceClass alloc] init:self.distanceTextField.text dateString:dateString meet:self.meetTextField.text gender:[self.genderSegment titleForSegmentAtIndex:self.genderSegment.selectedSegmentIndex] team:[self.teamSegment titleForSegmentAtIndex:self.teamSegment.selectedSegmentIndex] group:group runnerOrder:runnerOrder status:@"pending"];
         
-        appDelegate.gender = newRace.gender;
-        appDelegate.group = newRace.group;
-        appDelegate.team = newRace.team;
-        appDelegate.distance = newRace.distance;
-        appDelegate.meet = newRace.meet;
-        appDelegate.dateString = newRace.dateString;
+        vc.race = newRace;
         
         self.distanceTextField.text = @"";
         [self dismissRaceView];

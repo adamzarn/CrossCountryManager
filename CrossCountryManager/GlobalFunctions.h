@@ -18,6 +18,7 @@
 + (NSArray *) getData:(NSString *)entity pred:(NSString *)pred predArray:(NSArray *)predArray context:(NSManagedObjectContext *)context;
 + (RunnerClass *) getCurrentRunner:(NSString *)entity pred:(NSString *)pred name:(NSString *)name context:(NSManagedObjectContext *)context;
 + (NSString *)getAverageMileTime:(NSArray *)results;
++ (double)getSecondsPerMile:(NSString *)averageMileTime;
 + (UIView *)configureTwoLineTitleView:(NSString *)topLine bottomLine:(NSString *)bottomLine;
 + (NSArray *)sortWithKey:(NSString *)key;
 + (NSString *) getFullPath:(NSString *)fileName;
