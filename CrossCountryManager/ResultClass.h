@@ -15,9 +15,9 @@
 @property (nonatomic, strong) NSString *name;
 @property (nonatomic, strong) NSString *time;
 @property (nonatomic, strong) NSString *pace;
-@property (nonatomic, strong) NSString *email;
-@property (nonatomic, strong) NSString *email2;
-@property (nonatomic, strong) NSString *laps;
+@property (nonatomic, strong) NSString *lap1;
+@property (nonatomic, strong) NSString *lap2;
+@property (nonatomic, strong) NSString *lap3;
 @property (nonatomic, strong) NSString *meet;
 @property (nonatomic, strong) NSString *distance;
 @property (nonatomic, strong) NSString *dateString;
@@ -25,9 +25,9 @@
 - (id)init:(NSString *)name
       time:(NSString *)time
       pace:(NSString *)pace
-     email:(NSString *)email
-    email2:(NSString *)email2
-      laps:(NSString *)laps;
+      lap1:(NSString *)lap1
+      lap2:(NSString *)lap2
+      lap3:(NSString *)lap3;
 
 @end
 

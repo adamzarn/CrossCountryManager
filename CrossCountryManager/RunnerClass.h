@@ -20,7 +20,7 @@
 @property (nonatomic, strong) NSString *email;
 @property (nonatomic, strong) NSString *email2;
 @property (nonatomic, strong) NSString *currentlyRunning;
-@property (nonatomic, strong) NSString *currentTime;
+@property (nonatomic, strong) NSString *finishTime;
 @property (nonatomic, strong) NSString *lap1;
 @property (nonatomic, strong) NSString *lap2;
 @property (nonatomic, strong) NSString *lap3;

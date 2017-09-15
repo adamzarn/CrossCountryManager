@@ -33,7 +33,7 @@
 @property UIColor *lapButtonTextColor;
 @property LogRace *delegate;
 
--(void)setUpCell:(NSString *)name currentlyRunning:(NSString *)currentlyRunning currentTime:(NSString *)currentTime startButtonPressed:(BOOL)startButtonPressed lap1:(NSString *)lap1 lap2:(NSString *)lap2 lap3:(NSString *)lap3;
+-(void)setUpCell:(NSString *)name currentlyRunning:(NSString *)currentlyRunning finishTime:(NSString *)finishTime startButtonPressed:(BOOL)startButtonPressed lap1:(NSString *)lap1 lap2:(NSString *)lap2 lap3:(NSString *)lap3;
 
 - (IBAction)lapButtonPressed:(id)sender;
 

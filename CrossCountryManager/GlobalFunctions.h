@@ -22,5 +22,6 @@
 + (UIView *)configureTwoLineTitleView:(NSString *)topLine bottomLine:(NSString *)bottomLine;
 + (NSArray *)sortWithKey:(NSString *)key;
 + (NSString *) getFullPath:(NSString *)fileName;
++ (NSString *) getLapString:(NSString *)lap1 lap2:(NSString *)lap2 lap3:(NSString *)lap3;
 
 @end

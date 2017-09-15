@@ -202,6 +202,27 @@
     return [documentsDirectory stringByAppendingPathComponent:fileName];
 }
 
++ (NSString *) getLapString:(NSString *)lap1 lap2:(NSString *)lap2 lap3:(NSString *)lap3 {
+    NSMutableArray *laps = [[NSMutableArray alloc] init];
+    
+    if (!([lap1 length] == 0)) {
+        [laps addObject: [NSString stringWithFormat:@"Lap 1: %@",lap1]];
+    }
+    if (!([lap2 length] == 0)) {
+        [laps addObject: [NSString stringWithFormat:@"Lap 2: %@",lap2]];
+    }
+    if (!([lap3 length] == 0)) {
+        [laps addObject: [NSString stringWithFormat:@"Lap 3: %@",lap3]];
+    }
+    
+    if ([laps count] == 0) {
+        return @"No Lap Data";
+    } else {
+        return [laps componentsJoinedByString:@", "];
+    }
+    
+}
+
 
 
 @end

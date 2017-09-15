@@ -22,6 +22,8 @@
 
 -(void)setUpCell:(ResultClass *)currentResult currentRunner:(RunnerClass *)currentRunner row:(NSInteger)row {
     
+    self.accessoryType = UITableViewCellAccessoryDetailDisclosureButton;
+    
     self.runnerImageView.clipsToBounds = YES;
     
     switch (row) {
@@ -44,11 +46,8 @@
     
     self.nameLabel.text = currentResult.name;
     self.timeLabel.text = [NSString stringWithFormat:@"%@ - %@ per mile",currentResult.time,currentResult.pace];
-    if (![currentResult.laps isEqual: @""]) {
-        self.lapLabel.text = currentResult.laps;
-    } else {
-        self.lapLabel.text = @"No Lap data";
-    }
+    
+    self.lapLabel.text = [GlobalFunctions getLapString:currentResult.lap1 lap2:currentResult.lap2 lap3:currentResult.lap3];
     
     self.medalButton.layer.cornerRadius = 15;
     self.medalButton.layer.zPosition = 1;

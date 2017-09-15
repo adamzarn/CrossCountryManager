@@ -43,10 +43,10 @@
     
 }
 
--(void)setUpCell:(NSString *)name currentlyRunning:(NSString *)currentlyRunning currentTime:(NSString *)currentTime startButtonPressed:(BOOL)startButtonPressed lap1:(NSString *)lap1 lap2:(NSString *)lap2 lap3:(NSString *)lap3 {
+-(void)setUpCell:(NSString *)name currentlyRunning:(NSString *)currentlyRunning finishTime:(NSString *)finishTime startButtonPressed:(BOOL)startButtonPressed lap1:(NSString *)lap1 lap2:(NSString *)lap2 lap3:(NSString *)lap3 {
     AppDelegate *appDelegate = (AppDelegate *)[[UIApplication sharedApplication] delegate];
     self.nameLabel.text = name;
-    self.timeLabel.text = currentTime;
+    self.timeLabel.text = @"";
     self.lap1Label.text = [NSString stringWithFormat:@"Lap 1: %@",lap1];
     self.lap2Label.text = [NSString stringWithFormat:@"Lap 2: %@",lap2];
     self.lap3Label.text = [NSString stringWithFormat:@"Lap 3: %@",lap3];
@@ -96,6 +96,7 @@
         self.lapButton.hidden = NO;
         self.lapButtonTitle = @"Undo";
         self.lapButton.enabled = YES;
+        self.timeLabel.text = finishTime;
         
     }
     
@@ -123,6 +124,13 @@
     
     if ([self.lapButtonTitle isEqual: @"Undo"]) {
         currentRunner.currentlyRunning = @"Yes";
+        if (![currentRunner.lap3  isEqual: @""]) {
+            currentRunner.lap3 = @"";
+        } else if (![currentRunner.lap2  isEqual: @""]) {
+            currentRunner.lap2 = @"";
+        } else if (![currentRunner.lap1  isEqual: @""]) {
+            currentRunner.lap1 = @"";
+        }
 
         for (ResultClass *result in vc.allResults) {
             if ([result.name isEqual: currentRunner.name]) {
@@ -133,11 +141,11 @@
     } else {
     
         if ([currentRunner.lap1 isEqual: @""]) {
-            currentRunner.lap1 = [self getLapTime:[NSArray arrayWithObjects:@"00.00",nil] totalElapsedTime:self.timeLabel.text];
+            currentRunner.lap1 = [self getLapTime:[NSArray arrayWithObjects:@"00.00",nil] totalElapsedTime:vc.timerLabel.text];
         } else if ([currentRunner.lap2 isEqual: @""]) {
-            currentRunner.lap2 = [self getLapTime:[NSArray arrayWithObjects: currentRunner.lap1,nil] totalElapsedTime:self.timeLabel.text];
+            currentRunner.lap2 = [self getLapTime:[NSArray arrayWithObjects: currentRunner.lap1,nil] totalElapsedTime:vc.timerLabel.text];
         } else {
-            currentRunner.lap3 = [self getLapTime:[NSArray arrayWithObjects: currentRunner.lap1,currentRunner.lap2,nil] totalElapsedTime:self.timeLabel.text];
+            currentRunner.lap3 = [self getLapTime:[NSArray arrayWithObjects: currentRunner.lap1,currentRunner.lap2,nil] totalElapsedTime:vc.timerLabel.text];
         }
         
     }
@@ -154,7 +162,7 @@
     
     RunnerClass *currentRunner = [vc.allRunners objectAtIndex:row];
     currentRunner.currentlyRunning = @"No";
-    currentRunner.currentTime = self.timeLabel.text;
+    currentRunner.finishTime = vc.timerLabel.text;
     [vc.allRunners replaceObjectAtIndex:row withObject:currentRunner];
 
     int i = 0;
@@ -164,20 +172,15 @@
         }
     }
     
-    NSString *laps = [[NSString alloc] init];
     if ([currentRunner.lap1 isEqual:@""]) {
-        laps = @"";
+        currentRunner.lap1 = @"";
     } else if ([currentRunner.lap2 isEqual:@""]) {
-        currentRunner.lap2 = [self getLapTime:[NSArray arrayWithObjects: currentRunner.lap1,nil] totalElapsedTime:self.timeLabel.text];
-        laps = [NSString stringWithFormat:@"Lap 1: %@, Lap 2: %@",currentRunner.lap1,currentRunner.lap2];
+        currentRunner.lap2 = [self getLapTime:[NSArray arrayWithObjects: currentRunner.lap1,nil] totalElapsedTime:vc.timerLabel.text];
     } else if ([currentRunner.lap3 isEqual:@""]) {
-        currentRunner.lap3 = [self getLapTime:[NSArray arrayWithObjects: currentRunner.lap1,currentRunner.lap2,nil] totalElapsedTime:self.timeLabel.text];
-        laps = [NSString stringWithFormat:@"Lap 1: %@, Lap 2: %@, Lap 3: %@",currentRunner.lap1,currentRunner.lap2,currentRunner.lap3];
-    } else {
-        laps = [NSString stringWithFormat:@"Lap 1: %@, Lap 2: %@, Lap 3: %@",currentRunner.lap1,currentRunner.lap2,currentRunner.lap3];
+        currentRunner.lap3 = [self getLapTime:[NSArray arrayWithObjects: currentRunner.lap1,currentRunner.lap2,nil] totalElapsedTime:vc.timerLabel.text];
     }
     
-    ResultClass *newResult = [[ResultClass alloc] init:currentRunner.name time:self.timeLabel.text pace:@"" email:currentRunner.email email2:currentRunner.email2 laps:laps];
+    ResultClass *newResult = [[ResultClass alloc] init:currentRunner.name time:vc.timerLabel.text pace:@"" lap1:currentRunner.lap1 lap2:currentRunner.lap2 lap3:currentRunner.lap3];
     newResult.meet = [vc.savedRace valueForKey:@"meet"];
     newResult.distance = [vc.savedRace valueForKey:@"distance"];
     newResult.dateString = [vc.savedRace valueForKey:@"dateString"];
@@ -198,7 +201,7 @@
     
     if (i == [vc.allRunners count]) {
         vc.finished = @"Yes";
-        vc.timerLabel.text = self.timeLabel.text;
+        vc.timerLabel.text = currentRunner.finishTime;
     }
     
     [vc.myTableView reloadData];

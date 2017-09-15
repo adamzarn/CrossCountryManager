@@ -125,6 +125,7 @@
     vc.predArray = [NSArray arrayWithObjects: selectedRunner, nil];
     
     vc.name = [selectedRunner valueForKey:@"name"];
+    vc.selectedRunner = selectedRunner;
     
     [self.navigationController pushViewController:vc animated:YES];
     
@@ -267,8 +268,6 @@
             
             for (NSManagedObject *result in results) {
                 [result setValue:self.nameTextField.text forKey:@"name"];
-                [result setValue:self.emailTextField.text forKey: @"email"];
-                [result setValue:self.email2TextField.text forKey: @"email2"];
             }
             
             NSString *previousFileName = [NSString stringWithFormat:@"%@.jpeg",[selectedRunner valueForKey:@"name"]];

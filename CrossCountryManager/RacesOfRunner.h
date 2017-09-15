@@ -10,6 +10,7 @@
 #import <MessageUI/MessageUI.h>
 #import "SavedRaceCell.h"
 #import "ResultClass.h"
+#import "RunnerClass.h"
 
 @interface RacesOfRunner : UIViewController <UITableViewDelegate, UITableViewDataSource, MFMailComposeViewControllerDelegate> {
     
@@ -19,6 +20,7 @@
 @property (nonatomic, retain) NSMutableArray *results;
 @property (nonatomic, retain) NSString *name;
 @property (nonatomic, retain) NSArray *predArray;
+@property (nonatomic, retain) RunnerClass *selectedRunner;
 
 - (IBAction)emailButtonPressed:(id)sender;
 

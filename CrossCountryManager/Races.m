@@ -46,6 +46,8 @@
     appDelegate = (AppDelegate *)[[UIApplication sharedApplication] delegate];
     context = appDelegate.persistentContainer.viewContext;
     
+    self.selectedIndex = 0;
+    self.racesSegment.tintColor = appDelegate.darkBlue;
     self.createRaceTitle.textColor = appDelegate.darkBlue;
     
     dimView = [[UIView alloc] initWithFrame:[UIScreen mainScreen].bounds];
@@ -130,14 +132,11 @@
 }
 
 - (void)viewWillAppear:(BOOL)animated {
+    [self.racesSegment setSelectedSegmentIndex:self.selectedIndex];
     self.aiv.hidden = false;
     [self.aiv startAnimating];
     self.myTableView.hidden = true;
-}
-
-- (void)viewDidAppear:(BOOL)animated {
     [self updateData];
-    [self.myTableView reloadData];
     self.aiv.hidden = true;
     [self.aiv stopAnimating];
     self.myTableView.hidden = false;
@@ -146,15 +145,24 @@
 //UITableViewDelegate Methods*********************************************************************************
 
 - (NSInteger)tableView:(UITableView *)tableView numberOfRowsInSection:(NSInteger)section {
-    return [[racesByDate objectAtIndex:section] count];
+    if (self.racesSegment.selectedSegmentIndex == 0) {
+        return [[racesByDate objectAtIndex:section] count];
+    }
+    return [sortedArray count];
 }
 
 -(NSInteger)numberOfSectionsInTableView:(UITableView *)tableView {
-    return [racesByDate count];
+    if (self.racesSegment.selectedSegmentIndex == 0) {
+        return [racesByDate count];
+    }
+    return 1;
 }
 
 -(NSString *)tableView:(UITableView *)tableView titleForHeaderInSection:(NSInteger)section {
-    return [sortedArray objectAtIndex:section];
+    if (self.racesSegment.selectedSegmentIndex == 0) {
+        return [sortedArray objectAtIndex:section];
+    }
+    return nil;
 }
 
 -(UITableViewCell *)tableView:(UITableView *)tableView cellForRowAtIndexPath:(NSIndexPath *)indexPath {
@@ -162,17 +170,30 @@
     static NSString *simpleTableIdentifier = @"SimpleTableItem";
     
     SavedRaceCell *cell = [tableView dequeueReusableCellWithIdentifier:simpleTableIdentifier];
-    RaceClass *currentRace = [[racesByDate objectAtIndex:indexPath.section] objectAtIndex:indexPath.row];
-    [cell setUpCell:currentRace quickView:false];
     
+    RaceClass *currentRace = [[RaceClass alloc] init];
+    if (self.racesSegment.selectedSegmentIndex == 0) {
+        currentRace = [[racesByDate objectAtIndex:indexPath.section] objectAtIndex:indexPath.row];
+    } else {
+        currentRace = [sortedArray objectAtIndex:indexPath.row];
+    }
+    [cell setUpCell:currentRace quickView:false];
     return cell;
     
 }
 
 -(void)tableView:(UITableView *)tableView didSelectRowAtIndexPath:(NSIndexPath *)indexPath {
     
-    RaceClass *selectedRace = [[racesByDate objectAtIndex:indexPath.section] objectAtIndex:indexPath.row];
-    NSManagedObject *selectedRaceMO = [[racesByDate objectAtIndex:indexPath.section] objectAtIndex:indexPath.row];
+    RaceClass *selectedRace = [[RaceClass alloc] init];
+    NSManagedObject *selectedRaceMO = [[NSManagedObject alloc] init];
+    
+    if (self.racesSegment.selectedSegmentIndex == 0) {
+        selectedRace = [[racesByDate objectAtIndex:indexPath.section] objectAtIndex:indexPath.row];
+        selectedRaceMO = [[racesByDate objectAtIndex:indexPath.section] objectAtIndex:indexPath.row];
+    } else {
+        selectedRace = [sortedArray objectAtIndex:indexPath.row];
+        selectedRaceMO = [sortedArray objectAtIndex:indexPath.row];
+    }
     
     if ([selectedRace.status isEqualToString:@"pending"]) {
         
@@ -206,10 +227,13 @@
         
         UIAlertAction *yes = [UIAlertAction actionWithTitle:@"Yes" style:UIAlertActionStyleDefault handler:^(UIAlertAction * action) {
             
-            [context deleteObject:[[racesByDate objectAtIndex:indexPath.section] objectAtIndex: indexPath.row]];
+            if (self.racesSegment.selectedSegmentIndex == 0) {
+                [context deleteObject:[[racesByDate objectAtIndex:indexPath.section] objectAtIndex: indexPath.row]];
+            } else {
+                [context deleteObject:[sortedArray objectAtIndex:indexPath.row]];
+            }
             [appDelegate saveContext];
             [self updateData];
-            [tableView reloadData];
             
         }];
         
@@ -373,13 +397,9 @@
         NSString *group = [titleLookup objectForKey:key];
         vc.predicate = [predicateLookup objectForKey:key];
         
-        NSDateFormatter *dateFormatter=[[NSDateFormatter alloc] init];
-        [dateFormatter setDateFormat:@"M/d/yyyy"];
-        NSString *dateString = [dateFormatter stringFromDate:[NSDate date]];
-        
         NSMutableArray *runnerOrder = [[NSMutableArray alloc] init];
         
-        RaceClass *newRace = [[RaceClass alloc] init:self.distanceTextField.text dateString:dateString meet:self.meetTextField.text gender:[self.genderSegment titleForSegmentAtIndex:self.genderSegment.selectedSegmentIndex] team:[self.teamSegment titleForSegmentAtIndex:self.teamSegment.selectedSegmentIndex] group:group runnerOrder:runnerOrder status:@"pending"];
+        RaceClass *newRace = [[RaceClass alloc] init:self.distanceTextField.text dateString:@"" meet:self.meetTextField.text gender:[self.genderSegment titleForSegmentAtIndex:self.genderSegment.selectedSegmentIndex] team:[self.teamSegment titleForSegmentAtIndex:self.teamSegment.selectedSegmentIndex] group:group runnerOrder:runnerOrder status:@"pending"];
         
         vc.race = newRace;
         
@@ -398,6 +418,11 @@
     [self dismissRaceView];
 }
 
+- (IBAction)raceSegmentValueChanged:(id)sender {
+    [self updateData];
+}
+
+
 //Helper Methods**********************************************************************************************
 
 -(void)updateData {
@@ -407,40 +432,57 @@
     allRaces = [[NSMutableArray alloc] init];
     allRaces = [results mutableCopy];
     
-    NSMutableArray *uniqueDates = [[NSMutableArray alloc] init];
-    for (RaceClass*race in allRaces) {
-        if (![uniqueDates containsObject: race.dateString]) {
-            [uniqueDates addObject:race.dateString];
-        }
-    }
+    if (self.racesSegment.selectedSegmentIndex == 0) {
     
-    NSDateFormatter *dateFormat = [[NSDateFormatter alloc] init];
-    [dateFormat setDateFormat:@"M/d/yyyy"];
-    sortedDateArray = [[NSMutableArray alloc] init];
-    for (NSString *dateString in uniqueDates) {
-        NSDate *date = [dateFormat dateFromString:dateString];
-        [sortedDateArray addObject:date];
-    }
-
-    [sortedDateArray sortUsingSelector:@selector(compare:)];
-    
-    NSMutableArray *tempArray = [[NSMutableArray alloc] init];
-    racesByDate = [[NSMutableArray alloc] init];
-    
-    for (NSDate *date in sortedDateArray) {
-        for (RaceClass *race in allRaces) {
-            if ([race.dateString isEqual: [dateFormat stringFromDate:date]]) {
-                [tempArray addObject: race];
+        NSMutableArray *uniqueDates = [[NSMutableArray alloc] init];
+        for (RaceClass*race in allRaces) {
+            if (![uniqueDates containsObject: race.dateString]) {
+                if (![race.status  isEqual: @"pending"]) {
+                    [uniqueDates addObject:race.dateString];
+                }
             }
         }
-        [racesByDate addObject: [tempArray mutableCopy]];
-        [tempArray removeAllObjects];
+        
+        NSDateFormatter *dateFormat = [[NSDateFormatter alloc] init];
+        [dateFormat setDateFormat:@"M/d/yyyy"];
+        sortedDateArray = [[NSMutableArray alloc] init];
+        for (NSString *dateString in uniqueDates) {
+            NSDate *date = [dateFormat dateFromString:dateString];
+            [sortedDateArray addObject:date];
+        }
+
+        [sortedDateArray sortUsingSelector:@selector(compare:)];
+        
+        NSMutableArray *tempArray = [[NSMutableArray alloc] init];
+        racesByDate = [[NSMutableArray alloc] init];
+        
+        for (NSDate *date in sortedDateArray) {
+            for (RaceClass *race in allRaces) {
+                if ([race.dateString isEqual: [dateFormat stringFromDate:date]]) {
+                    [tempArray addObject: race];
+                }
+            }
+            [racesByDate addObject: [tempArray mutableCopy]];
+            [tempArray removeAllObjects];
+        }
+        
+        sortedArray = [[NSMutableArray alloc] init];
+        for (NSDate *date in sortedDateArray) {
+            [sortedArray addObject:[dateFormat stringFromDate:date]];
+        }
+        
+    } else {
+        
+        sortedArray = [[NSMutableArray alloc] init];
+        for (RaceClass *race in allRaces) {
+            if ([race.status isEqual:@"pending"]) {
+                [sortedArray addObject:race];
+            }
+        }
+        
     }
     
-    sortedArray = [[NSMutableArray alloc] init];
-    for (NSDate *date in sortedDateArray) {
-        [sortedArray addObject:[dateFormat stringFromDate:date]];
-    }
+    [self.myTableView reloadData];
 
 }
 

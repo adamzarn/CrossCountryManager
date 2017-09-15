@@ -14,9 +14,9 @@
     <entity name="Result" syncable="YES">
         <attribute name="dateString" optional="YES" attributeType="String" syncable="YES"/>
         <attribute name="distance" optional="YES" attributeType="String" syncable="YES"/>
-        <attribute name="email" optional="YES" attributeType="String" syncable="YES"/>
-        <attribute name="email2" optional="YES" attributeType="String" syncable="YES"/>
-        <attribute name="laps" optional="YES" attributeType="String" syncable="YES"/>
+        <attribute name="lap1" optional="YES" attributeType="String" syncable="YES"/>
+        <attribute name="lap2" optional="YES" attributeType="String" syncable="YES"/>
+        <attribute name="lap3" optional="YES" attributeType="String" syncable="YES"/>
         <attribute name="meet" optional="YES" attributeType="String" syncable="YES"/>
         <attribute name="name" optional="YES" attributeType="String" syncable="YES"/>
         <attribute name="pace" optional="YES" attributeType="String" syncable="YES"/>
@@ -27,10 +27,10 @@
     <entity name="Runner" syncable="YES">
         <attribute name="averageMileTime" optional="YES" attributeType="String" syncable="YES"/>
         <attribute name="currentlyRunning" optional="YES" attributeType="String" syncable="YES"/>
-        <attribute name="currentTime" optional="YES" attributeType="String" syncable="YES"/>
         <attribute name="email" optional="YES" attributeType="String" syncable="YES"/>
         <attribute name="email2" optional="YES" attributeType="String" syncable="YES"/>
         <attribute name="fileName" optional="YES" attributeType="String" syncable="YES"/>
+        <attribute name="finishTime" optional="YES" attributeType="String" syncable="YES"/>
         <attribute name="gender" optional="YES" attributeType="String" syncable="YES"/>
         <attribute name="lap1" optional="YES" attributeType="String" syncable="YES"/>
         <attribute name="lap2" optional="YES" attributeType="String" syncable="YES"/>

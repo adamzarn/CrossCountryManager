@@ -31,19 +31,10 @@
     }
     self.meetLabel.text = currentRace.meet;
     
-    if ([currentRace.status isEqualToString:@"pending"]) {
-        self.detailLabel.text = [NSString stringWithFormat:@"%@ - %@ miles - Pending",currentRace.group,currentRace.distance];
-        self.backgroundColor = appDelegate.lightBlue;
-        [self setTintColor: [UIColor whiteColor]];
-        self.meetLabel.textColor = [UIColor whiteColor];
-        self.detailLabel.textColor = [UIColor whiteColor];
-    } else {
-        self.detailLabel.text = [NSString stringWithFormat:@"%@ - %@ miles - Finished",currentRace.group,currentRace.distance];
-        self.backgroundColor = nil;
-        [self setTintColor:appDelegate.darkBlue];
-        self.meetLabel.textColor = appDelegate.darkBlue;
-        self.detailLabel.textColor = appDelegate.darkBlue;
-    }
+    self.detailLabel.text = [NSString stringWithFormat:@"%@ - %@ miles",currentRace.group,currentRace.distance];
+    [self setTintColor:appDelegate.darkBlue];
+    self.meetLabel.textColor = appDelegate.darkBlue;
+    self.detailLabel.textColor = appDelegate.darkBlue;
 
 }
 

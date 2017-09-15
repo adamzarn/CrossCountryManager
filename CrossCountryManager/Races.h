@@ -22,6 +22,10 @@
 @property (weak, nonatomic) IBOutlet UILabel *createRaceTitle;
 @property (weak, nonatomic) IBOutlet UIActivityIndicatorView *aiv;
 
+@property (weak, nonatomic) IBOutlet UISegmentedControl *racesSegment;
+
+@property NSInteger selectedIndex;
+
 -(void)createRace:(id)sender;
 
 @end

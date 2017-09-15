@@ -48,11 +48,8 @@
     cell.meetLabel.text = currentResult.meet;
     cell.detailLabel.text = [NSString stringWithFormat:@"%@ miles in %@ - %@ per mile",currentResult.distance,currentResult.time,currentResult.pace];
     cell.dateLabel.text = currentResult.dateString;
-    if (![currentResult.laps isEqual: @""]) {
-        cell.lapsLabel.text = currentResult.laps;
-    } else {
-        cell.lapsLabel.text = @"No Lap data";
-    }
+    cell.lapsLabel.text = [GlobalFunctions getLapString:currentResult.lap1 lap2:currentResult.lap2 lap3:currentResult.lap3];
+
     cell.accessoryType = UITableViewCellAccessoryNone;
     
     return cell;
@@ -125,8 +122,12 @@
         }
         
         NSMutableArray *recipients = [[NSMutableArray alloc] init];
-        ResultClass *firstResult = [self.results objectAtIndex:0];
-        [recipients addObject:firstResult.email];
+        if (self.selectedRunner.email != nil) {
+            [recipients addObject:self.selectedRunner.email];
+        }
+        if (self.selectedRunner.email2 != nil) {
+            [recipients addObject:self.selectedRunner.email2];
+        }
         
         [mail setSubject: [NSString stringWithFormat:@"%@ - Race Results",self.name]];
         [mail setMessageBody:messageBody isHTML:NO];

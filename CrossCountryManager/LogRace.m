@@ -65,11 +65,7 @@
     cell.delegate = self;
     cell.tag = indexPath.row;
     
-    [cell setUpCell:currentRunner.name currentlyRunning:currentRunner.currentlyRunning currentTime:currentRunner.currentTime startButtonPressed:startButtonPressed lap1:currentRunner.lap1 lap2:currentRunner.lap2 lap3:currentRunner.lap3];
-    
-    if (cell.updateTime == YES) {
-        cell.timeLabel.text = self.timerLabel.text;
-    }
+    [cell setUpCell:currentRunner.name currentlyRunning:currentRunner.currentlyRunning finishTime:currentRunner.finishTime startButtonPressed:startButtonPressed lap1:currentRunner.lap1 lap2:currentRunner.lap2 lap3:currentRunner.lap3];
     
     if (running == YES && cell.updateTime == YES) {
         cell.finishButton.enabled = YES;
@@ -95,6 +91,7 @@
         [startButton setTitleColor:[UIColor blackColor] forState:UIControlStateNormal];
         [startButton setBackgroundColor:[UIColor whiteColor]];
         startButton.layer.borderColor = [UIColor whiteColor].CGColor;
+        [NSUserDefaults.standardUserDefaults setDouble:0.0 forKey:@"secondsAccrued"];
     }
     
     return cell;
@@ -116,6 +113,11 @@
         result.pace = pace;
     }
     
+    NSDateFormatter *dateFormatter=[[NSDateFormatter alloc] init];
+    [dateFormatter setDateFormat:@"M/d/yyyy"];
+    NSString *dateString = [dateFormatter stringFromDate:[NSDate date]];
+    
+    [self.savedRace setValue:dateString forKey:@"dateString"];
     [self.savedRace setValue:@"finished" forKey:@"status"];
     
     for (ResultClass *result in self.allResults) {
@@ -129,12 +131,12 @@
         [savedResult setValue:result.name forKey:@"name"];
         [savedResult setValue:result.time forKey:@"time"];
         [savedResult setValue:result.pace forKey:@"pace"];
-        [savedResult setValue:result.email forKey:@"email"];
-        [savedResult setValue:result.email2 forKey:@"email2"];
-        [savedResult setValue:result.laps forKey:@"laps"];
+        [savedResult setValue:result.lap1 forKey:@"lap1"];
+        [savedResult setValue:result.lap2 forKey:@"lap2"];
+        [savedResult setValue:result.lap3 forKey:@"lap3"];
         [savedResult setValue:result.meet forKey:@"meet"];
         [savedResult setValue:result.distance forKey:@"distance"];
-        [savedResult setValue:result.dateString forKey:@"dateString"];
+        [savedResult setValue:dateString forKey:@"dateString"];
         [savedResult setValue:self.savedRace forKey:@"resultToRace"];
         [savedResult setValue:currentRunner forKey:@"resultToRunner"];
         
@@ -181,14 +183,27 @@
         running = YES;
         [startButton setTitle:@"Stop" forState:UIControlStateNormal];
         if (myTimer == nil) {
-            myTimer = [NSTimer scheduledTimerWithTimeInterval:1.0 target:self selector:@selector(updateTimer) userInfo:nil repeats:YES];
+            myTimer = [NSTimer scheduledTimerWithTimeInterval:0.5 target:self selector:@selector(updateTimer) userInfo:nil repeats:YES];
             [[NSRunLoop currentRunLoop] addTimer:myTimer forMode:NSRunLoopCommonModes];
+            NSDate *startTime = [NSDate date];
+            [NSUserDefaults.standardUserDefaults setValue:startTime forKey:@"startTime"];
         }
+        [self.myTableView reloadData];
         
     } else {
         running = NO;
         [myTimer invalidate];
         myTimer = nil;
+        
+        NSDate *startDate = [NSUserDefaults.standardUserDefaults valueForKey:@"startTime"];
+        NSDate *currentDate = [NSDate date];
+        
+        NSTimeInterval secondsBetween = [currentDate timeIntervalSinceDate:startDate];
+        NSTimeInterval secondsAccrued = [NSUserDefaults.standardUserDefaults doubleForKey:@"secondsAccrued"];
+        NSTimeInterval newSecondsAccrued = secondsAccrued + secondsBetween;
+        
+        [NSUserDefaults.standardUserDefaults setDouble:newSecondsAccrued forKey:@"secondsAccrued"];
+        
         [startButton setTitle:@"Start" forState:UIControlStateNormal];
     }
 }
@@ -203,6 +218,8 @@
 
 -(void)setUp {
     
+    [NSUserDefaults.standardUserDefaults setDouble:0.0 forKey:@"secondsAccrued"];
+    
     self.finished = @"No";
     if ([self.allResults count] > 0) {
         [self.allResults removeAllObjects];
@@ -210,14 +227,13 @@
     
     for (RunnerClass *runner in self.allRunners) {
         runner.currentlyRunning = @"No";
-        runner.currentTime = @"00:00";
+        runner.finishTime = @"";
         runner.lap1 = @"";
         runner.lap2 = @"";
         runner.lap3 = @"";
     }
     
     running = NO;
-    count = 0;
     timerLabel.text = @"00:00";
     [self.myTableView reloadData];
     
@@ -239,9 +255,16 @@
 }
 
 - (void)updateTimer {
-    count++;
-    int min = floor(count/1/60);
-    int sec = floor(count/1);
+    
+    NSDate *startDate = [NSUserDefaults.standardUserDefaults valueForKey:@"startTime"];
+    NSDate *currentDate = [NSDate date];
+    
+    NSTimeInterval secondsBetween = [currentDate timeIntervalSinceDate:startDate];
+    NSTimeInterval secondsAccrued = [NSUserDefaults.standardUserDefaults doubleForKey:@"secondsAccrued"];
+    NSTimeInterval totalTimeElapsed = secondsBetween + secondsAccrued;
+    
+    int min = floor(totalTimeElapsed/1/60);
+    int sec = floor(totalTimeElapsed/1);
     
     if (sec >= 60) {
         sec = sec % 60;
@@ -249,7 +272,6 @@
     
     timerLabel.text = [NSString stringWithFormat:@"%02d:%02d",min,sec];
 
-    [self.myTableView reloadData];
 }
 
 @end

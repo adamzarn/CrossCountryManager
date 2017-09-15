@@ -10,15 +10,15 @@
 
 @implementation ResultClass
 
-- (id)init:(NSString *)name time:(NSString *)time pace:(NSString *)pace email:(NSString *)email email2:(NSString *)email2 laps:(NSString *)laps {
+- (id)init:(NSString *)name time:(NSString *)time pace:(NSString *)pace lap1:(NSString *)lap1 lap2:(NSString *)lap2 lap3:(NSString *)lap3 {
     self = [super init];
     if (self) {
         self.name = name;
         self.time = time;
         self.pace = pace;
-        self.email = email;
-        self.email2 = email2;
-        self.laps = laps;
+        self.lap1 = lap1;
+        self.lap2 = lap2;
+        self.lap3 = lap3;
     }
     return self;
 }

@@ -99,9 +99,10 @@
     
     NSMutableArray *uniqueDates = [[NSMutableArray alloc] init];
     for (RaceClass*race in allRaces) {
-        NSString *string = race.meet;
         if (![uniqueDates containsObject: race.dateString]) {
-            [uniqueDates addObject:race.dateString];
+            if (![race.status  isEqual: @"pending"]) {
+                [uniqueDates addObject:race.dateString];
+            }
         }
     }
     
@@ -121,9 +122,7 @@
     for (NSDate *date in sortedDateArray) {
         for (RaceClass *race in allRaces) {
             if ([race.dateString isEqual: [dateFormat stringFromDate:date]]) {
-                if (![race.status isEqualToString:@"pending"]) {
-                    [tempArray addObject: race];
-                }
+                [tempArray addObject: race];
             }
         }
         [racesByDate addObject: [tempArray mutableCopy]];
