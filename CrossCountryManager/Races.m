@@ -36,6 +36,8 @@
     UIBarButtonItem *addButton;
     NSString *uneditedRaceDistance;
     NSString *uneditedMeetName;
+    NSInteger uneditedGenderIndex;
+    NSInteger uneditedTeamIndex;
 }
 
 //UIViewController Life Cycle Methods*************************************************************************
@@ -46,7 +48,6 @@
     appDelegate = (AppDelegate *)[[UIApplication sharedApplication] delegate];
     context = appDelegate.persistentContainer.viewContext;
     
-    self.selectedIndex = 0;
     self.racesSegment.tintColor = appDelegate.darkBlue;
     self.createRaceTitle.textColor = appDelegate.darkBlue;
     
@@ -132,7 +133,8 @@
 }
 
 - (void)viewWillAppear:(BOOL)animated {
-    [self.racesSegment setSelectedSegmentIndex:self.selectedIndex];
+    NSInteger racesSegmentSelectedIndex = [NSUserDefaults.standardUserDefaults integerForKey:@"racesSegmentSelectedIndex"];
+    [self.racesSegment setSelectedSegmentIndex:racesSegmentSelectedIndex];
     self.aiv.hidden = false;
     [self.aiv startAnimating];
     self.myTableView.hidden = true;
@@ -200,6 +202,15 @@
         RunnerOrder *vc = [self.navigationController.storyboard instantiateViewControllerWithIdentifier:@"RunnerOrder"];
         vc.runnerOrder = selectedRace.runnerOrder;
         vc.savedRace = selectedRaceMO;
+        
+        NSString *indices = [self getIndicesFromGroup:selectedRace.group];
+        
+        NSInteger genderIndex = [self getGenderIndex:indices];
+        NSInteger teamIndex = [self getTeamIndex:indices];
+        
+        NSLog(@"%@",[self getPredicate:genderIndex t:teamIndex]);
+        NSLog(@"%@",selectedRace.runnerOrder);
+        vc.predicate = [self getPredicate:genderIndex t:teamIndex];
         
         [self.navigationController pushViewController:vc animated:true];
         
@@ -305,9 +316,14 @@
         
         [self presentViewController:alert animated:YES completion:nil];
         
-    } else if ([self.createRaceTitle.text isEqual: @"Edit Name or Distance"]) {
+    } else if ([self.createRaceTitle.text isEqual: @"Edit Name or Distance"] || [self.createRaceTitle.text isEqual: @"Edit Race"]) {
         
-        RaceClass *raceToEdit = [[racesByDate objectAtIndex:indexPathBeingEdited.section] objectAtIndex:indexPathBeingEdited.row];
+        RaceClass *raceToEdit = [[RaceClass alloc] init];
+        if (self.racesSegment.selectedSegmentIndex == 0) {
+            raceToEdit = [[racesByDate objectAtIndex:indexPathBeingEdited.section] objectAtIndex:indexPathBeingEdited.row];
+        } else {
+            raceToEdit = [sortedArray objectAtIndex:indexPathBeingEdited.row];
+        }
         
         raceToEdit.meet = self.meetTextField.text;
         raceToEdit.distance = self.distanceTextField.text;
@@ -315,9 +331,9 @@
         if (self.genderSegment.selectedSegmentIndex == 0) {
             raceToEdit.gender = @"All";
         } else if (self.genderSegment.selectedSegmentIndex == 1) {
-            raceToEdit.gender = @"Boy";
+            raceToEdit.gender = @"Boys";
         } else {
-            raceToEdit.gender = @"Girl";
+            raceToEdit.gender = @"Girls";
         }
         
         if (self.teamSegment.selectedSegmentIndex == 0) {
@@ -327,6 +343,8 @@
         } else {
             raceToEdit.team = @"Junior Varsity";
         }
+        
+        raceToEdit.group = [self getGroup:self.genderSegment.selectedSegmentIndex t:self.teamSegment.selectedSegmentIndex];
         
         if (![uneditedRaceDistance isEqual: raceToEdit.distance]) {
             
@@ -356,46 +374,39 @@
             
         }
         
-        [[racesByDate objectAtIndex:indexPathBeingEdited.section] replaceObjectAtIndex:indexPathBeingEdited.row withObject:raceToEdit];
-        [self dismissRaceView];
-        [self.myTableView reloadRowsAtIndexPaths:[NSArray arrayWithObjects:indexPathBeingEdited, nil] withRowAnimation:UITableViewRowAnimationNone];
+        NSLog(@"%@",@"-------");
+        NSLog(@"%ld",(long)uneditedGenderIndex);
+        NSLog(@"%ld",(long)self.genderSegment.selectedSegmentIndex);
+        NSLog(@"%ld",(long)uneditedTeamIndex);
+        NSLog(@"%ld",(long)self.teamSegment.selectedSegmentIndex);
+        NSLog(@"%@",@"-------");
         
+        if (uneditedGenderIndex != self.genderSegment.selectedSegmentIndex || uneditedTeamIndex != self.teamSegment.selectedSegmentIndex) {
+            
+            raceToEdit.runnerOrder = nil;
+            raceToEdit.group = [self getGroup:self.genderSegment.selectedSegmentIndex t:self.teamSegment.selectedSegmentIndex];
+            
+        }
+        
+        if (self.racesSegment.selectedSegmentIndex == 0) {
+            [[racesByDate objectAtIndex:indexPathBeingEdited.section] replaceObjectAtIndex:indexPathBeingEdited.row withObject:raceToEdit];
+        } else {
+            [sortedArray replaceObjectAtIndex:indexPathBeingEdited.row withObject:raceToEdit];
+        }
+        
+        [self.myTableView reloadRowsAtIndexPaths:[NSArray arrayWithObjects:indexPathBeingEdited, nil] withRowAnimation:UITableViewRowAnimationNone];
+        [self dismissRaceView];
         [appDelegate saveContext];
         
     } else {
+        
         RunnerOrder *vc = [self.navigationController.storyboard instantiateViewControllerWithIdentifier:@"RunnerOrder"];
         
         NSInteger g = self.genderSegment.selectedSegmentIndex;
         NSInteger t = self.teamSegment.selectedSegmentIndex;
         
-        NSString *key = [NSString stringWithFormat:@"%ld%ld",(long)g,(long)t];
-        NSDictionary *titleLookup = [NSDictionary dictionaryWithObjectsAndKeys:
-                                     @"All Runners",@"00",
-                                     @"Varsity",@"01",
-                                     @"Junior Varsity",@"02",
-                                     @"Boys",@"10",
-                                     @"Varsity - Boys",@"11",
-                                     @"Junior Varsity - Boys",@"12",
-                                     @"Girls",@"20",
-                                     @"Varsity - Girls",@"21",
-                                     @"Junior Varsity - Girls",@"22", nil];
-        
-        NSDictionary *predicateLookup = [NSDictionary dictionaryWithObjectsAndKeys:
-                                         @"gender == 'Boy' OR gender == 'Girl'",@"00",
-                                         @"team == 'Varsity'",@"01",
-                                         @"team == 'Junior Varsity'",@"02",
-                                         @"gender == 'Boy'",@"10",
-                                         @"gender == 'Boy' AND team == 'Varsity'",@"11",
-                                         @"gender == 'Boy' AND team == 'Junior Varsity'",@"12",
-                                         @"gender == 'Girl'",@"20",
-                                         @"gender == 'Girl' AND team == 'Varsity'",@"21",
-                                         @"gender == 'Girl' AND team == 'Junior Varsity'",@"22", nil];
-        
-        NSNumberFormatter *f = [[NSNumberFormatter alloc] init];
-        f.numberStyle = NSNumberFormatterDecimalStyle;
-        
-        NSString *group = [titleLookup objectForKey:key];
-        vc.predicate = [predicateLookup objectForKey:key];
+        NSString *group = [self getGroup:g t:t];
+        vc.predicate = [self getPredicate:g t:t];
         
         NSMutableArray *runnerOrder = [[NSMutableArray alloc] init];
         
@@ -414,11 +425,83 @@
     
 }
 
+- (NSString *) getGroup:(NSInteger)g t:(NSInteger)t {
+    
+    NSString *key = [NSString stringWithFormat:@"%ld%ld",(long)g,(long)t];
+    NSDictionary *titleLookup = [NSDictionary dictionaryWithObjectsAndKeys:
+                                 @"All Runners",@"00",
+                                 @"Varsity",@"01",
+                                 @"Junior Varsity",@"02",
+                                 @"Boys",@"10",
+                                 @"Varsity - Boys",@"11",
+                                 @"Junior Varsity - Boys",@"12",
+                                 @"Girls",@"20",
+                                 @"Varsity - Girls",@"21",
+                                 @"Junior Varsity - Girls",@"22", nil];
+    
+    return [titleLookup objectForKey:key];
+
+}
+
+- (NSString *) getPredicate:(NSInteger)g t:(NSInteger)t {
+    
+    NSString *key = [NSString stringWithFormat:@"%ld%ld",(long)g,(long)t];
+    
+    NSDictionary *predicateLookup = [NSDictionary dictionaryWithObjectsAndKeys:
+                                     @"gender == 'Boy' OR gender == 'Girl'",@"00",
+                                     @"team == 'Varsity'",@"01",
+                                     @"team == 'Junior Varsity'",@"02",
+                                     @"gender == 'Boy'",@"10",
+                                     @"gender == 'Boy' AND team == 'Varsity'",@"11",
+                                     @"gender == 'Boy' AND team == 'Junior Varsity'",@"12",
+                                     @"gender == 'Girl'",@"20",
+                                     @"gender == 'Girl' AND team == 'Varsity'",@"21",
+                                     @"gender == 'Girl' AND team == 'Junior Varsity'",@"22", nil];
+    
+    return [predicateLookup objectForKey:key];
+
+}
+
+- (NSString *) getIndicesFromGroup:(NSString *)group {
+    
+    NSDictionary *titleLookup = [NSDictionary dictionaryWithObjectsAndKeys:
+                                 @"00",@"All Runners",
+                                 @"01",@"Varsity",
+                                 @"02",@"Junior Varsity",
+                                 @"10",@"Boys",
+                                 @"11",@"Varsity - Boys",
+                                 @"12",@"Junior Varsity - Boys",
+                                 @"20",@"Girls",
+                                 @"21",@"Varsity - Girls",
+                                 @"22",@"Junior Varsity - Girls", nil];
+    
+    return [titleLookup objectForKey:group];
+    
+}
+
+- (NSInteger) getGenderIndex:(NSString *)indices {
+    
+    NSRange genderRange = NSMakeRange(0, 1);
+    
+    return [[indices substringWithRange:genderRange] integerValue];
+
+}
+
+- (NSInteger) getTeamIndex:(NSString *)indices {
+    
+    NSRange teamRange = NSMakeRange(1, 1);
+
+    return [[indices substringWithRange:teamRange] integerValue];
+    
+}
+
+
 - (IBAction)cancelButtonPressed:(id)sender {
     [self dismissRaceView];
 }
 
 - (IBAction)raceSegmentValueChanged:(id)sender {
+    [NSUserDefaults.standardUserDefaults setInteger:self.racesSegment.selectedSegmentIndex forKey:@"racesSegmentSelectedIndex"];
     [self updateData];
 }
 
@@ -502,41 +585,48 @@
 
 - (void)editRace:(NSIndexPath *)indexPath {
     
+    RaceClass *raceToEdit = [[RaceClass alloc] init];
+    if (self.racesSegment.selectedSegmentIndex == 0) {
+        raceToEdit = [[racesByDate objectAtIndex:indexPath.section] objectAtIndex: indexPath.row];
+        self.createRaceTitle.text = @"Edit Name or Distance";
+        self.genderSegment.enabled = false;
+        self.teamSegment.enabled = false;
+    } else {
+        raceToEdit = [sortedArray objectAtIndex:indexPath.row];
+        self.createRaceTitle.text = @"Edit Race";
+        self.genderSegment.enabled = true;
+        self.teamSegment.enabled = true;
+    }
+    
+    self.meetTextField.text = raceToEdit.meet;
+    self.distanceTextField.text = raceToEdit.distance;
+    uneditedRaceDistance = raceToEdit.distance;
+    uneditedMeetName = raceToEdit.meet;
+    
     [self.view addSubview:dimView];
     [self.view bringSubviewToFront:dimView];
-    
-    self.genderSegment.enabled = false;
-    self.teamSegment.enabled = false;
     
     self.raceView.userInteractionEnabled = YES;
     self.raceView.hidden = NO;
     [self.view bringSubviewToFront:self.raceView];
     
     [self.createRaceButton setTitle:@"Save" forState:UIControlStateNormal];
-    self.createRaceTitle.text = @"Edit Name or Distance";
+    
     [self.meetTextField becomeFirstResponder];
     
-    RaceClass *raceToEdit = [[racesByDate objectAtIndex:indexPath.section] objectAtIndex: indexPath.row];
-    self.meetTextField.text = raceToEdit.meet;
-    self.distanceTextField.text = raceToEdit.distance;
-    uneditedRaceDistance = raceToEdit.distance;
-    uneditedMeetName = raceToEdit.meet;
+    NSLog(@"%@",raceToEdit.group);
+    NSString *indices = [self getIndicesFromGroup:raceToEdit.group];
+    NSLog(@"%@",indices);
     
-    if ([raceToEdit.gender  isEqual: @"All"]) {
-        self.genderSegment.selectedSegmentIndex = 0;
-    } else if ([raceToEdit.gender  isEqual: @"Boys"]) {
-        self.genderSegment.selectedSegmentIndex = 1;
-    } else {
-        self.genderSegment.selectedSegmentIndex = 2;
-    }
+    NSInteger genderIndex = [self getGenderIndex:indices];
+    NSInteger teamIndex = [self getTeamIndex:indices];
     
-    if ([raceToEdit.team isEqual: @"All"]) {
-        self.teamSegment.selectedSegmentIndex = 0;
-    } else if ([raceToEdit.team isEqual: @"Varsity"]) {
-        self.teamSegment.selectedSegmentIndex = 1;
-    } else {
-        self.teamSegment.selectedSegmentIndex = 2;
-    }
+    self.genderSegment.selectedSegmentIndex = genderIndex;
+    self.teamSegment.selectedSegmentIndex = teamIndex;
+    
+    uneditedGenderIndex = genderIndex;
+    uneditedTeamIndex = teamIndex;
+    
 }
 
 //UIPickerViewDelegate Methods********************************************************************************

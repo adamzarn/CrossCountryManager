@@ -30,6 +30,8 @@
 @property (weak, nonatomic) IBOutlet UITextField *lap2TextField;
 @property (weak, nonatomic) IBOutlet UITextField *lap3TextField;
 
+@property (weak, nonatomic) IBOutlet UILabel *editResultLabel;
+
 @property NSMutableArray *pickerOptions;
 
 - (IBAction)emailButtonPressed:(id)sender;

@@ -249,9 +249,6 @@
     
     [appDelegate saveContext];
     
-    Races *racesVC = self.navigationController.viewControllers[1];
-    racesVC.selectedIndex = [[NSNumber numberWithInteger:1] integerValue];
-    
     [self.navigationController popViewControllerAnimated:true];
     
 }

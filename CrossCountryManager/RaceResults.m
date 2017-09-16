@@ -109,6 +109,10 @@
     self.lap2TextField.inputView = inputView;
     self.lap3TextField.inputView = inputView;
     
+    self.saveResultButton.tintColor = appDelegate.darkBlue;
+    self.cancelButton.tintColor = appDelegate.darkBlue;
+    self.editResultLabel.textColor = appDelegate.darkBlue;
+    
 }
 
 //UITableViewDelegate Methods*********************************************************************************
@@ -203,6 +207,8 @@
     [appDelegate saveContext];
     
     [self dismissEditResultView];
+    
+    sortedResults = [self.results sortedArrayUsingDescriptors:[GlobalFunctions sortWithKey:@"time"]];
     
     [self.myTableView reloadData];
     

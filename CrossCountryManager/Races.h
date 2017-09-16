@@ -24,8 +24,6 @@
 
 @property (weak, nonatomic) IBOutlet UISegmentedControl *racesSegment;
 
-@property NSInteger selectedIndex;
-
 -(void)createRace:(id)sender;
 
 @end

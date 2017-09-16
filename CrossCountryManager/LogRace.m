@@ -183,7 +183,7 @@
         running = YES;
         [startButton setTitle:@"Stop" forState:UIControlStateNormal];
         if (myTimer == nil) {
-            myTimer = [NSTimer scheduledTimerWithTimeInterval:0.5 target:self selector:@selector(updateTimer) userInfo:nil repeats:YES];
+            myTimer = [NSTimer scheduledTimerWithTimeInterval:0.1 target:self selector:@selector(updateTimer) userInfo:nil repeats:YES];
             [[NSRunLoop currentRunLoop] addTimer:myTimer forMode:NSRunLoopCommonModes];
             NSDate *startTime = [NSDate date];
             [NSUserDefaults.standardUserDefaults setValue:startTime forKey:@"startTime"];
