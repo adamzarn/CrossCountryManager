@@ -16,6 +16,8 @@
 #import "RaceClass.h"
 #import "ResultClass.h"
 #import "GlobalFunctions.h"
+#import "RemoveAds.h"
+@import GoogleMobileAds;
 
 @interface Races ()
 
@@ -117,6 +119,7 @@
                                                                      action:@selector(dismissPickerView:)];
     toolBar.items = @[flex, barButtonDone];
     barButtonDone.tintColor = [UIColor blackColor];
+    barButtonDone.style = UIBarButtonItemStyleDone;
     
     pickerView = [[UIPickerView alloc] initWithFrame:CGRectMake(0, toolBar.frame.size.height, screenWidth, 200)];
     pickerView.delegate = self;
@@ -130,6 +133,23 @@
     
     self.distanceTextField.inputView = inputView;
     
+    AppDelegate *appDelegate = (AppDelegate *)[[UIApplication sharedApplication] delegate];
+    [self.navigationController.navigationBar setTitleTextAttributes:
+     @{NSForegroundColorAttributeName:appDelegate.darkBlue}];
+    [self.navigationController.navigationBar setTintColor:appDelegate.darkBlue];
+    self.navigationController.navigationBar.translucent = NO;
+    
+    [self.tabBarController.tabBar setTintColor:appDelegate.darkBlue];
+
+    
+}
+
+- (void)adViewDidReceiveAd:(GADBannerView *)bannerView {
+    self.myTableView.tableHeaderView.frame = bannerView.frame;
+    self.myTableView.tableHeaderView = bannerView;
+}
+
+- (void)adView:(GADBannerView *)bannerView didFailToReceiveAdWithError:(GADRequestError *)error {
 }
 
 - (void)viewWillAppear:(BOOL)animated {
@@ -142,6 +162,25 @@
     self.aiv.hidden = true;
     [self.aiv stopAnimating];
     self.myTableView.hidden = false;
+    
+    if (![[NSUserDefaults standardUserDefaults] boolForKey:@"paid"]) {
+        
+        self.bannerView = [[GADBannerView alloc]
+                           initWithAdSize:kGADAdSizeSmartBannerPortrait];
+        self.bannerView.delegate = self;
+        
+        self.bannerView.adUnitID = @"ca-app-pub-4590926477342036/9773370012";
+        self.bannerView.rootViewController = self;
+        
+        GADRequest *request = [GADRequest request];
+        [self.bannerView loadRequest:request];
+        
+    } else {
+        self.removeAdsButton.enabled = false;
+        self.removeAdsButton.tintColor = [UIColor clearColor];
+        self.myTableView.tableHeaderView = nil;
+    }
+    
 }
 
 //UITableViewDelegate Methods*********************************************************************************
@@ -208,8 +247,6 @@
         NSInteger genderIndex = [self getGenderIndex:indices];
         NSInteger teamIndex = [self getTeamIndex:indices];
         
-        NSLog(@"%@",[self getPredicate:genderIndex t:teamIndex]);
-        NSLog(@"%@",selectedRace.runnerOrder);
         vc.predicate = [self getPredicate:genderIndex t:teamIndex];
         
         [self.navigationController pushViewController:vc animated:true];
@@ -356,6 +393,7 @@
                 [result setValue:[GlobalFunctions getAverageMileTime:[NSArray arrayWithObjects:currentResult, nil]] forKey:@"pace"];
                 [result setValue:raceToEdit.distance forKey:@"distance"];
                 [result setValue:raceToEdit.meet forKey:@"meet"];
+                [result setValue:raceToEdit.dateString forKey:@"dateString"];
             }
             
             [appDelegate saveContext];
@@ -373,13 +411,6 @@
             [appDelegate saveContext];
             
         }
-        
-        NSLog(@"%@",@"-------");
-        NSLog(@"%ld",(long)uneditedGenderIndex);
-        NSLog(@"%ld",(long)self.genderSegment.selectedSegmentIndex);
-        NSLog(@"%ld",(long)uneditedTeamIndex);
-        NSLog(@"%ld",(long)self.teamSegment.selectedSegmentIndex);
-        NSLog(@"%@",@"-------");
         
         if (uneditedGenderIndex != self.genderSegment.selectedSegmentIndex || uneditedTeamIndex != self.teamSegment.selectedSegmentIndex) {
             
@@ -614,9 +645,7 @@
     
     [self.meetTextField becomeFirstResponder];
     
-    NSLog(@"%@",raceToEdit.group);
     NSString *indices = [self getIndicesFromGroup:raceToEdit.group];
-    NSLog(@"%@",indices);
     
     NSInteger genderIndex = [self getGenderIndex:indices];
     NSInteger teamIndex = [self getTeamIndex:indices];
@@ -649,6 +678,11 @@
 
 -(void)dismissPickerView:(id)sender {
     [firstResponder resignFirstResponder];
+}
+
+- (IBAction)removeAdsButtonPressed:(id)sender {
+    RemoveAds *vc = [self.navigationController.storyboard instantiateViewControllerWithIdentifier:@"RemoveAds"];
+    [self.navigationController pushViewController:vc animated:true];
 }
 
 @end

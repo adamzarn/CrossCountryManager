@@ -9,8 +9,9 @@
 #import <UIKit/UIKit.h>
 #import <MessageUI/MessageUI.h>
 #import "RaceClass.h"
+@import GoogleMobileAds;
 
-@interface RaceResults : UIViewController <UITableViewDelegate, UITableViewDataSource, MFMailComposeViewControllerDelegate, UIPickerViewDelegate, UIPickerViewDataSource> {
+@interface RaceResults : UIViewController <UITableViewDelegate, UITableViewDataSource, MFMailComposeViewControllerDelegate, UIPickerViewDelegate, UIPickerViewDataSource, GADBannerViewDelegate> {
 
 }
 @property (weak, nonatomic) IBOutlet UITableView *myTableView;
@@ -31,6 +32,8 @@
 @property (weak, nonatomic) IBOutlet UITextField *lap3TextField;
 
 @property (weak, nonatomic) IBOutlet UILabel *editResultLabel;
+
+@property(nonatomic, strong) GADBannerView *bannerView;
 
 @property NSMutableArray *pickerOptions;
 

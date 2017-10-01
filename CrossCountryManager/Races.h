@@ -7,8 +7,9 @@
 //
 
 #import <UIKit/UIKit.h>
+@import GoogleMobileAds;
 
-@interface Races : UIViewController <UITableViewDelegate, UITableViewDataSource, UITextFieldDelegate, UIPickerViewDelegate, UIPickerViewDataSource>
+@interface Races : UIViewController <UITableViewDelegate, UITableViewDataSource, UITextFieldDelegate, UIPickerViewDelegate, UIPickerViewDataSource, GADBannerViewDelegate>
 
 @property (weak, nonatomic) IBOutlet UITableView *myTableView;
 @property (weak, nonatomic) IBOutlet UIButton *createRaceButton;
@@ -21,6 +22,9 @@
 @property (weak, nonatomic) IBOutlet UIView *raceView;
 @property (weak, nonatomic) IBOutlet UILabel *createRaceTitle;
 @property (weak, nonatomic) IBOutlet UIActivityIndicatorView *aiv;
+@property (weak, nonatomic) IBOutlet UIBarButtonItem *removeAdsButton;
+
+@property(nonatomic, strong) GADBannerView *bannerView;
 
 @property (weak, nonatomic) IBOutlet UISegmentedControl *racesSegment;
 

@@ -13,6 +13,7 @@
 #import "ResultClass.h"
 #import "GlobalFunctions.h"
 #import "AppDelegate.h"
+@import GoogleMobileAds;
 
 @interface RaceResults ()
 
@@ -46,7 +47,7 @@
     [self update];
     
     if (self.comingFromLogRace) {
-        UIBarButtonItem *item = [[UIBarButtonItem alloc] initWithTitle:@"Home" style:UIBarButtonItemStylePlain target:self action:@selector(pop)];
+        UIBarButtonItem *item = [[UIBarButtonItem alloc] initWithTitle:@"Races" style:UIBarButtonItemStylePlain target:self action:@selector(pop)];
         self.navigationItem.hidesBackButton = YES;
         self.navigationItem.leftBarButtonItem = item;
     }
@@ -113,6 +114,34 @@
     self.cancelButton.tintColor = appDelegate.darkBlue;
     self.editResultLabel.textColor = appDelegate.darkBlue;
     
+}
+
+- (void)viewWillAppear:(BOOL)animated {
+    
+    if (![[NSUserDefaults standardUserDefaults] boolForKey:@"paid"]) {
+        
+        self.bannerView = [[GADBannerView alloc]
+                           initWithAdSize:kGADAdSizeSmartBannerPortrait];
+        self.bannerView.delegate = self;
+        
+        self.bannerView.adUnitID = @"ca-app-pub-4590926477342036/1771181941";
+        self.bannerView.rootViewController = self;
+        
+        GADRequest *request = [GADRequest request];
+        [self.bannerView loadRequest:request];
+        
+    } else {
+        self.myTableView.tableHeaderView = nil;
+    }
+    
+}
+
+- (void)adViewDidReceiveAd:(GADBannerView *)bannerView {
+    self.myTableView.tableHeaderView.frame = bannerView.frame;
+    self.myTableView.tableHeaderView = bannerView;
+}
+
+- (void)adView:(GADBannerView *)bannerView didFailToReceiveAdWithError:(GADRequestError *)error {
 }
 
 //UITableViewDelegate Methods*********************************************************************************

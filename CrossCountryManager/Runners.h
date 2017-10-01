@@ -8,8 +8,9 @@
 
 #import <UIKit/UIKit.h>
 #import "RunnerClass.h"
+@import GoogleMobileAds;
 
-@interface Runners : UIViewController <UITableViewDelegate, UITableViewDataSource, UITextFieldDelegate, UIImagePickerControllerDelegate, UINavigationControllerDelegate>
+@interface Runners : UIViewController <UITableViewDelegate, UITableViewDataSource, UITextFieldDelegate, UIImagePickerControllerDelegate, UINavigationControllerDelegate, GADBannerViewDelegate>
 
 @property (weak, nonatomic) IBOutlet UISegmentedControl *genderSegment;
 @property (weak, nonatomic) IBOutlet UISegmentedControl *teamSegment;
@@ -25,6 +26,10 @@
 @property (weak, nonatomic) IBOutlet UILabel *addRunnerTitle;
 @property (weak, nonatomic) IBOutlet UIButton *saveButton;
 @property (weak, nonatomic) IBOutlet UIButton *cancelButton;
+@property (weak, nonatomic) IBOutlet UIBarButtonItem *removeAdsButton;
+
+
+@property(nonatomic, strong) GADBannerView *bannerView;
 
 @property RunnerClass *currentRunner;
 @property NSString *photoOrientation;

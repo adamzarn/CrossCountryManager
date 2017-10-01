@@ -7,17 +7,24 @@
 //
 
 #import "AppDelegate.h"
+@import GoogleMobileAds;
 
 @interface AppDelegate ()
 
 @end
 
+//
+
 @implementation AppDelegate
 
 - (BOOL)application:(UIApplication *)application didFinishLaunchingWithOptions:(NSDictionary *)launchOptions {
     // Override point for customization after application launch.
+    
     self.darkBlue = [UIColor colorWithRed:30.0/255.0 green:22.0/255.0 blue:80.0/255.0 alpha:1.0];
     self.lightBlue = [UIColor colorWithRed:119.0/255.0 green:170.0/255.0 blue:206.0/255.0 alpha:1.0];
+    
+    [GADMobileAds configureWithApplicationID:@"ca-app-pub-4590926477342036~4128315184"];
+    
     return YES;
 }
 

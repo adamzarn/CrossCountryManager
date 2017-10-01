@@ -7,6 +7,8 @@
 	objects = {
 
 /* Begin PBXBuildFile section */
+		A7726256953842E5DD67D115 /* libPods-CrossCountryManagerUITests.a in Frameworks */ = {isa = PBXBuildFile; fileRef = E7DE739A94C8C8852E21B7C3 /* libPods-CrossCountryManagerUITests.a */; };
+		D1BB12E68CAF53CD5C12E72A /* libPods-CrossCountryManagerTests.a in Frameworks */ = {isa = PBXBuildFile; fileRef = 726389DC123D843E9E5C5C22 /* libPods-CrossCountryManagerTests.a */; };
 		DB18925D1DC1A27B00A109B9 /* HomeCell.m in Sources */ = {isa = PBXBuildFile; fileRef = DB18925C1DC1A27B00A109B9 /* HomeCell.m */; };
 		DB475BF21DB6C22A00493693 /* RunnerCell.m in Sources */ = {isa = PBXBuildFile; fileRef = DB475BF11DB6C22A00493693 /* RunnerCell.m */; };
 		DB475BF51DB8073100493693 /* RunnerOrder.m in Sources */ = {isa = PBXBuildFile; fileRef = DB475BF41DB8073100493693 /* RunnerOrder.m */; };
@@ -20,7 +22,6 @@
 		DB7E177C1DBA70B000562CD2 /* SavedRaceCell.m in Sources */ = {isa = PBXBuildFile; fileRef = DB7E177B1DBA70B000562CD2 /* SavedRaceCell.m */; };
 		DB7E177F1DBA70E000562CD2 /* Races.m in Sources */ = {isa = PBXBuildFile; fileRef = DB7E177E1DBA70E000562CD2 /* Races.m */; };
 		DB7E17821DBAC13D00562CD2 /* RacesOfRunner.m in Sources */ = {isa = PBXBuildFile; fileRef = DB7E17811DBAC13D00562CD2 /* RacesOfRunner.m */; };
-		DB87C42B1DB5BC620079E75A /* Home.m in Sources */ = {isa = PBXBuildFile; fileRef = DB87C42A1DB5BC620079E75A /* Home.m */; };
 		DBC96A4E1DB56F8800E01CF0 /* main.m in Sources */ = {isa = PBXBuildFile; fileRef = DBC96A4D1DB56F8800E01CF0 /* main.m */; };
 		DBC96A511DB56F8800E01CF0 /* AppDelegate.m in Sources */ = {isa = PBXBuildFile; fileRef = DBC96A501DB56F8800E01CF0 /* AppDelegate.m */; };
 		DBC96A541DB56F8800E01CF0 /* Runners.m in Sources */ = {isa = PBXBuildFile; fileRef = DBC96A531DB56F8800E01CF0 /* Runners.m */; };
@@ -32,8 +33,8 @@
 		DBC96A831DB56FE700E01CF0 /* RunnerClass.m in Sources */ = {isa = PBXBuildFile; fileRef = DBC96A821DB56FE700E01CF0 /* RunnerClass.m */; };
 		DBDB46BF1DC3A97A00A003BE /* GlobalFunctions.m in Sources */ = {isa = PBXBuildFile; fileRef = DBDB46BE1DC3A97A00A003BE /* GlobalFunctions.m */; };
 		DBEC81911F6477ED00F10CF8 /* QuickRaces.m in Sources */ = {isa = PBXBuildFile; fileRef = DBEC81901F6477ED00F10CF8 /* QuickRaces.m */; };
-		DBEC81951F649D2000F10CF8 /* Boy.png in Resources */ = {isa = PBXBuildFile; fileRef = DBEC81931F649D2000F10CF8 /* Boy.png */; };
-		DBEC81961F649D2000F10CF8 /* Girl.png in Resources */ = {isa = PBXBuildFile; fileRef = DBEC81941F649D2000F10CF8 /* Girl.png */; };
+		DBED60E51F803C3300EDF44C /* RemoveAds.m in Sources */ = {isa = PBXBuildFile; fileRef = DBED60E41F803C3300EDF44C /* RemoveAds.m */; };
+		DE94F4DABA956FBBF46F5991 /* libPods-CrossCountryManager.a in Frameworks */ = {isa = PBXBuildFile; fileRef = C88BE4DA4D02A0F230839495 /* libPods-CrossCountryManager.a */; };
 /* End PBXBuildFile section */
 
 /* Begin PBXContainerItemProxy section */
@@ -54,6 +55,13 @@
 /* End PBXContainerItemProxy section */
 
 /* Begin PBXFileReference section */
+		5B7A41C11C1BEC82222D9A2E /* Pods-CrossCountryManagerTests.debug.xcconfig */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = text.xcconfig; name = "Pods-CrossCountryManagerTests.debug.xcconfig"; path = "Pods/Target Support Files/Pods-CrossCountryManagerTests/Pods-CrossCountryManagerTests.debug.xcconfig"; sourceTree = "<group>"; };
+		726389DC123D843E9E5C5C22 /* libPods-CrossCountryManagerTests.a */ = {isa = PBXFileReference; explicitFileType = archive.ar; includeInIndex = 0; path = "libPods-CrossCountryManagerTests.a"; sourceTree = BUILT_PRODUCTS_DIR; };
+		7D84A863C7CD5B4C76DEFD00 /* Pods-CrossCountryManagerUITests.debug.xcconfig */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = text.xcconfig; name = "Pods-CrossCountryManagerUITests.debug.xcconfig"; path = "Pods/Target Support Files/Pods-CrossCountryManagerUITests/Pods-CrossCountryManagerUITests.debug.xcconfig"; sourceTree = "<group>"; };
+		B41742C4A56EC8D4400C0184 /* Pods-CrossCountryManager.release.xcconfig */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = text.xcconfig; name = "Pods-CrossCountryManager.release.xcconfig"; path = "Pods/Target Support Files/Pods-CrossCountryManager/Pods-CrossCountryManager.release.xcconfig"; sourceTree = "<group>"; };
+		C88BE4DA4D02A0F230839495 /* libPods-CrossCountryManager.a */ = {isa = PBXFileReference; explicitFileType = archive.ar; includeInIndex = 0; path = "libPods-CrossCountryManager.a"; sourceTree = BUILT_PRODUCTS_DIR; };
+		CFEE9FB348C98222B9D8D014 /* Pods-CrossCountryManagerTests.release.xcconfig */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = text.xcconfig; name = "Pods-CrossCountryManagerTests.release.xcconfig"; path = "Pods/Target Support Files/Pods-CrossCountryManagerTests/Pods-CrossCountryManagerTests.release.xcconfig"; sourceTree = "<group>"; };
+		D8A71165C147134B0D856222 /* Pods-CrossCountryManager.debug.xcconfig */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = text.xcconfig; name = "Pods-CrossCountryManager.debug.xcconfig"; path = "Pods/Target Support Files/Pods-CrossCountryManager/Pods-CrossCountryManager.debug.xcconfig"; sourceTree = "<group>"; };
 		DB18925B1DC1A26700A109B9 /* HomeCell.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = HomeCell.h; sourceTree = "<group>"; };
 		DB18925C1DC1A27B00A109B9 /* HomeCell.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = HomeCell.m; sourceTree = "<group>"; };
 		DB475BF11DB6C22A00493693 /* RunnerCell.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = RunnerCell.m; sourceTree = "<group>"; };
@@ -79,8 +87,6 @@
 		DB7E17801DBA70F300562CD2 /* Races.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = Races.h; sourceTree = "<group>"; };
 		DB7E17811DBAC13D00562CD2 /* RacesOfRunner.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = RacesOfRunner.m; sourceTree = "<group>"; };
 		DB7E17831DBAC15100562CD2 /* RacesOfRunner.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = RacesOfRunner.h; sourceTree = "<group>"; };
-		DB87C4291DB5BC400079E75A /* Home.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = Home.h; sourceTree = "<group>"; };
-		DB87C42A1DB5BC620079E75A /* Home.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = Home.m; sourceTree = "<group>"; };
 		DBC96A491DB56F8800E01CF0 /* CrossCountryManager.app */ = {isa = PBXFileReference; explicitFileType = wrapper.application; includeInIndex = 0; path = CrossCountryManager.app; sourceTree = BUILT_PRODUCTS_DIR; };
 		DBC96A4D1DB56F8800E01CF0 /* main.m */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.objc; path = main.m; sourceTree = "<group>"; };
 		DBC96A4F1DB56F8800E01CF0 /* AppDelegate.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = AppDelegate.h; sourceTree = "<group>"; };
@@ -103,8 +109,10 @@
 		DBDB46C01DC3A98F00A003BE /* GlobalFunctions.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = GlobalFunctions.h; sourceTree = "<group>"; };
 		DBEC81901F6477ED00F10CF8 /* QuickRaces.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = QuickRaces.m; sourceTree = "<group>"; };
 		DBEC81921F6477FE00F10CF8 /* QuickRaces.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = QuickRaces.h; sourceTree = "<group>"; };
-		DBEC81931F649D2000F10CF8 /* Boy.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = Boy.png; sourceTree = "<group>"; };
-		DBEC81941F649D2000F10CF8 /* Girl.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = Girl.png; sourceTree = "<group>"; };
+		DBED60E31F803C2600EDF44C /* RemoveAds.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = RemoveAds.h; sourceTree = "<group>"; };
+		DBED60E41F803C3300EDF44C /* RemoveAds.m */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.objc; path = RemoveAds.m; sourceTree = "<group>"; };
+		E7DE739A94C8C8852E21B7C3 /* libPods-CrossCountryManagerUITests.a */ = {isa = PBXFileReference; explicitFileType = archive.ar; includeInIndex = 0; path = "libPods-CrossCountryManagerUITests.a"; sourceTree = BUILT_PRODUCTS_DIR; };
+		FF5392E8D4D4E54AEB9F00A9 /* Pods-CrossCountryManagerUITests.release.xcconfig */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = text.xcconfig; name = "Pods-CrossCountryManagerUITests.release.xcconfig"; path = "Pods/Target Support Files/Pods-CrossCountryManagerUITests/Pods-CrossCountryManagerUITests.release.xcconfig"; sourceTree = "<group>"; };
 /* End PBXFileReference section */
 
 /* Begin PBXFrameworksBuildPhase section */
@@ -112,6 +120,7 @@
 			isa = PBXFrameworksBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
+				DE94F4DABA956FBBF46F5991 /* libPods-CrossCountryManager.a in Frameworks */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
@@ -119,6 +128,7 @@
 			isa = PBXFrameworksBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
+				D1BB12E68CAF53CD5C12E72A /* libPods-CrossCountryManagerTests.a in Frameworks */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
@@ -126,12 +136,26 @@
 			isa = PBXFrameworksBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
+				A7726256953842E5DD67D115 /* libPods-CrossCountryManagerUITests.a in Frameworks */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
 /* End PBXFrameworksBuildPhase section */
 
 /* Begin PBXGroup section */
+		693F5E7472022E4894EE1629 /* Pods */ = {
+			isa = PBXGroup;
+			children = (
+				D8A71165C147134B0D856222 /* Pods-CrossCountryManager.debug.xcconfig */,
+				B41742C4A56EC8D4400C0184 /* Pods-CrossCountryManager.release.xcconfig */,
+				5B7A41C11C1BEC82222D9A2E /* Pods-CrossCountryManagerTests.debug.xcconfig */,
+				CFEE9FB348C98222B9D8D014 /* Pods-CrossCountryManagerTests.release.xcconfig */,
+				7D84A863C7CD5B4C76DEFD00 /* Pods-CrossCountryManagerUITests.debug.xcconfig */,
+				FF5392E8D4D4E54AEB9F00A9 /* Pods-CrossCountryManagerUITests.release.xcconfig */,
+			);
+			name = Pods;
+			sourceTree = "<group>";
+		};
 		DB7E17781DBA638C00562CD2 /* Cells */ = {
 			isa = PBXGroup;
 			children = (
@@ -165,8 +189,8 @@
 		DB7E177A1DBA640100562CD2 /* View Controllers */ = {
 			isa = PBXGroup;
 			children = (
-				DB87C4291DB5BC400079E75A /* Home.h */,
-				DB87C42A1DB5BC620079E75A /* Home.m */,
+				DBED60E31F803C2600EDF44C /* RemoveAds.h */,
+				DBED60E41F803C3300EDF44C /* RemoveAds.m */,
 				DBC96A521DB56F8800E01CF0 /* Runners.h */,
 				DBC96A531DB56F8800E01CF0 /* Runners.m */,
 				DB7E17831DBAC15100562CD2 /* RacesOfRunner.h */,
@@ -192,6 +216,8 @@
 				DBC96A681DB56F8900E01CF0 /* CrossCountryManagerTests */,
 				DBC96A731DB56F8900E01CF0 /* CrossCountryManagerUITests */,
 				DBC96A4A1DB56F8800E01CF0 /* Products */,
+				693F5E7472022E4894EE1629 /* Pods */,
+				EBD8AA80135319D3B68F098A /* Frameworks */,
 			);
 			sourceTree = "<group>";
 		};
@@ -208,8 +234,6 @@
 		DBC96A4B1DB56F8800E01CF0 /* CrossCountryManager */ = {
 			isa = PBXGroup;
 			children = (
-				DBEC81931F649D2000F10CF8 /* Boy.png */,
-				DBEC81941F649D2000F10CF8 /* Girl.png */,
 				DBDB46C01DC3A98F00A003BE /* GlobalFunctions.h */,
 				DBDB46BE1DC3A97A00A003BE /* GlobalFunctions.m */,
 				DBC96A4F1DB56F8800E01CF0 /* AppDelegate.h */,
@@ -253,6 +277,16 @@
 			path = CrossCountryManagerUITests;
 			sourceTree = "<group>";
 		};
+		EBD8AA80135319D3B68F098A /* Frameworks */ = {
+			isa = PBXGroup;
+			children = (
+				C88BE4DA4D02A0F230839495 /* libPods-CrossCountryManager.a */,
+				726389DC123D843E9E5C5C22 /* libPods-CrossCountryManagerTests.a */,
+				E7DE739A94C8C8852E21B7C3 /* libPods-CrossCountryManagerUITests.a */,
+			);
+			name = Frameworks;
+			sourceTree = "<group>";
+		};
 /* End PBXGroup section */
 
 /* Begin PBXNativeTarget section */
@@ -260,9 +294,12 @@
 			isa = PBXNativeTarget;
 			buildConfigurationList = DBC96A791DB56F8900E01CF0 /* Build configuration list for PBXNativeTarget "CrossCountryManager" */;
 			buildPhases = (
+				A8E853A12FE526452BEB59C8 /* [CP] Check Pods Manifest.lock */,
 				DBC96A451DB56F8800E01CF0 /* Sources */,
 				DBC96A461DB56F8800E01CF0 /* Frameworks */,
 				DBC96A471DB56F8800E01CF0 /* Resources */,
+				5D0298C5592511E1DBCAA1ED /* [CP] Embed Pods Frameworks */,
+				D4C7F41B5A184ED5BBFA969D /* [CP] Copy Pods Resources */,
 			);
 			buildRules = (
 			);
@@ -277,9 +314,12 @@
 			isa = PBXNativeTarget;
 			buildConfigurationList = DBC96A7C1DB56F8900E01CF0 /* Build configuration list for PBXNativeTarget "CrossCountryManagerTests" */;
 			buildPhases = (
+				C5FF2BDEE93B17726B46EEBA /* [CP] Check Pods Manifest.lock */,
 				DBC96A611DB56F8900E01CF0 /* Sources */,
 				DBC96A621DB56F8900E01CF0 /* Frameworks */,
 				DBC96A631DB56F8900E01CF0 /* Resources */,
+				DFE3A1B2BE658B390E7E2FA3 /* [CP] Embed Pods Frameworks */,
+				E31D485A02CFE33203BB2DA2 /* [CP] Copy Pods Resources */,
 			);
 			buildRules = (
 			);
@@ -295,9 +335,12 @@
 			isa = PBXNativeTarget;
 			buildConfigurationList = DBC96A7F1DB56F8900E01CF0 /* Build configuration list for PBXNativeTarget "CrossCountryManagerUITests" */;
 			buildPhases = (
+				F5E8EFDBE285EEFF83E34786 /* [CP] Check Pods Manifest.lock */,
 				DBC96A6C1DB56F8900E01CF0 /* Sources */,
 				DBC96A6D1DB56F8900E01CF0 /* Frameworks */,
 				DBC96A6E1DB56F8900E01CF0 /* Resources */,
+				03A956D99E0BCAABB4818B95 /* [CP] Embed Pods Frameworks */,
+				3768589397238BD9FCFB9101 /* [CP] Copy Pods Resources */,
 			);
 			buildRules = (
 			);
@@ -360,9 +403,7 @@
 			isa = PBXResourcesBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
-				DBEC81951F649D2000F10CF8 /* Boy.png in Resources */,
 				DBC96A5F1DB56F8800E01CF0 /* LaunchScreen.storyboard in Resources */,
-				DBEC81961F649D2000F10CF8 /* Girl.png in Resources */,
 				DBC96A5C1DB56F8800E01CF0 /* Assets.xcassets in Resources */,
 				DBC96A571DB56F8800E01CF0 /* Main.storyboard in Resources */,
 			);
@@ -384,6 +425,144 @@
 		};
 /* End PBXResourcesBuildPhase section */
 
+/* Begin PBXShellScriptBuildPhase section */
+		03A956D99E0BCAABB4818B95 /* [CP] Embed Pods Frameworks */ = {
+			isa = PBXShellScriptBuildPhase;
+			buildActionMask = 2147483647;
+			files = (
+			);
+			inputPaths = (
+			);
+			name = "[CP] Embed Pods Frameworks";
+			outputPaths = (
+			);
+			runOnlyForDeploymentPostprocessing = 0;
+			shellPath = /bin/sh;
+			shellScript = "\"${SRCROOT}/Pods/Target Support Files/Pods-CrossCountryManagerUITests/Pods-CrossCountryManagerUITests-frameworks.sh\"\n";
+			showEnvVarsInLog = 0;
+		};
+		3768589397238BD9FCFB9101 /* [CP] Copy Pods Resources */ = {
+			isa = PBXShellScriptBuildPhase;
+			buildActionMask = 2147483647;
+			files = (
+			);
+			inputPaths = (
+			);
+			name = "[CP] Copy Pods Resources";
+			outputPaths = (
+			);
+			runOnlyForDeploymentPostprocessing = 0;
+			shellPath = /bin/sh;
+			shellScript = "\"${SRCROOT}/Pods/Target Support Files/Pods-CrossCountryManagerUITests/Pods-CrossCountryManagerUITests-resources.sh\"\n";
+			showEnvVarsInLog = 0;
+		};
+		5D0298C5592511E1DBCAA1ED /* [CP] Embed Pods Frameworks */ = {
+			isa = PBXShellScriptBuildPhase;
+			buildActionMask = 2147483647;
+			files = (
+			);
+			inputPaths = (
+			);
+			name = "[CP] Embed Pods Frameworks";
+			outputPaths = (
+			);
+			runOnlyForDeploymentPostprocessing = 0;
+			shellPath = /bin/sh;
+			shellScript = "\"${SRCROOT}/Pods/Target Support Files/Pods-CrossCountryManager/Pods-CrossCountryManager-frameworks.sh\"\n";
+			showEnvVarsInLog = 0;
+		};
+		A8E853A12FE526452BEB59C8 /* [CP] Check Pods Manifest.lock */ = {
+			isa = PBXShellScriptBuildPhase;
+			buildActionMask = 2147483647;
+			files = (
+			);
+			inputPaths = (
+			);
+			name = "[CP] Check Pods Manifest.lock";
+			outputPaths = (
+			);
+			runOnlyForDeploymentPostprocessing = 0;
+			shellPath = /bin/sh;
+			shellScript = "diff \"${PODS_PODFILE_DIR_PATH}/Podfile.lock\" \"${PODS_ROOT}/Manifest.lock\" > /dev/null\nif [ $? != 0 ] ; then\n    # print error to STDERR\n    echo \"error: The sandbox is not in sync with the Podfile.lock. Run 'pod install' or update your CocoaPods installation.\" >&2\n    exit 1\nfi\n";
+			showEnvVarsInLog = 0;
+		};
+		C5FF2BDEE93B17726B46EEBA /* [CP] Check Pods Manifest.lock */ = {
+			isa = PBXShellScriptBuildPhase;
+			buildActionMask = 2147483647;
+			files = (
+			);
+			inputPaths = (
+			);
+			name = "[CP] Check Pods Manifest.lock";
+			outputPaths = (
+			);
+			runOnlyForDeploymentPostprocessing = 0;
+			shellPath = /bin/sh;
+			shellScript = "diff \"${PODS_PODFILE_DIR_PATH}/Podfile.lock\" \"${PODS_ROOT}/Manifest.lock\" > /dev/null\nif [ $? != 0 ] ; then\n    # print error to STDERR\n    echo \"error: The sandbox is not in sync with the Podfile.lock. Run 'pod install' or update your CocoaPods installation.\" >&2\n    exit 1\nfi\n";
+			showEnvVarsInLog = 0;
+		};
+		D4C7F41B5A184ED5BBFA969D /* [CP] Copy Pods Resources */ = {
+			isa = PBXShellScriptBuildPhase;
+			buildActionMask = 2147483647;
+			files = (
+			);
+			inputPaths = (
+			);
+			name = "[CP] Copy Pods Resources";
+			outputPaths = (
+			);
+			runOnlyForDeploymentPostprocessing = 0;
+			shellPath = /bin/sh;
+			shellScript = "\"${SRCROOT}/Pods/Target Support Files/Pods-CrossCountryManager/Pods-CrossCountryManager-resources.sh\"\n";
+			showEnvVarsInLog = 0;
+		};
+		DFE3A1B2BE658B390E7E2FA3 /* [CP] Embed Pods Frameworks */ = {
+			isa = PBXShellScriptBuildPhase;
+			buildActionMask = 2147483647;
+			files = (
+			);
+			inputPaths = (
+			);
+			name = "[CP] Embed Pods Frameworks";
+			outputPaths = (
+			);
+			runOnlyForDeploymentPostprocessing = 0;
+			shellPath = /bin/sh;
+			shellScript = "\"${SRCROOT}/Pods/Target Support Files/Pods-CrossCountryManagerTests/Pods-CrossCountryManagerTests-frameworks.sh\"\n";
+			showEnvVarsInLog = 0;
+		};
+		E31D485A02CFE33203BB2DA2 /* [CP] Copy Pods Resources */ = {
+			isa = PBXShellScriptBuildPhase;
+			buildActionMask = 2147483647;
+			files = (
+			);
+			inputPaths = (
+			);
+			name = "[CP] Copy Pods Resources";
+			outputPaths = (
+			);
+			runOnlyForDeploymentPostprocessing = 0;
+			shellPath = /bin/sh;
+			shellScript = "\"${SRCROOT}/Pods/Target Support Files/Pods-CrossCountryManagerTests/Pods-CrossCountryManagerTests-resources.sh\"\n";
+			showEnvVarsInLog = 0;
+		};
+		F5E8EFDBE285EEFF83E34786 /* [CP] Check Pods Manifest.lock */ = {
+			isa = PBXShellScriptBuildPhase;
+			buildActionMask = 2147483647;
+			files = (
+			);
+			inputPaths = (
+			);
+			name = "[CP] Check Pods Manifest.lock";
+			outputPaths = (
+			);
+			runOnlyForDeploymentPostprocessing = 0;
+			shellPath = /bin/sh;
+			shellScript = "diff \"${PODS_PODFILE_DIR_PATH}/Podfile.lock\" \"${PODS_ROOT}/Manifest.lock\" > /dev/null\nif [ $? != 0 ] ; then\n    # print error to STDERR\n    echo \"error: The sandbox is not in sync with the Podfile.lock. Run 'pod install' or update your CocoaPods installation.\" >&2\n    exit 1\nfi\n";
+			showEnvVarsInLog = 0;
+		};
+/* End PBXShellScriptBuildPhase section */
+
 /* Begin PBXSourcesBuildPhase section */
 		DBC96A451DB56F8800E01CF0 /* Sources */ = {
 			isa = PBXSourcesBuildPhase;
@@ -401,7 +580,7 @@
 				DB475BF51DB8073100493693 /* RunnerOrder.m in Sources */,
 				DB7E177C1DBA70B000562CD2 /* SavedRaceCell.m in Sources */,
 				DBC96A4E1DB56F8800E01CF0 /* main.m in Sources */,
-				DB87C42B1DB5BC620079E75A /* Home.m in Sources */,
+				DBED60E51F803C3300EDF44C /* RemoveAds.m in Sources */,
 				DB18925D1DC1A27B00A109B9 /* HomeCell.m in Sources */,
 				DB7E17701DB97D8A00562CD2 /* ResultClass.m in Sources */,
 				DB7E176E1DB96E2000562CD2 /* RaceResultsCell.m in Sources */,
@@ -553,6 +732,7 @@
 		};
 		DBC96A7A1DB56F8900E01CF0 /* Debug */ = {
 			isa = XCBuildConfiguration;
+			baseConfigurationReference = D8A71165C147134B0D856222 /* Pods-CrossCountryManager.debug.xcconfig */;
 			buildSettings = {
 				ASSETCATALOG_COMPILER_APPICON_NAME = AppIcon;
 				DEVELOPMENT_TEAM = QA67695N79;
@@ -565,6 +745,7 @@
 		};
 		DBC96A7B1DB56F8900E01CF0 /* Release */ = {
 			isa = XCBuildConfiguration;
+			baseConfigurationReference = B41742C4A56EC8D4400C0184 /* Pods-CrossCountryManager.release.xcconfig */;
 			buildSettings = {
 				ASSETCATALOG_COMPILER_APPICON_NAME = AppIcon;
 				DEVELOPMENT_TEAM = QA67695N79;
@@ -577,6 +758,7 @@
 		};
 		DBC96A7D1DB56F8900E01CF0 /* Debug */ = {
 			isa = XCBuildConfiguration;
+			baseConfigurationReference = 5B7A41C11C1BEC82222D9A2E /* Pods-CrossCountryManagerTests.debug.xcconfig */;
 			buildSettings = {
 				BUNDLE_LOADER = "$(TEST_HOST)";
 				INFOPLIST_FILE = CrossCountryManagerTests/Info.plist;
@@ -589,6 +771,7 @@
 		};
 		DBC96A7E1DB56F8900E01CF0 /* Release */ = {
 			isa = XCBuildConfiguration;
+			baseConfigurationReference = CFEE9FB348C98222B9D8D014 /* Pods-CrossCountryManagerTests.release.xcconfig */;
 			buildSettings = {
 				BUNDLE_LOADER = "$(TEST_HOST)";
 				INFOPLIST_FILE = CrossCountryManagerTests/Info.plist;
@@ -601,6 +784,7 @@
 		};
 		DBC96A801DB56F8900E01CF0 /* Debug */ = {
 			isa = XCBuildConfiguration;
+			baseConfigurationReference = 7D84A863C7CD5B4C76DEFD00 /* Pods-CrossCountryManagerUITests.debug.xcconfig */;
 			buildSettings = {
 				INFOPLIST_FILE = CrossCountryManagerUITests/Info.plist;
 				LD_RUNPATH_SEARCH_PATHS = "$(inherited) @executable_path/Frameworks @loader_path/Frameworks";
@@ -612,6 +796,7 @@
 		};
 		DBC96A811DB56F8900E01CF0 /* Release */ = {
 			isa = XCBuildConfiguration;
+			baseConfigurationReference = FF5392E8D4D4E54AEB9F00A9 /* Pods-CrossCountryManagerUITests.release.xcconfig */;
 			buildSettings = {
 				INFOPLIST_FILE = CrossCountryManagerUITests/Info.plist;
 				LD_RUNPATH_SEARCH_PATHS = "$(inherited) @executable_path/Frameworks @loader_path/Frameworks";

@@ -97,6 +97,36 @@
     if ([self.results count] == 1) {
         raceCount = @"1 race";
     }
+
+    NSMutableArray *uniqueDates = [[NSMutableArray alloc] init];
+    for (ResultClass *result in self.results) {
+        if (![uniqueDates containsObject: result.dateString]) {
+            [uniqueDates addObject:result.dateString];
+        }
+    }
+    
+    NSDateFormatter *dateFormat = [[NSDateFormatter alloc] init];
+    [dateFormat setDateFormat:@"M/d/yyyy"];
+    NSMutableArray *sortedDateArray = [[NSMutableArray alloc] init];
+    for (NSString *dateString in uniqueDates) {
+        NSDate *date = [dateFormat dateFromString:dateString];
+        [sortedDateArray addObject:date];
+    }
+    
+    [sortedDateArray sortUsingSelector:@selector(compare:)];
+    
+    NSMutableArray *tempArray = [[NSMutableArray alloc] init];
+    
+    for (NSDate *date in sortedDateArray) {
+        for (ResultClass *result in self.results) {
+            if ([result.dateString isEqual: [dateFormat stringFromDate:date]]) {
+                [tempArray addObject: result];
+            }
+        }
+    }
+    
+    self.results = tempArray;
+    
     UIView *twoLineTitleView = [GlobalFunctions configureTwoLineTitleView:self.name bottomLine:[NSString stringWithFormat:@"%@ - %@ per mile",raceCount,[GlobalFunctions getAverageMileTime:self.results]]];
     self.navigationItem.titleView = twoLineTitleView;
 }

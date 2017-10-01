@@ -12,6 +12,8 @@
 #import "AppDelegate.h"
 #import "RacesOfRunner.h"
 #import "GlobalFunctions.h"
+#import "RemoveAds.h"
+@import GoogleMobileAds;
 
 @interface Runners ()
 
@@ -90,7 +92,42 @@
     self.emailTextField.autocorrectionType = UITextAutocorrectionTypeNo;
     self.email2TextField.autocorrectionType = UITextAutocorrectionTypeNo;
     
+    AppDelegate *appDelegate = (AppDelegate *)[[UIApplication sharedApplication] delegate];
+    [self.navigationController.navigationBar setTitleTextAttributes:
+     @{NSForegroundColorAttributeName:appDelegate.darkBlue}];
+    [self.navigationController.navigationBar setTintColor:appDelegate.darkBlue];
+    self.navigationController.navigationBar.translucent = NO;
+    
+    [self.tabBarController.tabBar setTintColor:appDelegate.darkBlue];
+
 }
+
+- (void) viewWillAppear:(BOOL)animated {
+    if (![[NSUserDefaults standardUserDefaults] boolForKey:@"paid"]) {
+        
+        self.bannerView = [[GADBannerView alloc]
+                           initWithAdSize:kGADAdSizeSmartBannerPortrait];
+        self.bannerView.delegate = self;
+        
+        self.bannerView.adUnitID = @"ca-app-pub-4590926477342036/1366258771";
+        self.bannerView.rootViewController = self;
+        
+        GADRequest *request = [GADRequest request];
+        [self.bannerView loadRequest:request];
+        
+    } else {
+        self.myTableView.tableHeaderView = nil;
+    }
+}
+
+- (void)adViewDidReceiveAd:(GADBannerView *)bannerView {
+    self.myTableView.tableHeaderView.frame = bannerView.frame;
+    self.myTableView.tableHeaderView = bannerView;
+}
+
+- (void)adView:(GADBannerView *)bannerView didFailToReceiveAdWithError:(GADRequestError *)error {
+}
+
 
 //UITableViewDelegate Methods*********************************************************************************
 
