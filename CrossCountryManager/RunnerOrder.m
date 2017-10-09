@@ -207,11 +207,13 @@
 
     [self.savedRace setValue:runnerOrder forKey:@"runnerOrder"];
     
-    LogRace *vc = [self.navigationController.storyboard instantiateViewControllerWithIdentifier:@"LogRace"];
+    
+    UINavigationController *nc = [self.storyboard instantiateViewControllerWithIdentifier:@"LogRaceNavigationController"];
+    LogRace *vc = [[nc viewControllers] objectAtIndex:0];
     vc.allRunners = self.presentRunners;
     vc.savedRace = self.savedRace;
     
-    [self.navigationController pushViewController:vc animated:YES];
+    [self presentViewController:nc animated:true completion:nil];
     
 }
 

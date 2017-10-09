@@ -47,7 +47,7 @@
     [self update];
     
     if (self.comingFromLogRace) {
-        UIBarButtonItem *item = [[UIBarButtonItem alloc] initWithTitle:@"Races" style:UIBarButtonItemStylePlain target:self action:@selector(pop)];
+        UIBarButtonItem *item = [[UIBarButtonItem alloc] initWithTitle:@"Races" style:UIBarButtonItemStylePlain target:self action:@selector(backToRaces)];
         self.navigationItem.hidesBackButton = YES;
         self.navigationItem.leftBarButtonItem = item;
     }
@@ -304,8 +304,10 @@
 
 //Helper Methods**********************************************************************************************
 
-- (void)pop {
-    [self.navigationController popToRootViewControllerAnimated:true];
+- (void)backToRaces {
+    [self.navigationController dismissViewControllerAnimated:true completion:false];
+    appDelegate.myTabBarController.selectedIndex = 0;
+    [appDelegate.racesNavigationController popToRootViewControllerAnimated:false];
  }
 
 -(void) update {

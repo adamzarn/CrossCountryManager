@@ -133,15 +133,15 @@
     
     self.distanceTextField.inputView = inputView;
     
-    AppDelegate *appDelegate = (AppDelegate *)[[UIApplication sharedApplication] delegate];
     [self.navigationController.navigationBar setTitleTextAttributes:
      @{NSForegroundColorAttributeName:appDelegate.darkBlue}];
     [self.navigationController.navigationBar setTintColor:appDelegate.darkBlue];
     self.navigationController.navigationBar.translucent = NO;
     
     [self.tabBarController.tabBar setTintColor:appDelegate.darkBlue];
+    appDelegate.myTabBarController = self.tabBarController;
+    appDelegate.racesNavigationController = self.navigationController;
 
-    
 }
 
 - (void)adViewDidReceiveAd:(GADBannerView *)bannerView {

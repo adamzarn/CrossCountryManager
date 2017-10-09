@@ -42,7 +42,6 @@
     
     self.automaticallyAdjustsScrollViewInsets = NO;
     self.myTableView.allowsSelection = NO;
-    self.saveButton.style = UIBarButtonSystemItemDone;
     self.pastRaceResultsButton.style = UIBarButtonItemStyleDone;
     self.pastRaceResultsButton.tintColor = appDelegate.darkBlue;
     
@@ -85,13 +84,14 @@
         running = NO;
         [myTimer invalidate];
         myTimer = nil;
-        self.saveButton.enabled = YES;
-        self.saveButton.style = UIBarButtonSystemItemDone;
         [startButton setTitle:@"Finished" forState:UIControlStateNormal];
         [startButton setTitleColor:[UIColor blackColor] forState:UIControlStateNormal];
         [startButton setBackgroundColor:[UIColor whiteColor]];
         startButton.layer.borderColor = [UIColor whiteColor].CGColor;
         [NSUserDefaults.standardUserDefaults setDouble:0.0 forKey:@"secondsAccrued"];
+        
+        [self presentRaceFinishedAlert];
+        
     }
     
     return cell;
@@ -104,7 +104,7 @@
 
 //IBActions***************************************************************************************************
 
-- (IBAction)saveButtonPressed:(id)sender {
+- (void)saveRace {
     
     RaceResults *vc = [self.navigationController.storyboard instantiateViewControllerWithIdentifier:@"RaceResults"];
     
@@ -152,17 +152,34 @@
     
 }
 
+- (void) presentRaceFinishedAlert {
+    UIAlertController *alert=   [UIAlertController alertControllerWithTitle:@"Race Finished" message:@"Would you like to save or discard these results?" preferredStyle:UIAlertControllerStyleAlert];
+    
+    UIAlertAction *discard = [UIAlertAction actionWithTitle:@"Discard" style:UIAlertActionStyleCancel handler:^(UIAlertAction * action) {
+        [self dismissViewControllerAnimated:true completion:nil];
+    }];
+    
+    UIAlertAction *save = [UIAlertAction actionWithTitle:@"Save" style:UIAlertActionStyleDefault handler:^(UIAlertAction * action) {
+        [self saveRace];
+    }];
+    
+    [alert addAction:discard];
+    [alert addAction:save];
+    
+    [self presentViewController:alert animated:YES completion:nil];
+}
+
 - (IBAction)resetButtonPressed:(id)sender {
     UIAlertController *alert=   [UIAlertController alertControllerWithTitle:@"Reset" message:@"Are you sure you want to reset every runner's clock?" preferredStyle:UIAlertControllerStyleAlert];
     
-    UIAlertAction *yes = [UIAlertAction actionWithTitle:@"Yes" style:UIAlertActionStyleCancel handler:^(UIAlertAction * action) {
+    UIAlertAction *cancel = [UIAlertAction actionWithTitle:@"Cancel" style:UIAlertActionStyleCancel handler:^(UIAlertAction * action) { [alert dismissViewControllerAnimated:YES completion:nil]; }];
+    
+    UIAlertAction *yes = [UIAlertAction actionWithTitle:@"Yes" style:UIAlertActionStyleDefault handler:^(UIAlertAction * action) {
         [self setUp];
     }];
     
-    UIAlertAction *cancel = [UIAlertAction actionWithTitle:@"Cancel" style:UIAlertActionStyleDefault handler:^(UIAlertAction * action) { [alert dismissViewControllerAnimated:YES completion:nil]; }];
-    
-    [alert addAction:yes];
     [alert addAction:cancel];
+    [alert addAction:yes];
     
     [self presentViewController:alert animated:YES completion:nil];
     
@@ -251,8 +268,26 @@
     [startButton setTitleColor:[UIColor whiteColor] forState:UIControlStateNormal];
     self.resetButton.enabled = NO;
     startButtonPressed = NO;
-    self.saveButton.enabled = NO;
+
 }
+
+- (IBAction)cancelButtonPressed:(id)sender {
+    UIAlertController *alert=   [UIAlertController alertControllerWithTitle:@"Cancel" message:@"This will discard all times already logged (though you will still be able to start this race again from \"Pending\" Races). Are you sure you want to continue?" preferredStyle:UIAlertControllerStyleAlert];
+    
+    
+    UIAlertAction *cancel = [UIAlertAction actionWithTitle:@"Cancel" style:UIAlertActionStyleCancel handler:nil];
+    
+    UIAlertAction *yes = [UIAlertAction actionWithTitle:@"Yes" style:UIAlertActionStyleDefault handler:^(UIAlertAction * action) {
+        [self dismissViewControllerAnimated:true completion:nil];
+    }];
+    
+    [alert addAction:cancel];
+    [alert addAction:yes];
+    
+    [self presentViewController:alert animated:YES completion:nil];
+    
+}
+
 
 - (void)updateTimer {
     

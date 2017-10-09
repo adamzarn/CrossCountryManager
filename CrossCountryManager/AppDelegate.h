@@ -14,6 +14,8 @@
 @property (strong, nonatomic) UIWindow *window;
 
 @property (readonly, strong) NSPersistentContainer *persistentContainer;
+@property UITabBarController *myTabBarController;
+@property UINavigationController * racesNavigationController;
 
 @property UIColor *darkBlue;
 @property UIColor *lightBlue;

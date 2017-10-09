@@ -16,7 +16,7 @@
     int count;
 }
 
-@property (weak, nonatomic) IBOutlet UIBarButtonItem *saveButton;
+@property (weak, nonatomic) IBOutlet UIBarButtonItem *cancelButton;
 @property (weak, nonatomic) IBOutlet UILabel *timerLabel;
 @property (weak, nonatomic) IBOutlet UITableView *myTableView;
 @property (weak, nonatomic) NSString *predicate;
