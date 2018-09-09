@@ -10,15 +10,12 @@
     },
     {
       "idiom" : "universal",
-      "filename" : "icons8-Finish Flag-96.png",
+      "filename" : "icons8-Finish Flag-96 20-34-01-645.png",
       "scale" : "3x"
     }
   ],
   "info" : {
     "version" : 1,
     "author" : "xcode"
-  },
-  "properties" : {
-    "template-rendering-intent" : "original"
   }
 }

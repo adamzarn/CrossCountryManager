@@ -10,6 +10,7 @@
 #import "RaceResults.h"
 #import "RaceResultsCell.h"
 #import "RunnerClass.h"
+#import "CoachClass.h"
 #import "ResultClass.h"
 #import "GlobalFunctions.h"
 #import "AppDelegate.h"
@@ -276,6 +277,19 @@
         }
         
         NSMutableArray *recipients = [[NSMutableArray alloc] init];
+        
+        // Add coaches emails
+        NSArray *coaches = [GlobalFunctions getData:@"Coach" context:context];
+        for (CoachClass *coach in coaches) {
+            if (![coach.email  isEqual: @""]) {
+                [recipients addObject: coach.email];
+            }
+            if (![coach.email2  isEqual: @""]) {
+                [recipients addObject: coach.email2];
+            }
+        }
+        
+        // Add parents emails
         for (ResultClass *result in sortedResults) {
             RunnerClass *currentRunner = [GlobalFunctions getCurrentRunner:@"Runner" pred:@"name == %@" name:result.name context:context];
             if (![currentRunner.email  isEqual: @""]) {

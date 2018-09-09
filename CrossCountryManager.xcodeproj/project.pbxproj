@@ -12,6 +12,8 @@
 		DB18925D1DC1A27B00A109B9 /* HomeCell.m in Sources */ = {isa = PBXBuildFile; fileRef = DB18925C1DC1A27B00A109B9 /* HomeCell.m */; };
 		DB426AB321447B38005B4949 /* PersonView.xib in Resources */ = {isa = PBXBuildFile; fileRef = DB426AB221447B38005B4949 /* PersonView.xib */; };
 		DB426AB821447E8A005B4949 /* PersonView.m in Sources */ = {isa = PBXBuildFile; fileRef = DB426AB721447E8A005B4949 /* PersonView.m */; };
+		DB426ABB2144A1C7005B4949 /* Coaches.m in Sources */ = {isa = PBXBuildFile; fileRef = DB426ABA2144A1C7005B4949 /* Coaches.m */; };
+		DB426ABF2144A252005B4949 /* CoachClass.m in Sources */ = {isa = PBXBuildFile; fileRef = DB426ABE2144A252005B4949 /* CoachClass.m */; };
 		DB475BF21DB6C22A00493693 /* RunnerCell.m in Sources */ = {isa = PBXBuildFile; fileRef = DB475BF11DB6C22A00493693 /* RunnerCell.m */; };
 		DB475BF51DB8073100493693 /* RunnerOrder.m in Sources */ = {isa = PBXBuildFile; fileRef = DB475BF41DB8073100493693 /* RunnerOrder.m */; };
 		DB7E17151DB8538400562CD2 /* LogRace.m in Sources */ = {isa = PBXBuildFile; fileRef = DB7E17141DB8538400562CD2 /* LogRace.m */; };
@@ -70,6 +72,10 @@
 		DB426AB621447D02005B4949 /* PersonView.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = PersonView.h; sourceTree = "<group>"; };
 		DB426AB721447E8A005B4949 /* PersonView.m */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.objc; path = PersonView.m; sourceTree = "<group>"; };
 		DB426AB9214495E4005B4949 /* PersonViewDelegate.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = PersonViewDelegate.h; sourceTree = "<group>"; };
+		DB426ABA2144A1C7005B4949 /* Coaches.m */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.objc; path = Coaches.m; sourceTree = "<group>"; };
+		DB426ABC2144A1D6005B4949 /* Coaches.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = Coaches.h; sourceTree = "<group>"; };
+		DB426ABD2144A246005B4949 /* CoachClass.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = CoachClass.h; sourceTree = "<group>"; };
+		DB426ABE2144A252005B4949 /* CoachClass.m */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.objc; path = CoachClass.m; sourceTree = "<group>"; };
 		DB475BF11DB6C22A00493693 /* RunnerCell.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = RunnerCell.m; sourceTree = "<group>"; };
 		DB475BF31DB6C23800493693 /* RunnerCell.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = RunnerCell.h; sourceTree = "<group>"; };
 		DB475BF41DB8073100493693 /* RunnerOrder.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = RunnerOrder.m; sourceTree = "<group>"; };
@@ -188,6 +194,8 @@
 				DB7E17751DBA633200562CD2 /* RaceClass.m */,
 				DBC96A841DB56FF600E01CF0 /* RunnerClass.h */,
 				DBC96A821DB56FE700E01CF0 /* RunnerClass.m */,
+				DB426ABD2144A246005B4949 /* CoachClass.h */,
+				DB426ABE2144A252005B4949 /* CoachClass.m */,
 			);
 			name = Classes;
 			sourceTree = "<group>";
@@ -199,6 +207,8 @@
 				DBED60E41F803C3300EDF44C /* RemoveAds.m */,
 				DBC96A521DB56F8800E01CF0 /* Runners.h */,
 				DBC96A531DB56F8800E01CF0 /* Runners.m */,
+				DB426ABC2144A1D6005B4949 /* Coaches.h */,
+				DB426ABA2144A1C7005B4949 /* Coaches.m */,
 				DB7E17831DBAC15100562CD2 /* RacesOfRunner.h */,
 				DB7E17811DBAC13D00562CD2 /* RacesOfRunner.m */,
 				DB7E17801DBA70F300562CD2 /* Races.h */,
@@ -582,6 +592,7 @@
 				DBC96A541DB56F8800E01CF0 /* Runners.m in Sources */,
 				DBDB46BF1DC3A97A00A003BE /* GlobalFunctions.m in Sources */,
 				DB7E17761DBA633200562CD2 /* RaceClass.m in Sources */,
+				DB426ABF2144A252005B4949 /* CoachClass.m in Sources */,
 				DB475BF21DB6C22A00493693 /* RunnerCell.m in Sources */,
 				DB7E17821DBAC13D00562CD2 /* RacesOfRunner.m in Sources */,
 				DBC96A511DB56F8800E01CF0 /* AppDelegate.m in Sources */,
@@ -589,6 +600,7 @@
 				DB7E17151DB8538400562CD2 /* LogRace.m in Sources */,
 				DB7E176A1DB96B1800562CD2 /* RaceResults.m in Sources */,
 				DB475BF51DB8073100493693 /* RunnerOrder.m in Sources */,
+				DB426ABB2144A1C7005B4949 /* Coaches.m in Sources */,
 				DB7E177C1DBA70B000562CD2 /* SavedRaceCell.m in Sources */,
 				DBC96A4E1DB56F8800E01CF0 /* main.m in Sources */,
 				DBED60E51F803C3300EDF44C /* RemoveAds.m in Sources */,
@@ -752,6 +764,7 @@
 				LD_RUNPATH_SEARCH_PATHS = "$(inherited) @executable_path/Frameworks";
 				PRODUCT_BUNDLE_IDENTIFIER = AJZ.CrossCountryManager;
 				PRODUCT_NAME = "$(TARGET_NAME)";
+				SWIFT_VERSION = 3.2;
 			};
 			name = Debug;
 		};
@@ -765,6 +778,7 @@
 				LD_RUNPATH_SEARCH_PATHS = "$(inherited) @executable_path/Frameworks";
 				PRODUCT_BUNDLE_IDENTIFIER = AJZ.CrossCountryManager;
 				PRODUCT_NAME = "$(TARGET_NAME)";
+				SWIFT_VERSION = 3.2;
 			};
 			name = Release;
 		};

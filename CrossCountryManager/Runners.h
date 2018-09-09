@@ -17,8 +17,6 @@
 @property (weak, nonatomic) IBOutlet UISegmentedControl *teamSegment;
 @property (weak, nonatomic) IBOutlet UITableView *myTableView;
 
-
-
 @property (weak, nonatomic) IBOutlet UIBarButtonItem *removeAdsButton;
 
 @property(nonatomic, strong) GADBannerView *bannerView;
