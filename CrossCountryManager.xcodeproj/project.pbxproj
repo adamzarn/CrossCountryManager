@@ -10,6 +10,8 @@
 		A7726256953842E5DD67D115 /* libPods-CrossCountryManagerUITests.a in Frameworks */ = {isa = PBXBuildFile; fileRef = E7DE739A94C8C8852E21B7C3 /* libPods-CrossCountryManagerUITests.a */; };
 		D1BB12E68CAF53CD5C12E72A /* libPods-CrossCountryManagerTests.a in Frameworks */ = {isa = PBXBuildFile; fileRef = 726389DC123D843E9E5C5C22 /* libPods-CrossCountryManagerTests.a */; };
 		DB18925D1DC1A27B00A109B9 /* HomeCell.m in Sources */ = {isa = PBXBuildFile; fileRef = DB18925C1DC1A27B00A109B9 /* HomeCell.m */; };
+		DB426AB321447B38005B4949 /* PersonView.xib in Resources */ = {isa = PBXBuildFile; fileRef = DB426AB221447B38005B4949 /* PersonView.xib */; };
+		DB426AB821447E8A005B4949 /* PersonView.m in Sources */ = {isa = PBXBuildFile; fileRef = DB426AB721447E8A005B4949 /* PersonView.m */; };
 		DB475BF21DB6C22A00493693 /* RunnerCell.m in Sources */ = {isa = PBXBuildFile; fileRef = DB475BF11DB6C22A00493693 /* RunnerCell.m */; };
 		DB475BF51DB8073100493693 /* RunnerOrder.m in Sources */ = {isa = PBXBuildFile; fileRef = DB475BF41DB8073100493693 /* RunnerOrder.m */; };
 		DB7E17151DB8538400562CD2 /* LogRace.m in Sources */ = {isa = PBXBuildFile; fileRef = DB7E17141DB8538400562CD2 /* LogRace.m */; };
@@ -64,6 +66,10 @@
 		D8A71165C147134B0D856222 /* Pods-CrossCountryManager.debug.xcconfig */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = text.xcconfig; name = "Pods-CrossCountryManager.debug.xcconfig"; path = "Pods/Target Support Files/Pods-CrossCountryManager/Pods-CrossCountryManager.debug.xcconfig"; sourceTree = "<group>"; };
 		DB18925B1DC1A26700A109B9 /* HomeCell.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = HomeCell.h; sourceTree = "<group>"; };
 		DB18925C1DC1A27B00A109B9 /* HomeCell.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = HomeCell.m; sourceTree = "<group>"; };
+		DB426AB221447B38005B4949 /* PersonView.xib */ = {isa = PBXFileReference; lastKnownFileType = file.xib; path = PersonView.xib; sourceTree = "<group>"; };
+		DB426AB621447D02005B4949 /* PersonView.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = PersonView.h; sourceTree = "<group>"; };
+		DB426AB721447E8A005B4949 /* PersonView.m */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.objc; path = PersonView.m; sourceTree = "<group>"; };
+		DB426AB9214495E4005B4949 /* PersonViewDelegate.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = PersonViewDelegate.h; sourceTree = "<group>"; };
 		DB475BF11DB6C22A00493693 /* RunnerCell.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = RunnerCell.m; sourceTree = "<group>"; };
 		DB475BF31DB6C23800493693 /* RunnerCell.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = RunnerCell.h; sourceTree = "<group>"; };
 		DB475BF41DB8073100493693 /* RunnerOrder.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = RunnerOrder.m; sourceTree = "<group>"; };
@@ -247,6 +253,10 @@
 				DB7E177A1DBA640100562CD2 /* View Controllers */,
 				DB7E17791DBA63B400562CD2 /* Classes */,
 				DB7E17781DBA638C00562CD2 /* Cells */,
+				DB426AB221447B38005B4949 /* PersonView.xib */,
+				DB426AB621447D02005B4949 /* PersonView.h */,
+				DB426AB721447E8A005B4949 /* PersonView.m */,
+				DB426AB9214495E4005B4949 /* PersonViewDelegate.h */,
 			);
 			path = CrossCountryManager;
 			sourceTree = "<group>";
@@ -404,6 +414,7 @@
 			buildActionMask = 2147483647;
 			files = (
 				DBC96A5F1DB56F8800E01CF0 /* LaunchScreen.storyboard in Resources */,
+				DB426AB321447B38005B4949 /* PersonView.xib in Resources */,
 				DBC96A5C1DB56F8800E01CF0 /* Assets.xcassets in Resources */,
 				DBC96A571DB56F8800E01CF0 /* Main.storyboard in Resources */,
 			);
@@ -583,6 +594,7 @@
 				DBED60E51F803C3300EDF44C /* RemoveAds.m in Sources */,
 				DB18925D1DC1A27B00A109B9 /* HomeCell.m in Sources */,
 				DB7E17701DB97D8A00562CD2 /* ResultClass.m in Sources */,
+				DB426AB821447E8A005B4949 /* PersonView.m in Sources */,
 				DB7E176E1DB96E2000562CD2 /* RaceResultsCell.m in Sources */,
 				DBC96A831DB56FE700E01CF0 /* RunnerClass.m in Sources */,
 				DB7E17191DB857FC00562CD2 /* RaceCell.m in Sources */,

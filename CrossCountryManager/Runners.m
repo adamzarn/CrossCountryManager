@@ -7,6 +7,7 @@
 //
 
 #import "Runners.h"
+#import "PersonView.h"
 #import "RunnerClass.h"
 #import "RunnerCell.h"
 #import "AppDelegate.h"
@@ -15,7 +16,15 @@
 #import "RemoveAds.h"
 @import GoogleMobileAds;
 
+#ifdef DEBUG
+#define NSLog(FORMAT, ...) fprintf(stderr,"%s\n", [[NSString stringWithFormat:FORMAT, ##__VA_ARGS__] UTF8String]);
+#else
+#define NSLog(...) {}
+#endif
+
 @interface Runners ()
+
+@property (weak, nonatomic) IBOutlet PersonView *runnerView;
 
 @end
 
@@ -39,7 +48,8 @@
     appDelegate = (AppDelegate *)[[UIApplication sharedApplication] delegate];
     self.context = appDelegate.persistentContainer.viewContext;
     
-    self.addRunnerTitle.textColor = appDelegate.darkBlue;
+    self.runnerView.title.textColor = appDelegate.darkBlue;
+    self.runnerView.delegate = self;
     
     allRunners = [[NSMutableArray alloc] init];
     selectedRunners = [[NSMutableArray alloc] init];
@@ -74,23 +84,23 @@
     self.runnerView.layer.cornerRadius = 5;
     self.runnerView.userInteractionEnabled = NO;
     
-    self.nameTextField.delegate = self;
-    self.emailTextField.delegate = self;
-    self.email2TextField.delegate = self;
+    self.runnerView.nameTextField.delegate = self;
+    self.runnerView.emailTextField.delegate = self;
+    self.runnerView.email2TextField.delegate = self;
     
-    [self.runnerGender setTitle:@"Boy" forSegmentAtIndex:0];
-    [self.runnerGender setTitle:@"Girl" forSegmentAtIndex:1];
-    [self.runnerTeam setTitle:@"Varsity" forSegmentAtIndex:0];
-    [self.runnerTeam setTitle:@"Junior Varsity" forSegmentAtIndex:1];
+    [self.runnerView.runnerGender setTitle:@"Boy" forSegmentAtIndex:0];
+    [self.runnerView.runnerGender setTitle:@"Girl" forSegmentAtIndex:1];
+    [self.runnerView.runnerTeam setTitle:@"Varsity" forSegmentAtIndex:0];
+    [self.runnerView.runnerTeam setTitle:@"Junior Varsity" forSegmentAtIndex:1];
     
-    self.runnerGender.tintColor = appDelegate.darkBlue;
-    self.runnerTeam.tintColor = appDelegate.darkBlue;
-    [self.saveButton setTitleColor:appDelegate.darkBlue forState:UIControlStateNormal];
-    [self.cancelButton setTitleColor:appDelegate.darkBlue forState:UIControlStateNormal];
+    self.runnerView.runnerGender.tintColor = appDelegate.darkBlue;
+    self.runnerView.runnerTeam.tintColor = appDelegate.darkBlue;
+    [self.runnerView.saveButton setTitleColor:appDelegate.darkBlue forState:UIControlStateNormal];
+    [self.runnerView.cancelButton setTitleColor:appDelegate.darkBlue forState:UIControlStateNormal];
     
-    self.nameTextField.autocorrectionType = UITextAutocorrectionTypeNo;
-    self.emailTextField.autocorrectionType = UITextAutocorrectionTypeNo;
-    self.email2TextField.autocorrectionType = UITextAutocorrectionTypeNo;
+    self.runnerView.nameTextField.autocorrectionType = UITextAutocorrectionTypeNo;
+    self.runnerView.emailTextField.autocorrectionType = UITextAutocorrectionTypeNo;
+    self.runnerView.email2TextField.autocorrectionType = UITextAutocorrectionTypeNo;
     
     AppDelegate *appDelegate = (AppDelegate *)[[UIApplication sharedApplication] delegate];
     [self.navigationController.navigationBar setTitleTextAttributes:
@@ -219,21 +229,21 @@
 
 - (void)addRunner:(id)sender {
     
-    self.addRunnerTitle.text = @"New Runner";
+    self.runnerView.title.text = @"New Runner";
     if (self.genderSegment.selectedSegmentIndex > 0) {
-        self.runnerGender.selectedSegmentIndex = self.genderSegment.selectedSegmentIndex - 1;
-        self.runnerGender.enabled = NO;
+        self.runnerView.runnerGender.selectedSegmentIndex = self.genderSegment.selectedSegmentIndex - 1;
+        self.runnerView.runnerGender.enabled = NO;
     }
     if (self.teamSegment.selectedSegmentIndex > 0) {
-        self.runnerTeam.selectedSegmentIndex = self.teamSegment.selectedSegmentIndex - 1;
-        self.runnerTeam.enabled = NO;
+        self.runnerView.runnerTeam.selectedSegmentIndex = self.teamSegment.selectedSegmentIndex - 1;
+        self.runnerView.runnerTeam.enabled = NO;
     }
     [self.view addSubview:dimView];
     [self.view bringSubviewToFront:dimView];
     self.runnerView.userInteractionEnabled = YES;
     self.runnerView.hidden = NO;
     [self.view bringSubviewToFront:self.runnerView];
-    [self.nameTextField becomeFirstResponder];
+    [self.runnerView.nameTextField becomeFirstResponder];
     
 }
 
@@ -246,23 +256,23 @@
     self.runnerView.hidden = NO;
     [self.view bringSubviewToFront:self.runnerView];
     
-    self.addRunnerTitle.text = @"Edit Runner";
-    [self.nameTextField becomeFirstResponder];
+    self.runnerView.title.text = @"Edit Runner";
+    [self.runnerView.nameTextField becomeFirstResponder];
     
     RunnerClass *runnerToEdit = [selectedRunners objectAtIndex:indexPath.row];
-    self.nameTextField.text = runnerToEdit.name;
+    self.runnerView.nameTextField.text = runnerToEdit.name;
     uneditedName = runnerToEdit.name;
-    self.emailTextField.text = runnerToEdit.email;
-    self.email2TextField.text = runnerToEdit.email2;
+    self.runnerView.emailTextField.text = runnerToEdit.email;
+    self.runnerView.email2TextField.text = runnerToEdit.email2;
     if ([runnerToEdit.gender  isEqual: @"Boy"]) {
-        self.runnerGender.selectedSegmentIndex = 0;
+        self.runnerView.runnerGender.selectedSegmentIndex = 0;
     } else {
-        self.runnerGender.selectedSegmentIndex = 1;
+        self.runnerView.runnerGender.selectedSegmentIndex = 1;
     }
     if ([runnerToEdit.team  isEqual: @"Varsity"]) {
-        self.runnerTeam.selectedSegmentIndex = 0;
+        self.runnerView.runnerTeam.selectedSegmentIndex = 0;
     } else {
-        self.runnerTeam.selectedSegmentIndex = 1;
+        self.runnerView.runnerTeam.selectedSegmentIndex = 1;
     }
     
 }
@@ -274,12 +284,14 @@
     [self updateTableView];
 }
 
-- (IBAction)saveButtonPressed:(id)sender {
+//PersonViewDelegate Methods**********************************************************************************
+
+-(void)didPressSave {
     
     //Check to see if the runner already exists, only if adding a new runner.
     BOOL alreadyExists = NO;
     for (RunnerClass *runner in allRunners) {
-        if ([self.nameTextField.text isEqual: runner.name] && ![uneditedName isEqual:runner.name]) {
+        if ([self.runnerView.nameTextField.text isEqual: runner.name] && ![uneditedName isEqual:runner.name]) {
             alreadyExists = YES;
             break;
         }
@@ -297,18 +309,18 @@
         
     } else {
         
-        if ([self.addRunnerTitle.text isEqual: @"Edit Runner"]) { //if editing runner
+        if ([self.runnerView.title.text isEqual: @"Edit Runner"]) { //if editing runner
             
             NSManagedObject *selectedRunner = [selectedRunners objectAtIndex:indexPathBeingEdited.row];
             
             NSArray *results = [GlobalFunctions getData:@"Result" pred:@"resultToRunner = %@" predArray:[NSArray arrayWithObjects:selectedRunner,nil] context:self.context];
             
             for (NSManagedObject *result in results) {
-                [result setValue:self.nameTextField.text forKey:@"name"];
+                [result setValue:self.runnerView.nameTextField.text forKey:@"name"];
             }
             
             NSString *previousFileName = [NSString stringWithFormat:@"%@.jpeg",[selectedRunner valueForKey:@"name"]];
-            NSString *newFileName = [NSString stringWithFormat:@"%@.jpeg",self.nameTextField.text];
+            NSString *newFileName = [NSString stringWithFormat:@"%@.jpeg",self.runnerView.nameTextField.text];
             [selectedRunner setValue:newFileName forKey:@"fileName"];
             
             NSString *previousFullPath = [GlobalFunctions getFullPath:previousFileName];
@@ -317,15 +329,15 @@
             NSFileManager *manager = [NSFileManager defaultManager];
             [manager moveItemAtPath:previousFullPath toPath:newFullPath error:nil];
             
-            if (self.runnerGender.selectedSegmentIndex == 0) {
+            if (self.runnerView.runnerGender.selectedSegmentIndex == 0) {
                 [selectedRunner setValue:@"Boy"forKey:@"gender"]; } else { [selectedRunner setValue:@"Girl"forKey:@"gender"]; }
             
-            if (self.runnerTeam.selectedSegmentIndex == 0) {
+            if (self.runnerView.runnerTeam.selectedSegmentIndex == 0) {
                 [selectedRunner setValue:@"Varsity"forKey:@"team"]; } else { [selectedRunner setValue:@"Junior Varsity"forKey:@"team"]; }
             
-            [selectedRunner setValue:self.nameTextField.text forKey:@"name"];
-            [selectedRunner setValue:self.emailTextField.text forKey:@"email"];
-            [selectedRunner setValue:self.email2TextField.text forKey:@"email2"];
+            [selectedRunner setValue:self.runnerView.nameTextField.text forKey:@"name"];
+            [selectedRunner setValue:self.runnerView.emailTextField.text forKey:@"email"];
+            [selectedRunner setValue:self.runnerView.email2TextField.text forKey:@"email2"];
             
             [appDelegate saveContext];
             
@@ -335,12 +347,12 @@
         } else { //if adding new runner
             
             NSManagedObject *savedRunner = [NSEntityDescription insertNewObjectForEntityForName:@"Runner" inManagedObjectContext:self.context];
-            [savedRunner setValue:self.nameTextField.text forKey:@"name"];
-            [savedRunner setValue:[self.runnerTeam titleForSegmentAtIndex:self.runnerTeam.selectedSegmentIndex] forKey:@"team"];
-            [savedRunner setValue:[self.runnerGender titleForSegmentAtIndex:self.runnerGender.selectedSegmentIndex] forKey:@"gender"];
-            [savedRunner setValue:self.emailTextField.text forKey:@"email"];
-            [savedRunner setValue:self.email2TextField.text forKey:@"email2"];
-            [savedRunner setValue: [NSString stringWithFormat:@"%@.jpeg",self.nameTextField.text] forKey:@"fileName"];
+            [savedRunner setValue:self.runnerView.nameTextField.text forKey:@"name"];
+            [savedRunner setValue:[self.runnerView.runnerTeam titleForSegmentAtIndex:self.runnerView.runnerTeam.selectedSegmentIndex] forKey:@"team"];
+            [savedRunner setValue:[self.runnerView.runnerGender titleForSegmentAtIndex:self.runnerView.runnerGender.selectedSegmentIndex] forKey:@"gender"];
+            [savedRunner setValue:self.runnerView.emailTextField.text forKey:@"email"];
+            [savedRunner setValue:self.runnerView.email2TextField.text forKey:@"email2"];
+            [savedRunner setValue: [NSString stringWithFormat:@"%@.jpeg",self.runnerView.nameTextField.text] forKey:@"fileName"];
             
             [appDelegate saveContext];
             
@@ -351,14 +363,14 @@
         
         [self dismissRunnerView];
         
-        self.runnerGender.enabled = YES;
-        self.runnerTeam.enabled = YES;
+        self.runnerView.runnerGender.enabled = YES;
+        self.runnerView.runnerTeam.enabled = YES;
         
     }
     
 }
 
-- (IBAction)cancelButtonPressed:(id)sender {
+-(void)didPressCancel {
     [self dismissRunnerView];
 }
 
@@ -367,6 +379,27 @@
 -(void)getRunners {
     NSArray *results = [GlobalFunctions getData:@"Runner" context:self.context];
     allRunners = [results mutableCopy];
+    
+    BOOL printedSectionals = NO;
+    for (RunnerClass*runner in allRunners) {
+        NSLog(@" ");
+        NSLog(@"%@", runner.name);
+        NSLog(@" ");
+        NSArray *predArray = [NSArray arrayWithObjects:runner, nil];
+        NSArray *results = [[GlobalFunctions getData:@"Result" pred:@"resultToRunner = %@" predArray:predArray context:self.context] mutableCopy];
+        for (ResultClass *result in results) {
+            if ([result.dateString isEqualToString:@"10/12/2017"]) {
+                NSLog(@"10/7/2017 - Sectionals - ");
+                printedSectionals = YES;
+            }
+            NSLog(@"%@ - %@ - %@ (%@ per mile)", result.dateString, result.meet, result.time, result.pace);
+        }
+        if (!printedSectionals) {
+            NSLog(@"10/7/2017 - Sectionals - ");
+        }
+        printedSectionals = NO;
+    }
+    
 }
 
 -(void)updateTableView { //filter and sort runners, then reload tableView
@@ -406,11 +439,11 @@
     self.runnerView.hidden = YES;
     self.runnerView.userInteractionEnabled = NO;
     [dimView removeFromSuperview];
-    self.nameTextField.text = @"";
-    [self.runnerGender setSelectedSegmentIndex:0];
-    [self.runnerTeam setSelectedSegmentIndex:0];
-    self.emailTextField.text = @"";
-    self.email2TextField.text = @"";
+    self.runnerView.nameTextField.text = @"";
+    [self.runnerView.runnerGender setSelectedSegmentIndex:0];
+    [self.runnerView.runnerTeam setSelectedSegmentIndex:0];
+    self.runnerView.emailTextField.text = @"";
+    self.runnerView.email2TextField.text = @"";
     [firstResponder resignFirstResponder];
 
 }
