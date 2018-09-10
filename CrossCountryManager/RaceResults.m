@@ -179,8 +179,8 @@
         
         UIAlertAction *yes = [UIAlertAction actionWithTitle:@"Yes" style:UIAlertActionStyleCancel handler:^(UIAlertAction * action) {
             
-            [context deleteObject:[sortedResults objectAtIndex:indexPath.row]];
-            [appDelegate saveContext];
+            [self->context deleteObject:[self->sortedResults objectAtIndex:indexPath.row]];
+            [self->appDelegate saveContext];
             [self update];
             [self.myTableView reloadData];
             

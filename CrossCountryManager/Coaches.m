@@ -13,12 +13,6 @@
 #import "GlobalFunctions.h"
 @import GoogleMobileAds;
 
-#ifdef DEBUG
-#define NSLog(FORMAT, ...) fprintf(stderr,"%s\n", [[NSString stringWithFormat:FORMAT, ##__VA_ARGS__] UTF8String]);
-#else
-#define NSLog(...) {}
-#endif
-
 @interface Coaches ()
 
 @property (weak, nonatomic) IBOutlet PersonView *coachView;
@@ -135,7 +129,9 @@
 }
 
 -(void)tableView:(UITableView *)tableView didSelectRowAtIndexPath:(NSIndexPath *)indexPath {
-    
+    [tableView deselectRowAtIndexPath:indexPath animated:NO];
+    indexPathBeingEdited = indexPath;
+    [self editCoach:indexPath];
 }
 
 -(void)tableView:(UITableView *)tableView commitEditingStyle:(UITableViewCellEditingStyle)editingStyle forRowAtIndexPath:(NSIndexPath *)indexPath {
@@ -145,8 +141,8 @@
         
         UIAlertAction *yes = [UIAlertAction actionWithTitle:@"Yes" style:UIAlertActionStyleCancel handler:^(UIAlertAction * action) {
             
-            [self.context deleteObject:[coaches objectAtIndex:indexPath.row]];
-            [appDelegate saveContext];
+            [self.context deleteObject:[self->coaches objectAtIndex:indexPath.row]];
+            [self->appDelegate saveContext];
             
             [self getCoaches];
             [self.myTableView reloadData];

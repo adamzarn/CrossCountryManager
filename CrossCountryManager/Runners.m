@@ -187,16 +187,16 @@
         
         UIAlertAction *yes = [UIAlertAction actionWithTitle:@"Yes" style:UIAlertActionStyleCancel handler:^(UIAlertAction * action) {
             
-            RunnerClass *runnerToDelete = [selectedRunners objectAtIndex:indexPath.row];
+            RunnerClass *runnerToDelete = [self->selectedRunners objectAtIndex:indexPath.row];
             
             NSString *fullPath = [GlobalFunctions getFullPath:runnerToDelete.fileName];
             
             NSFileManager *manager = [NSFileManager defaultManager];
             [manager removeItemAtPath:fullPath error:nil];
             
-            [self.context deleteObject:[selectedRunners objectAtIndex:indexPath.row]];
+            [self.context deleteObject:[self->selectedRunners objectAtIndex:indexPath.row]];
             
-            [appDelegate saveContext];
+            [self->appDelegate saveContext];
             
             [self getRunners];
             [self updateTableView];

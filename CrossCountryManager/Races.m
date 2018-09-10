@@ -276,11 +276,11 @@
         UIAlertAction *yes = [UIAlertAction actionWithTitle:@"Yes" style:UIAlertActionStyleDefault handler:^(UIAlertAction * action) {
             
             if (self.racesSegment.selectedSegmentIndex == 0) {
-                [context deleteObject:[[racesByDate objectAtIndex:indexPath.section] objectAtIndex: indexPath.row]];
+                [self->context deleteObject:[[self->racesByDate objectAtIndex:indexPath.section] objectAtIndex: indexPath.row]];
             } else {
-                [context deleteObject:[sortedArray objectAtIndex:indexPath.row]];
+                [self->context deleteObject:[self->sortedArray objectAtIndex:indexPath.row]];
             }
-            [appDelegate saveContext];
+            [self->appDelegate saveContext];
             [self updateData];
             
         }];
