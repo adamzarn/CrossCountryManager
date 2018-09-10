@@ -10,15 +10,12 @@
     },
     {
       "idiom" : "universal",
-      "filename" : "icons8-Running-104.png",
+      "filename" : "icons8-running-filled-100.png",
       "scale" : "3x"
     }
   ],
   "info" : {
     "version" : 1,
     "author" : "xcode"
-  },
-  "properties" : {
-    "template-rendering-intent" : "original"
   }
 }

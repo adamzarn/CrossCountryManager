@@ -174,7 +174,7 @@ updatedTransactions:(NSArray *)transactions {
 -(void)productsRequest:(SKProductsRequest *)request
     didReceiveResponse:(SKProductsResponse *)response
 {
-    int count = [response.products count];
+    NSUInteger count = [response.products count];
     if (count>0) {
         validProducts = response.products;
     }
@@ -205,7 +205,7 @@ updatedTransactions:(NSArray *)transactions {
                              style:UIAlertActionStyleDefault
                              handler:^(UIAlertAction * action) {
                                  [[NSUserDefaults standardUserDefaults] setBool:true forKey:@"paid"];
-                                 [firstResponder resignFirstResponder];
+                                 [self->firstResponder resignFirstResponder];
                                  [self.navigationController popViewControllerAnimated:true];
                              }];
         [alert addAction:ok];

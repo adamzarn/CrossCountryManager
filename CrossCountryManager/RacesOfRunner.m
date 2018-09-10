@@ -73,8 +73,8 @@
         
         UIAlertAction *yes = [UIAlertAction actionWithTitle:@"Yes" style:UIAlertActionStyleDefault handler:^(UIAlertAction * action) {
             
-            [context deleteObject:[self.results objectAtIndex:indexPath.row]];
-            [appDelegate saveContext];
+            [self->context deleteObject:[self.results objectAtIndex:indexPath.row]];
+            [self->appDelegate saveContext];
             [self update];
             [self.myTableView reloadData];
             

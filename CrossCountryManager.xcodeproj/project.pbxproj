@@ -10,6 +10,10 @@
 		A7726256953842E5DD67D115 /* libPods-CrossCountryManagerUITests.a in Frameworks */ = {isa = PBXBuildFile; fileRef = E7DE739A94C8C8852E21B7C3 /* libPods-CrossCountryManagerUITests.a */; };
 		D1BB12E68CAF53CD5C12E72A /* libPods-CrossCountryManagerTests.a in Frameworks */ = {isa = PBXBuildFile; fileRef = 726389DC123D843E9E5C5C22 /* libPods-CrossCountryManagerTests.a */; };
 		DB18925D1DC1A27B00A109B9 /* HomeCell.m in Sources */ = {isa = PBXBuildFile; fileRef = DB18925C1DC1A27B00A109B9 /* HomeCell.m */; };
+		DB426AB321447B38005B4949 /* PersonView.xib in Resources */ = {isa = PBXBuildFile; fileRef = DB426AB221447B38005B4949 /* PersonView.xib */; };
+		DB426AB821447E8A005B4949 /* PersonView.m in Sources */ = {isa = PBXBuildFile; fileRef = DB426AB721447E8A005B4949 /* PersonView.m */; };
+		DB426ABB2144A1C7005B4949 /* Coaches.m in Sources */ = {isa = PBXBuildFile; fileRef = DB426ABA2144A1C7005B4949 /* Coaches.m */; };
+		DB426ABF2144A252005B4949 /* CoachClass.m in Sources */ = {isa = PBXBuildFile; fileRef = DB426ABE2144A252005B4949 /* CoachClass.m */; };
 		DB475BF21DB6C22A00493693 /* RunnerCell.m in Sources */ = {isa = PBXBuildFile; fileRef = DB475BF11DB6C22A00493693 /* RunnerCell.m */; };
 		DB475BF51DB8073100493693 /* RunnerOrder.m in Sources */ = {isa = PBXBuildFile; fileRef = DB475BF41DB8073100493693 /* RunnerOrder.m */; };
 		DB7E17151DB8538400562CD2 /* LogRace.m in Sources */ = {isa = PBXBuildFile; fileRef = DB7E17141DB8538400562CD2 /* LogRace.m */; };
@@ -64,6 +68,14 @@
 		D8A71165C147134B0D856222 /* Pods-CrossCountryManager.debug.xcconfig */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = text.xcconfig; name = "Pods-CrossCountryManager.debug.xcconfig"; path = "Pods/Target Support Files/Pods-CrossCountryManager/Pods-CrossCountryManager.debug.xcconfig"; sourceTree = "<group>"; };
 		DB18925B1DC1A26700A109B9 /* HomeCell.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = HomeCell.h; sourceTree = "<group>"; };
 		DB18925C1DC1A27B00A109B9 /* HomeCell.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = HomeCell.m; sourceTree = "<group>"; };
+		DB426AB221447B38005B4949 /* PersonView.xib */ = {isa = PBXFileReference; lastKnownFileType = file.xib; path = PersonView.xib; sourceTree = "<group>"; };
+		DB426AB621447D02005B4949 /* PersonView.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = PersonView.h; sourceTree = "<group>"; };
+		DB426AB721447E8A005B4949 /* PersonView.m */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.objc; path = PersonView.m; sourceTree = "<group>"; };
+		DB426AB9214495E4005B4949 /* PersonViewDelegate.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = PersonViewDelegate.h; sourceTree = "<group>"; };
+		DB426ABA2144A1C7005B4949 /* Coaches.m */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.objc; path = Coaches.m; sourceTree = "<group>"; };
+		DB426ABC2144A1D6005B4949 /* Coaches.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = Coaches.h; sourceTree = "<group>"; };
+		DB426ABD2144A246005B4949 /* CoachClass.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = CoachClass.h; sourceTree = "<group>"; };
+		DB426ABE2144A252005B4949 /* CoachClass.m */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.objc; path = CoachClass.m; sourceTree = "<group>"; };
 		DB475BF11DB6C22A00493693 /* RunnerCell.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = RunnerCell.m; sourceTree = "<group>"; };
 		DB475BF31DB6C23800493693 /* RunnerCell.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = RunnerCell.h; sourceTree = "<group>"; };
 		DB475BF41DB8073100493693 /* RunnerOrder.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = RunnerOrder.m; sourceTree = "<group>"; };
@@ -182,6 +194,8 @@
 				DB7E17751DBA633200562CD2 /* RaceClass.m */,
 				DBC96A841DB56FF600E01CF0 /* RunnerClass.h */,
 				DBC96A821DB56FE700E01CF0 /* RunnerClass.m */,
+				DB426ABD2144A246005B4949 /* CoachClass.h */,
+				DB426ABE2144A252005B4949 /* CoachClass.m */,
 			);
 			name = Classes;
 			sourceTree = "<group>";
@@ -193,6 +207,8 @@
 				DBED60E41F803C3300EDF44C /* RemoveAds.m */,
 				DBC96A521DB56F8800E01CF0 /* Runners.h */,
 				DBC96A531DB56F8800E01CF0 /* Runners.m */,
+				DB426ABC2144A1D6005B4949 /* Coaches.h */,
+				DB426ABA2144A1C7005B4949 /* Coaches.m */,
 				DB7E17831DBAC15100562CD2 /* RacesOfRunner.h */,
 				DB7E17811DBAC13D00562CD2 /* RacesOfRunner.m */,
 				DB7E17801DBA70F300562CD2 /* Races.h */,
@@ -247,6 +263,10 @@
 				DB7E177A1DBA640100562CD2 /* View Controllers */,
 				DB7E17791DBA63B400562CD2 /* Classes */,
 				DB7E17781DBA638C00562CD2 /* Cells */,
+				DB426AB221447B38005B4949 /* PersonView.xib */,
+				DB426AB621447D02005B4949 /* PersonView.h */,
+				DB426AB721447E8A005B4949 /* PersonView.m */,
+				DB426AB9214495E4005B4949 /* PersonViewDelegate.h */,
 			);
 			path = CrossCountryManager;
 			sourceTree = "<group>";
@@ -298,8 +318,6 @@
 				DBC96A451DB56F8800E01CF0 /* Sources */,
 				DBC96A461DB56F8800E01CF0 /* Frameworks */,
 				DBC96A471DB56F8800E01CF0 /* Resources */,
-				5D0298C5592511E1DBCAA1ED /* [CP] Embed Pods Frameworks */,
-				D4C7F41B5A184ED5BBFA969D /* [CP] Copy Pods Resources */,
 			);
 			buildRules = (
 			);
@@ -318,8 +336,6 @@
 				DBC96A611DB56F8900E01CF0 /* Sources */,
 				DBC96A621DB56F8900E01CF0 /* Frameworks */,
 				DBC96A631DB56F8900E01CF0 /* Resources */,
-				DFE3A1B2BE658B390E7E2FA3 /* [CP] Embed Pods Frameworks */,
-				E31D485A02CFE33203BB2DA2 /* [CP] Copy Pods Resources */,
 			);
 			buildRules = (
 			);
@@ -339,8 +355,6 @@
 				DBC96A6C1DB56F8900E01CF0 /* Sources */,
 				DBC96A6D1DB56F8900E01CF0 /* Frameworks */,
 				DBC96A6E1DB56F8900E01CF0 /* Resources */,
-				03A956D99E0BCAABB4818B95 /* [CP] Embed Pods Frameworks */,
-				3768589397238BD9FCFB9101 /* [CP] Copy Pods Resources */,
 			);
 			buildRules = (
 			);
@@ -358,7 +372,7 @@
 		DBC96A411DB56F8800E01CF0 /* Project object */ = {
 			isa = PBXProject;
 			attributes = {
-				LastUpgradeCheck = 0800;
+				LastUpgradeCheck = 0940;
 				ORGANIZATIONNAME = "Adam Zarn";
 				TargetAttributes = {
 					DBC96A481DB56F8800E01CF0 = {
@@ -404,6 +418,7 @@
 			buildActionMask = 2147483647;
 			files = (
 				DBC96A5F1DB56F8800E01CF0 /* LaunchScreen.storyboard in Resources */,
+				DB426AB321447B38005B4949 /* PersonView.xib in Resources */,
 				DBC96A5C1DB56F8800E01CF0 /* Assets.xcassets in Resources */,
 				DBC96A571DB56F8800E01CF0 /* Main.storyboard in Resources */,
 			);
@@ -426,64 +441,22 @@
 /* End PBXResourcesBuildPhase section */
 
 /* Begin PBXShellScriptBuildPhase section */
-		03A956D99E0BCAABB4818B95 /* [CP] Embed Pods Frameworks */ = {
-			isa = PBXShellScriptBuildPhase;
-			buildActionMask = 2147483647;
-			files = (
-			);
-			inputPaths = (
-			);
-			name = "[CP] Embed Pods Frameworks";
-			outputPaths = (
-			);
-			runOnlyForDeploymentPostprocessing = 0;
-			shellPath = /bin/sh;
-			shellScript = "\"${SRCROOT}/Pods/Target Support Files/Pods-CrossCountryManagerUITests/Pods-CrossCountryManagerUITests-frameworks.sh\"\n";
-			showEnvVarsInLog = 0;
-		};
-		3768589397238BD9FCFB9101 /* [CP] Copy Pods Resources */ = {
-			isa = PBXShellScriptBuildPhase;
-			buildActionMask = 2147483647;
-			files = (
-			);
-			inputPaths = (
-			);
-			name = "[CP] Copy Pods Resources";
-			outputPaths = (
-			);
-			runOnlyForDeploymentPostprocessing = 0;
-			shellPath = /bin/sh;
-			shellScript = "\"${SRCROOT}/Pods/Target Support Files/Pods-CrossCountryManagerUITests/Pods-CrossCountryManagerUITests-resources.sh\"\n";
-			showEnvVarsInLog = 0;
-		};
-		5D0298C5592511E1DBCAA1ED /* [CP] Embed Pods Frameworks */ = {
-			isa = PBXShellScriptBuildPhase;
-			buildActionMask = 2147483647;
-			files = (
-			);
-			inputPaths = (
-			);
-			name = "[CP] Embed Pods Frameworks";
-			outputPaths = (
-			);
-			runOnlyForDeploymentPostprocessing = 0;
-			shellPath = /bin/sh;
-			shellScript = "\"${SRCROOT}/Pods/Target Support Files/Pods-CrossCountryManager/Pods-CrossCountryManager-frameworks.sh\"\n";
-			showEnvVarsInLog = 0;
-		};
 		A8E853A12FE526452BEB59C8 /* [CP] Check Pods Manifest.lock */ = {
 			isa = PBXShellScriptBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
 			);
 			inputPaths = (
+				"${PODS_PODFILE_DIR_PATH}/Podfile.lock",
+				"${PODS_ROOT}/Manifest.lock",
 			);
 			name = "[CP] Check Pods Manifest.lock";
 			outputPaths = (
+				"$(DERIVED_FILE_DIR)/Pods-CrossCountryManager-checkManifestLockResult.txt",
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 			shellPath = /bin/sh;
-			shellScript = "diff \"${PODS_PODFILE_DIR_PATH}/Podfile.lock\" \"${PODS_ROOT}/Manifest.lock\" > /dev/null\nif [ $? != 0 ] ; then\n    # print error to STDERR\n    echo \"error: The sandbox is not in sync with the Podfile.lock. Run 'pod install' or update your CocoaPods installation.\" >&2\n    exit 1\nfi\n";
+			shellScript = "diff \"${PODS_PODFILE_DIR_PATH}/Podfile.lock\" \"${PODS_ROOT}/Manifest.lock\" > /dev/null\nif [ $? != 0 ] ; then\n    # print error to STDERR\n    echo \"error: The sandbox is not in sync with the Podfile.lock. Run 'pod install' or update your CocoaPods installation.\" >&2\n    exit 1\nfi\n# This output is used by Xcode 'outputs' to avoid re-running this script phase.\necho \"SUCCESS\" > \"${SCRIPT_OUTPUT_FILE_0}\"\n";
 			showEnvVarsInLog = 0;
 		};
 		C5FF2BDEE93B17726B46EEBA /* [CP] Check Pods Manifest.lock */ = {
@@ -492,58 +465,16 @@
 			files = (
 			);
 			inputPaths = (
+				"${PODS_PODFILE_DIR_PATH}/Podfile.lock",
+				"${PODS_ROOT}/Manifest.lock",
 			);
 			name = "[CP] Check Pods Manifest.lock";
 			outputPaths = (
+				"$(DERIVED_FILE_DIR)/Pods-CrossCountryManagerTests-checkManifestLockResult.txt",
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 			shellPath = /bin/sh;
-			shellScript = "diff \"${PODS_PODFILE_DIR_PATH}/Podfile.lock\" \"${PODS_ROOT}/Manifest.lock\" > /dev/null\nif [ $? != 0 ] ; then\n    # print error to STDERR\n    echo \"error: The sandbox is not in sync with the Podfile.lock. Run 'pod install' or update your CocoaPods installation.\" >&2\n    exit 1\nfi\n";
-			showEnvVarsInLog = 0;
-		};
-		D4C7F41B5A184ED5BBFA969D /* [CP] Copy Pods Resources */ = {
-			isa = PBXShellScriptBuildPhase;
-			buildActionMask = 2147483647;
-			files = (
-			);
-			inputPaths = (
-			);
-			name = "[CP] Copy Pods Resources";
-			outputPaths = (
-			);
-			runOnlyForDeploymentPostprocessing = 0;
-			shellPath = /bin/sh;
-			shellScript = "\"${SRCROOT}/Pods/Target Support Files/Pods-CrossCountryManager/Pods-CrossCountryManager-resources.sh\"\n";
-			showEnvVarsInLog = 0;
-		};
-		DFE3A1B2BE658B390E7E2FA3 /* [CP] Embed Pods Frameworks */ = {
-			isa = PBXShellScriptBuildPhase;
-			buildActionMask = 2147483647;
-			files = (
-			);
-			inputPaths = (
-			);
-			name = "[CP] Embed Pods Frameworks";
-			outputPaths = (
-			);
-			runOnlyForDeploymentPostprocessing = 0;
-			shellPath = /bin/sh;
-			shellScript = "\"${SRCROOT}/Pods/Target Support Files/Pods-CrossCountryManagerTests/Pods-CrossCountryManagerTests-frameworks.sh\"\n";
-			showEnvVarsInLog = 0;
-		};
-		E31D485A02CFE33203BB2DA2 /* [CP] Copy Pods Resources */ = {
-			isa = PBXShellScriptBuildPhase;
-			buildActionMask = 2147483647;
-			files = (
-			);
-			inputPaths = (
-			);
-			name = "[CP] Copy Pods Resources";
-			outputPaths = (
-			);
-			runOnlyForDeploymentPostprocessing = 0;
-			shellPath = /bin/sh;
-			shellScript = "\"${SRCROOT}/Pods/Target Support Files/Pods-CrossCountryManagerTests/Pods-CrossCountryManagerTests-resources.sh\"\n";
+			shellScript = "diff \"${PODS_PODFILE_DIR_PATH}/Podfile.lock\" \"${PODS_ROOT}/Manifest.lock\" > /dev/null\nif [ $? != 0 ] ; then\n    # print error to STDERR\n    echo \"error: The sandbox is not in sync with the Podfile.lock. Run 'pod install' or update your CocoaPods installation.\" >&2\n    exit 1\nfi\n# This output is used by Xcode 'outputs' to avoid re-running this script phase.\necho \"SUCCESS\" > \"${SCRIPT_OUTPUT_FILE_0}\"\n";
 			showEnvVarsInLog = 0;
 		};
 		F5E8EFDBE285EEFF83E34786 /* [CP] Check Pods Manifest.lock */ = {
@@ -552,13 +483,16 @@
 			files = (
 			);
 			inputPaths = (
+				"${PODS_PODFILE_DIR_PATH}/Podfile.lock",
+				"${PODS_ROOT}/Manifest.lock",
 			);
 			name = "[CP] Check Pods Manifest.lock";
 			outputPaths = (
+				"$(DERIVED_FILE_DIR)/Pods-CrossCountryManagerUITests-checkManifestLockResult.txt",
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 			shellPath = /bin/sh;
-			shellScript = "diff \"${PODS_PODFILE_DIR_PATH}/Podfile.lock\" \"${PODS_ROOT}/Manifest.lock\" > /dev/null\nif [ $? != 0 ] ; then\n    # print error to STDERR\n    echo \"error: The sandbox is not in sync with the Podfile.lock. Run 'pod install' or update your CocoaPods installation.\" >&2\n    exit 1\nfi\n";
+			shellScript = "diff \"${PODS_PODFILE_DIR_PATH}/Podfile.lock\" \"${PODS_ROOT}/Manifest.lock\" > /dev/null\nif [ $? != 0 ] ; then\n    # print error to STDERR\n    echo \"error: The sandbox is not in sync with the Podfile.lock. Run 'pod install' or update your CocoaPods installation.\" >&2\n    exit 1\nfi\n# This output is used by Xcode 'outputs' to avoid re-running this script phase.\necho \"SUCCESS\" > \"${SCRIPT_OUTPUT_FILE_0}\"\n";
 			showEnvVarsInLog = 0;
 		};
 /* End PBXShellScriptBuildPhase section */
@@ -571,6 +505,7 @@
 				DBC96A541DB56F8800E01CF0 /* Runners.m in Sources */,
 				DBDB46BF1DC3A97A00A003BE /* GlobalFunctions.m in Sources */,
 				DB7E17761DBA633200562CD2 /* RaceClass.m in Sources */,
+				DB426ABF2144A252005B4949 /* CoachClass.m in Sources */,
 				DB475BF21DB6C22A00493693 /* RunnerCell.m in Sources */,
 				DB7E17821DBAC13D00562CD2 /* RacesOfRunner.m in Sources */,
 				DBC96A511DB56F8800E01CF0 /* AppDelegate.m in Sources */,
@@ -578,11 +513,13 @@
 				DB7E17151DB8538400562CD2 /* LogRace.m in Sources */,
 				DB7E176A1DB96B1800562CD2 /* RaceResults.m in Sources */,
 				DB475BF51DB8073100493693 /* RunnerOrder.m in Sources */,
+				DB426ABB2144A1C7005B4949 /* Coaches.m in Sources */,
 				DB7E177C1DBA70B000562CD2 /* SavedRaceCell.m in Sources */,
 				DBC96A4E1DB56F8800E01CF0 /* main.m in Sources */,
 				DBED60E51F803C3300EDF44C /* RemoveAds.m in Sources */,
 				DB18925D1DC1A27B00A109B9 /* HomeCell.m in Sources */,
 				DB7E17701DB97D8A00562CD2 /* ResultClass.m in Sources */,
+				DB426AB821447E8A005B4949 /* PersonView.m in Sources */,
 				DB7E176E1DB96E2000562CD2 /* RaceResultsCell.m in Sources */,
 				DBC96A831DB56FE700E01CF0 /* RunnerClass.m in Sources */,
 				DB7E17191DB857FC00562CD2 /* RaceCell.m in Sources */,
@@ -651,15 +588,24 @@
 				CLANG_CXX_LIBRARY = "libc++";
 				CLANG_ENABLE_MODULES = YES;
 				CLANG_ENABLE_OBJC_ARC = YES;
+				CLANG_WARN_BLOCK_CAPTURE_AUTORELEASING = YES;
 				CLANG_WARN_BOOL_CONVERSION = YES;
+				CLANG_WARN_COMMA = YES;
 				CLANG_WARN_CONSTANT_CONVERSION = YES;
+				CLANG_WARN_DEPRECATED_OBJC_IMPLEMENTATIONS = YES;
 				CLANG_WARN_DIRECT_OBJC_ISA_USAGE = YES_ERROR;
 				CLANG_WARN_DOCUMENTATION_COMMENTS = YES;
 				CLANG_WARN_EMPTY_BODY = YES;
 				CLANG_WARN_ENUM_CONVERSION = YES;
 				CLANG_WARN_INFINITE_RECURSION = YES;
 				CLANG_WARN_INT_CONVERSION = YES;
+				CLANG_WARN_NON_LITERAL_NULL_CONVERSION = YES;
+				CLANG_WARN_OBJC_IMPLICIT_RETAIN_SELF = YES;
+				CLANG_WARN_OBJC_LITERAL_CONVERSION = YES;
 				CLANG_WARN_OBJC_ROOT_CLASS = YES_ERROR;
+				CLANG_WARN_RANGE_LOOP_ANALYSIS = YES;
+				CLANG_WARN_STRICT_PROTOTYPES = YES;
+				CLANG_WARN_SUSPICIOUS_MOVE = YES;
 				CLANG_WARN_SUSPICIOUS_MOVES = YES;
 				CLANG_WARN_UNREACHABLE_CODE = YES;
 				CLANG_WARN__DUPLICATE_METHOD_MATCH = YES;
@@ -698,15 +644,24 @@
 				CLANG_CXX_LIBRARY = "libc++";
 				CLANG_ENABLE_MODULES = YES;
 				CLANG_ENABLE_OBJC_ARC = YES;
+				CLANG_WARN_BLOCK_CAPTURE_AUTORELEASING = YES;
 				CLANG_WARN_BOOL_CONVERSION = YES;
+				CLANG_WARN_COMMA = YES;
 				CLANG_WARN_CONSTANT_CONVERSION = YES;
+				CLANG_WARN_DEPRECATED_OBJC_IMPLEMENTATIONS = YES;
 				CLANG_WARN_DIRECT_OBJC_ISA_USAGE = YES_ERROR;
 				CLANG_WARN_DOCUMENTATION_COMMENTS = YES;
 				CLANG_WARN_EMPTY_BODY = YES;
 				CLANG_WARN_ENUM_CONVERSION = YES;
 				CLANG_WARN_INFINITE_RECURSION = YES;
 				CLANG_WARN_INT_CONVERSION = YES;
+				CLANG_WARN_NON_LITERAL_NULL_CONVERSION = YES;
+				CLANG_WARN_OBJC_IMPLICIT_RETAIN_SELF = YES;
+				CLANG_WARN_OBJC_LITERAL_CONVERSION = YES;
 				CLANG_WARN_OBJC_ROOT_CLASS = YES_ERROR;
+				CLANG_WARN_RANGE_LOOP_ANALYSIS = YES;
+				CLANG_WARN_STRICT_PROTOTYPES = YES;
+				CLANG_WARN_SUSPICIOUS_MOVE = YES;
 				CLANG_WARN_SUSPICIOUS_MOVES = YES;
 				CLANG_WARN_UNREACHABLE_CODE = YES;
 				CLANG_WARN__DUPLICATE_METHOD_MATCH = YES;
@@ -740,6 +695,7 @@
 				LD_RUNPATH_SEARCH_PATHS = "$(inherited) @executable_path/Frameworks";
 				PRODUCT_BUNDLE_IDENTIFIER = AJZ.CrossCountryManager;
 				PRODUCT_NAME = "$(TARGET_NAME)";
+				SWIFT_VERSION = 3.2;
 			};
 			name = Debug;
 		};
@@ -753,6 +709,7 @@
 				LD_RUNPATH_SEARCH_PATHS = "$(inherited) @executable_path/Frameworks";
 				PRODUCT_BUNDLE_IDENTIFIER = AJZ.CrossCountryManager;
 				PRODUCT_NAME = "$(TARGET_NAME)";
+				SWIFT_VERSION = 3.2;
 			};
 			name = Release;
 		};
