@@ -22,8 +22,6 @@
 
 -(void)setUpCell:(ResultClass *)currentResult currentRunner:(RunnerClass *)currentRunner row:(NSInteger)row {
     
-    self.accessoryType = UITableViewCellAccessoryDetailDisclosureButton;
-    
     self.runnerImageView.clipsToBounds = YES;
     
     switch (row) {

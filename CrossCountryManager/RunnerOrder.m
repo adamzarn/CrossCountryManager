@@ -44,11 +44,11 @@
         
     } else {
         for (NSString *name in [self.runnerOrder objectAtIndex:0]) {
-            RunnerClass *newRunner = [GlobalFunctions getCurrentRunner:@"Runner" pred:@"name == %@" name:name context:context];
+            RunnerClass *newRunner = [GlobalFunctions getCurrentRunner:name context:context];
             [self.presentRunners addObject:newRunner];
         }
         for (NSString *name in [self.runnerOrder objectAtIndex:1]) {
-            RunnerClass *newRunner = [GlobalFunctions getCurrentRunner:@"Runner" pred:@"name == %@" name:name context:context];
+            RunnerClass *newRunner = [GlobalFunctions getCurrentRunner:name context:context];
             [self.absentRunners addObject:newRunner];
         }
     }

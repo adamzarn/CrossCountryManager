@@ -9,6 +9,7 @@
 #import "LogRace.h"
 #import "RaceResults.h"
 #import "RaceResultsCell.h"
+#import "AddResultCell.h"
 #import "RunnerClass.h"
 #import "CoachClass.h"
 #import "ResultClass.h"
@@ -26,14 +27,19 @@
     AppDelegate *appDelegate;
     NSIndexPath *indexPathBeingEdited;
     UIView *dimView;
-    UIPickerView *myPickerView;
+    UIPickerView *namePickerView;
+    UIPickerView *timePickerView;
     UITextField *firstResponder;
+    NSMutableArray *eligibleRunners;
+    CGFloat screenWidth;
 }
 
 //UIViewController Life Cycle Methods*************************************************************************
 
 - (void)viewDidLoad {
     [super viewDidLoad];
+    
+    eligibleRunners = [[NSMutableArray alloc] init];
     
     dimView = [[UIView alloc] initWithFrame:[UIScreen mainScreen].bounds];
     dimView.backgroundColor = [UIColor colorWithWhite:.4f alpha:.5f];
@@ -66,55 +72,86 @@
         i++;
     }
     
-    CGFloat screenWidth = [UIScreen mainScreen].bounds.size.width;
+    screenWidth = [UIScreen mainScreen].bounds.size.width;
     
-    UIToolbar *toolBar= [[UIToolbar alloc] initWithFrame:CGRectMake(0, 0, screenWidth, 44)];
-    [toolBar setBarStyle:UIBarStyleDefault];
+    UIView *nameInputView = [self createNameInputView];
+    self.nameTextField.inputView = nameInputView;
+    
+    UIView *timeInputView = [self createTimeInputView];
+    self.timeTextField.inputView = timeInputView;
+    self.lap1TextField.inputView = timeInputView;
+    self.lap2TextField.inputView = timeInputView;
+    self.lap3TextField.inputView = timeInputView;
+    
+    self.saveResultButton.tintColor = appDelegate.darkBlue;
+    self.cancelButton.tintColor = appDelegate.darkBlue;
+    self.editResultLabel.textColor = appDelegate.darkBlue;
+    
+}
+
+-(UIToolbar *)createDoneToolbar {
+    UIToolbar *toolbar= [[UIToolbar alloc] initWithFrame:CGRectMake(0, 0, screenWidth, 44)];
+    [toolbar setBarStyle:UIBarStyleDefault];
     UIBarButtonItem *flex = [[UIBarButtonItem alloc] initWithBarButtonSystemItem:UIBarButtonSystemItemFlexibleSpace target:self action:nil];
     
     UIBarButtonItem *barButtonDone = [[UIBarButtonItem alloc] initWithTitle:@"Done"
                                                                       style:UIBarButtonItemStylePlain
                                                                      target:self
                                                                      action:@selector(dismissPickerView:)];
-    toolBar.items = @[flex, barButtonDone];
+    toolbar.items = @[flex, barButtonDone];
     barButtonDone.tintColor = [UIColor blackColor];
+    return toolbar;
+}
+
+-(UIView *)createNameInputView {
+    UIToolbar *toolbar = [self createDoneToolbar];
     
+    namePickerView = [[UIPickerView alloc] initWithFrame:CGRectMake(0, toolbar.frame.size.height, screenWidth, 200)];
+    namePickerView.delegate = self;
+    namePickerView.dataSource = self;
+    namePickerView.showsSelectionIndicator = YES;
+    
+    UIView *nameInputView = [[UIView alloc] initWithFrame:CGRectMake(0, 0, screenWidth, 244)];
+    nameInputView.backgroundColor = [UIColor clearColor];
+    
+    [nameInputView addSubview:namePickerView];
+    [nameInputView addSubview:toolbar];
+    
+    return nameInputView;
+    
+}
+
+-(UIView *)createTimeInputView {
+    UIToolbar *toolbar = [self createDoneToolbar];
+
     UILabel *labelMinutes = [[UILabel alloc] initWithFrame:CGRectMake(0,
-                                                                    toolBar.frame.size.height,
-                                                                    screenWidth/2,
-                                                                    44)];
+                                                                      toolbar.frame.size.height,
+                                                                      screenWidth/2,
+                                                                      44)];
     [labelMinutes setText:@"Minutes"];
     [labelMinutes setTextAlignment:NSTextAlignmentCenter];
     
     UILabel *labelSeconds = [[UILabel alloc] initWithFrame:CGRectMake(screenWidth/2,
-                                                                      toolBar.frame.size.height,
+                                                                      toolbar.frame.size.height,
                                                                       screenWidth/2,
                                                                       44)];
     [labelSeconds setText:@"Seconds"];
     [labelSeconds setTextAlignment:NSTextAlignmentCenter];
     
-    myPickerView = [[UIPickerView alloc] initWithFrame:CGRectMake(0, toolBar.frame.size.height + labelMinutes.frame.size.height, screenWidth, 200)];
-    myPickerView.delegate = self;
-    myPickerView.dataSource = self;
-    myPickerView.showsSelectionIndicator = YES;
+    timePickerView = [[UIPickerView alloc] initWithFrame:CGRectMake(0, toolbar.frame.size.height + labelMinutes.frame.size.height, screenWidth, 200)];
+    timePickerView.delegate = self;
+    timePickerView.dataSource = self;
+    timePickerView.showsSelectionIndicator = YES;
     
-    UIView *inputView = [[UIView alloc] initWithFrame:CGRectMake(0, 0, screenWidth, toolBar.frame.size.height + labelMinutes.frame.size.height + myPickerView.frame.size.height)];
-    inputView.backgroundColor = [UIColor clearColor];
+    UIView *timeInputView = [[UIView alloc] initWithFrame:CGRectMake(0, 0, screenWidth, toolbar.frame.size.height + labelMinutes.frame.size.height + timePickerView.frame.size.height)];
+    timeInputView.backgroundColor = [UIColor clearColor];
     
-    [inputView addSubview:myPickerView];
-    [inputView addSubview:labelMinutes];
-    [inputView addSubview:labelSeconds];
-    [inputView addSubview:toolBar];
+    [timeInputView addSubview:timePickerView];
+    [timeInputView addSubview:labelMinutes];
+    [timeInputView addSubview:labelSeconds];
+    [timeInputView addSubview:toolbar];
     
-    self.timeTextField.inputView = inputView;
-    self.lap1TextField.inputView = inputView;
-    self.lap2TextField.inputView = inputView;
-    self.lap3TextField.inputView = inputView;
-    
-    self.saveResultButton.tintColor = appDelegate.darkBlue;
-    self.cancelButton.tintColor = appDelegate.darkBlue;
-    self.editResultLabel.textColor = appDelegate.darkBlue;
-    
+    return timeInputView;
 }
 
 - (void)viewWillAppear:(BOOL)animated {
@@ -148,31 +185,52 @@
 //UITableViewDelegate Methods*********************************************************************************
 
 -(NSInteger)tableView:(UITableView *)tableView numberOfRowsInSection:(NSInteger)section {
-    return [sortedResults count];
+    return [sortedResults count] + 1;
 }
 
 -(UITableViewCell *)tableView:(UITableView *)tableView cellForRowAtIndexPath:(NSIndexPath *)indexPath {
     
-    static NSString *simpleTableIdentifier = @"SimpleTableItem";
+    if (indexPath.row < sortedResults.count) {
     
-    RaceResultsCell *cell = [tableView dequeueReusableCellWithIdentifier:simpleTableIdentifier];
-    
-    ResultClass *currentResult = [sortedResults objectAtIndex:indexPath.row];
-    RunnerClass *currentRunner = [GlobalFunctions getCurrentRunner:@"Runner" pred:@"name == %@" name:currentResult.name context:context];
-    
-    [cell setUpCell:currentResult currentRunner:currentRunner row:indexPath.row];
-    
-    return cell;
+        static NSString *reuseID = @"SimpleTableItem";
+        
+        RaceResultsCell *cell = [tableView dequeueReusableCellWithIdentifier:reuseID];
+        
+        ResultClass *currentResult = [sortedResults objectAtIndex:indexPath.row];
+        RunnerClass *currentRunner = [GlobalFunctions getCurrentRunner:currentResult.name context:context];
+        
+        [cell setUpCell:currentResult currentRunner:currentRunner row:indexPath.row];
+        
+        return cell;
+        
+    } else {
+        
+        static NSString *reuseID = @"AddResultItem";
+        
+        AddResultCell *cell = [tableView dequeueReusableCellWithIdentifier:reuseID];
+        
+        return cell;
+        
+    }
     
 }
 
 -(void)tableView:(UITableView *)tableView didSelectRowAtIndexPath:(NSIndexPath *)indexPath {
-    
     [tableView deselectRowAtIndexPath:indexPath animated:false];
-    
+    if (indexPath.row == sortedResults.count) {
+        [self addResult:indexPath];
+    } else {
+        indexPathBeingEdited = indexPath;
+        [self editResult:indexPath];
+    }
+}
+
+- (BOOL)tableView:(UITableView *)tableView canEditRowAtIndexPath:(NSIndexPath *)indexPath {
+    return indexPath.row < sortedResults.count;
 }
 
 -(void)tableView:(UITableView *)tableView commitEditingStyle:(UITableViewCellEditingStyle)editingStyle forRowAtIndexPath:(NSIndexPath *)indexPath {
+    
     if (editingStyle == UITableViewCellEditingStyleDelete) {
         
         UIAlertController *alert=   [UIAlertController alertControllerWithTitle:@"Delete Result?" message:@"Are you sure you want to continue?" preferredStyle:UIAlertControllerStyleAlert];
@@ -196,12 +254,31 @@
     }
 }
 
--(void)tableView:(UITableView *)tableView accessoryButtonTappedForRowWithIndexPath:(NSIndexPath *)indexPath {
-    indexPathBeingEdited = indexPath;
-    [self editResult:indexPath];
+- (void)setEligibleRunners {
+    NSString *group = [self.savedRace valueForKey:@"group"];
+    NSString *indices = [GlobalFunctions getIndicesFromGroup:group];
+    NSString *predicate = [GlobalFunctions getPredicate:indices];
+    NSArray *allRunners = [GlobalFunctions getData:@"Runner" pred:predicate context:context];
+    [eligibleRunners removeAllObjects];
+    BOOL found = NO;
+    for (RunnerClass *runner in allRunners) {
+        for (ResultClass *result in sortedResults) {
+            if ([runner.name isEqualToString: result.name]) {
+                found = YES;
+            }
+        }
+        if (!found) {
+            [eligibleRunners addObject:runner];
+        }
+        found = NO;
+    }
 }
 
 - (void)editResult:(NSIndexPath *)indexPath {
+    
+    self.editResultLabel.text = @"Edit Result";
+    
+    [self setEligibleRunners];
     
     [self.view addSubview:dimView];
     [self.view bringSubviewToFront:dimView];
@@ -213,6 +290,9 @@
     [self.timeTextField becomeFirstResponder];
     
     ResultClass *resultToEdit = [sortedResults objectAtIndex:indexPath.row];
+    self.nameTextField.text = resultToEdit.name;
+    self.nameTextField.userInteractionEnabled = NO;
+    self.nameTextField.enabled = NO;
     self.timeTextField.text = resultToEdit.time;
     self.lap1TextField.text = resultToEdit.lap1;
     self.lap2TextField.text = resultToEdit.lap2;
@@ -222,26 +302,98 @@
     
 }
 
+- (void)addResult:(NSIndexPath *)indexPath {
+    
+    self.editResultLabel.text = @"Add Result";
+    
+    [self setEligibleRunners];
+    
+    if (eligibleRunners.count == 0) {
+        UIAlertController *alert = [UIAlertController alertControllerWithTitle:@"No Eligible Runners" message:@"Every eligible runner already has a result." preferredStyle:UIAlertControllerStyleAlert];
+        
+        UIAlertAction *ok = [UIAlertAction actionWithTitle:@"OK" style:UIAlertActionStyleDefault handler:^(UIAlertAction * action) { [alert dismissViewControllerAnimated:YES completion:nil]; }];
+        
+        [alert addAction:ok];
+        
+        [self presentViewController:alert animated:YES completion:nil];
+        return;
+    }
+    
+    [self.view addSubview:dimView];
+    [self.view bringSubviewToFront:dimView];
+    
+    self.editResultView.userInteractionEnabled = YES;
+    self.editResultView.hidden = NO;
+    [self.view bringSubviewToFront:self.editResultView];
+    
+    [self.nameTextField becomeFirstResponder];
+    
+    self.nameTextField.text = @"";
+    self.nameTextField.userInteractionEnabled = YES;
+    self.nameTextField.enabled = YES;
+    self.timeTextField.text = @"";
+    self.lap1TextField.text = @"";
+    self.lap2TextField.text = @"";
+    self.lap3TextField.text = @"";
+    
+}
+
 - (IBAction)saveResultButtonPressed:(id)sender {
     
-    NSManagedObject *resultToEdit = [sortedResults objectAtIndex:indexPathBeingEdited.row];
+    if ([self.nameTextField.text isEqualToString:@""] || [self.timeTextField.text isEqualToString:@""]) {
+        UIAlertController *alert = [UIAlertController alertControllerWithTitle:@"Missing Data" message:@"Every result must have at least a name and a time." preferredStyle:UIAlertControllerStyleAlert];
+        
+        UIAlertAction *ok = [UIAlertAction actionWithTitle:@"OK" style:UIAlertActionStyleDefault handler:^(UIAlertAction * action) { [alert dismissViewControllerAnimated:YES completion:nil]; }];
+
+        [alert addAction:ok];
+        [self presentViewController:alert animated:YES completion:nil];
+        return;
+    }
     
-    [resultToEdit setValue:self.timeTextField.text forKey:@"time"];
-    [resultToEdit setValue:self.lap1TextField.text forKey:@"lap1"];
-    [resultToEdit setValue:self.lap2TextField.text forKey:@"lap2"];
-    [resultToEdit setValue:self.lap3TextField.text forKey:@"lap3"];
+    if ([self.editResultLabel.text isEqualToString:@"Edit Result"]) {
     
-    NSString *pace = [GlobalFunctions getAverageMileTime:[NSArray arrayWithObjects:resultToEdit,nil]];
-    [resultToEdit setValue:pace forKey:@"pace"];
+        NSManagedObject *resultToEdit = [sortedResults objectAtIndex:indexPathBeingEdited.row];
+        [resultToEdit setValue:self.timeTextField.text forKey:@"time"];
+        [resultToEdit setValue:self.lap1TextField.text forKey:@"lap1"];
+        [resultToEdit setValue:self.lap2TextField.text forKey:@"lap2"];
+        [resultToEdit setValue:self.lap3TextField.text forKey:@"lap3"];
+        
+        NSString *pace = [GlobalFunctions getAverageMileTime:[NSArray arrayWithObjects:resultToEdit,nil]];
+        [resultToEdit setValue:pace forKey:@"pace"];
+        
+        [appDelegate saveContext];
+        sortedResults = [self.results sortedArrayUsingDescriptors:[GlobalFunctions sortWithKey:@"time"]];
+        [self.myTableView reloadData];
+        
+    } else {
+        
+        NSManagedObject *resultToAdd = [NSEntityDescription insertNewObjectForEntityForName:@"Result" inManagedObjectContext:context];
+        [resultToAdd setValue:self.nameTextField.text forKey:@"name"];
+        [resultToAdd setValue:self.timeTextField.text forKey:@"time"];
+        [resultToAdd setValue:self.lap1TextField.text forKey:@"lap1"];
+        [resultToAdd setValue:self.lap2TextField.text forKey:@"lap2"];
+        [resultToAdd setValue:self.lap3TextField.text forKey:@"lap3"];
+        [resultToAdd setValue:[self.savedRace valueForKey:@"distance"] forKey:@"distance"];
+        [resultToAdd setValue:[self.savedRace valueForKey:@"dateString"] forKey:@"dateString"];
+        [resultToAdd setValue:[self.savedRace valueForKey:@"meet"] forKey:@"meet"];
+        [resultToAdd setValue:self.savedRace forKey:@"resultToRace"];
     
-    [appDelegate saveContext];
+        NSPredicate *predicate = [NSPredicate predicateWithFormat:@"name == %@", self.nameTextField.text];
+        NSArray *filteredArray = [eligibleRunners filteredArrayUsingPredicate:predicate];
+        NSManagedObject *currentRunner = [filteredArray objectAtIndex:0];
+        [resultToAdd setValue:currentRunner forKey:@"resultToRunner"];
+        
+        NSString *pace = [GlobalFunctions getAverageMileTime:[NSArray arrayWithObjects:resultToAdd,nil]];
+        [resultToAdd setValue:pace forKey:@"pace"];
+        
+        [appDelegate saveContext];
+        [self setSortedResults];
+        [self.myTableView reloadData];
+        
+    }
     
     [self dismissEditResultView];
-    
-    sortedResults = [self.results sortedArrayUsingDescriptors:[GlobalFunctions sortWithKey:@"time"]];
-    
-    [self.myTableView reloadData];
-    
+
 }
 
 - (IBAction)cancelButtonPressed:(id)sender {
@@ -291,7 +443,7 @@
         
         // Add parents emails
         for (ResultClass *result in sortedResults) {
-            RunnerClass *currentRunner = [GlobalFunctions getCurrentRunner:@"Runner" pred:@"name == %@" name:result.name context:context];
+            RunnerClass *currentRunner = [GlobalFunctions getCurrentRunner:result.name context:context];
             if (![currentRunner.email  isEqual: @""]) {
                 [recipients addObject: currentRunner.email];
             }
@@ -325,29 +477,56 @@
  }
 
 -(void) update {
-    NSArray *results = [GlobalFunctions getData:@"Result" pred:@"resultToRace = %@" predArray:[NSArray arrayWithObjects: self.savedRace, nil] context:context];
-    self.results = [results mutableCopy];
-    sortedResults = [self.results sortedArrayUsingDescriptors:[GlobalFunctions sortWithKey:@"time"]];
+    [self setSortedResults];
     UIView *twoLineTitleView = [GlobalFunctions configureTwoLineTitleView:[NSString stringWithFormat:@"%@ - %@ miles",[self.savedRace valueForKey:@"group"],[self.savedRace valueForKey:@"distance"]] bottomLine:[NSString stringWithFormat:@"At %@ on %@",[self.savedRace valueForKey:@"meet"],[self.savedRace valueForKey:@"dateString"]]];
     
     self.navigationItem.titleView = twoLineTitleView;
 }
 
+-(void) setSortedResults {
+    NSArray *results = [GlobalFunctions getData:@"Result" pred:@"resultToRace = %@" predArray:[NSArray arrayWithObjects: self.savedRace, nil] context:context];
+    self.results = [results mutableCopy];
+    sortedResults = [self.results sortedArrayUsingDescriptors:[GlobalFunctions sortWithKey:@"time"]];
+}
+
 //UIPickerViewDelegate Methods********************************************************************************
 
 -(NSInteger)numberOfComponentsInPickerView:(UIPickerView *)pickerView {
+    if (pickerView == namePickerView) {
+        return 1;
+    }
     return 2;
 }
 
 -(NSInteger)pickerView:(UIPickerView *)pickerView numberOfRowsInComponent:(NSInteger)component {
-    return [self.pickerOptions count];
+    if (pickerView == namePickerView) {
+        return eligibleRunners.count + 1;
+    }
+    return self.pickerOptions.count;
 }
 
 -(NSString *)pickerView:(UIPickerView *)pickerView titleForRow:(NSInteger)row forComponent:(NSInteger)component {
+    if (pickerView == namePickerView) {
+        if (row == 0) {
+            return @"";
+        }
+        RunnerClass *currentRunner = [eligibleRunners objectAtIndex:row - 1];
+        return currentRunner.name;
+    }
     return [self.pickerOptions objectAtIndex:row];
 }
 
 -(void)pickerView:(UIPickerView *)pickerView didSelectRow:(NSInteger)row inComponent:(NSInteger)component {
+    
+    if (pickerView == namePickerView) {
+        if (row == 0) {
+            firstResponder.text = @"";
+            return;
+        }
+        RunnerClass *currentRunner = [eligibleRunners objectAtIndex:row - 1];
+        firstResponder.text = currentRunner.name;
+        return;
+    }
     
     NSString *minutes = [self.pickerOptions objectAtIndex:[pickerView selectedRowInComponent:0]];
     NSString *seconds = [self.pickerOptions objectAtIndex:[pickerView selectedRowInComponent:1]];
@@ -369,10 +548,12 @@
 
 -(void)textFieldDidBeginEditing:(UITextField *)textField {
     
-    if (![textField.text isEqual: @""]) {
-        [self scrollPicker:textField.text];
-    } else {
-       [self scrollPicker:@"00:00"];
+    if (textField != _nameTextField) {
+        if (![textField.text isEqual: @""]) {
+            [self scrollPicker:textField.text];
+        } else {
+           [self scrollPicker:@"00:00"];
+        }
     }
 
     [textField becomeFirstResponder];
@@ -387,8 +568,8 @@
     NSString *seconds = [time substringWithRange:secondsRange];
     NSString *minutes = [time substringWithRange:minutesRange];
     
-    [myPickerView selectRow:[self.pickerOptions indexOfObject:minutes] inComponent:0 animated:NO];
-    [myPickerView selectRow:[self.pickerOptions indexOfObject:seconds] inComponent:1 animated:NO];
+    [timePickerView selectRow:[self.pickerOptions indexOfObject:minutes] inComponent:0 animated:NO];
+    [timePickerView selectRow:[self.pickerOptions indexOfObject:seconds] inComponent:1 animated:NO];
     
 }
 

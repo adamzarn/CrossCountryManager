@@ -60,10 +60,10 @@
     return results;
 }
 
-+ (RunnerClass *) getCurrentRunner:(NSString *)entity pred:(NSString *)pred name:(NSString *)name context:(NSManagedObjectContext *)context {
++ (RunnerClass *) getCurrentRunner:(NSString *)name context:(NSManagedObjectContext *)context {
     
-    NSFetchRequest *request = [NSFetchRequest fetchRequestWithEntityName:entity];
-    [request setPredicate:[NSPredicate predicateWithFormat:pred, name]];
+    NSFetchRequest *request = [NSFetchRequest fetchRequestWithEntityName:@"Runner"];
+    [request setPredicate:[NSPredicate predicateWithFormat:@"name == %@", name]];
     
     NSError *error = nil;
     NSArray *results = [context executeFetchRequest:request error:&error];
@@ -220,6 +220,77 @@
     } else {
         return [laps componentsJoinedByString:@", "];
     }
+    
+}
+
++ (NSString *) getGroup:(NSInteger)g t:(NSInteger)t {
+    
+    NSString *key = [NSString stringWithFormat:@"%ld%ld",(long)g,(long)t];
+    NSDictionary *titleLookup = [NSDictionary dictionaryWithObjectsAndKeys:
+                                 @"All Runners",@"00",
+                                 @"Varsity",@"01",
+                                 @"Junior Varsity",@"02",
+                                 @"Boys",@"10",
+                                 @"Varsity - Boys",@"11",
+                                 @"Junior Varsity - Boys",@"12",
+                                 @"Girls",@"20",
+                                 @"Varsity - Girls",@"21",
+                                 @"Junior Varsity - Girls",@"22", nil];
+    
+    return [titleLookup objectForKey:key];
+    
+}
+
++ (NSString *) getPredicate:(NSInteger)g t:(NSInteger)t {
+    
+    NSString *key = [NSString stringWithFormat:@"%ld%ld",(long)g,(long)t];
+    
+    NSDictionary *predicateLookup = [NSDictionary dictionaryWithObjectsAndKeys:
+                                     @"gender == 'Boy' OR gender == 'Girl'",@"00",
+                                     @"team == 'Varsity'",@"01",
+                                     @"team == 'Junior Varsity'",@"02",
+                                     @"gender == 'Boy'",@"10",
+                                     @"gender == 'Boy' AND team == 'Varsity'",@"11",
+                                     @"gender == 'Boy' AND team == 'Junior Varsity'",@"12",
+                                     @"gender == 'Girl'",@"20",
+                                     @"gender == 'Girl' AND team == 'Varsity'",@"21",
+                                     @"gender == 'Girl' AND team == 'Junior Varsity'",@"22", nil];
+    
+    return [predicateLookup objectForKey:key];
+    
+}
+
++ (NSString *) getPredicate:(NSString *)indices {
+    
+    NSDictionary *predicateLookup = [NSDictionary dictionaryWithObjectsAndKeys:
+                                     @"gender == 'Boy' OR gender == 'Girl'",@"00",
+                                     @"team == 'Varsity'",@"01",
+                                     @"team == 'Junior Varsity'",@"02",
+                                     @"gender == 'Boy'",@"10",
+                                     @"gender == 'Boy' AND team == 'Varsity'",@"11",
+                                     @"gender == 'Boy' AND team == 'Junior Varsity'",@"12",
+                                     @"gender == 'Girl'",@"20",
+                                     @"gender == 'Girl' AND team == 'Varsity'",@"21",
+                                     @"gender == 'Girl' AND team == 'Junior Varsity'",@"22", nil];
+    
+    return [predicateLookup objectForKey:indices];
+    
+}
+
++ (NSString *) getIndicesFromGroup:(NSString *)group {
+    
+    NSDictionary *titleLookup = [NSDictionary dictionaryWithObjectsAndKeys:
+                                 @"00",@"All Runners",
+                                 @"01",@"Varsity",
+                                 @"02",@"Junior Varsity",
+                                 @"10",@"Boys",
+                                 @"11",@"Varsity - Boys",
+                                 @"12",@"Junior Varsity - Boys",
+                                 @"20",@"Girls",
+                                 @"21",@"Varsity - Girls",
+                                 @"22",@"Junior Varsity - Girls", nil];
+    
+    return [titleLookup objectForKey:group];
     
 }
 
