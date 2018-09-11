@@ -16,6 +16,7 @@
 		DB426ABF2144A252005B4949 /* CoachClass.m in Sources */ = {isa = PBXBuildFile; fileRef = DB426ABE2144A252005B4949 /* CoachClass.m */; };
 		DB475BF21DB6C22A00493693 /* RunnerCell.m in Sources */ = {isa = PBXBuildFile; fileRef = DB475BF11DB6C22A00493693 /* RunnerCell.m */; };
 		DB475BF51DB8073100493693 /* RunnerOrder.m in Sources */ = {isa = PBXBuildFile; fileRef = DB475BF41DB8073100493693 /* RunnerOrder.m */; };
+		DB580F1E2147451100291F92 /* AddResultCell.m in Sources */ = {isa = PBXBuildFile; fileRef = DB580F1D2147451100291F92 /* AddResultCell.m */; };
 		DB7E17151DB8538400562CD2 /* LogRace.m in Sources */ = {isa = PBXBuildFile; fileRef = DB7E17141DB8538400562CD2 /* LogRace.m */; };
 		DB7E17191DB857FC00562CD2 /* RaceCell.m in Sources */ = {isa = PBXBuildFile; fileRef = DB7E17181DB857FC00562CD2 /* RaceCell.m */; };
 		DB7E176A1DB96B1800562CD2 /* RaceResults.m in Sources */ = {isa = PBXBuildFile; fileRef = DB7E17691DB96B1800562CD2 /* RaceResults.m */; };
@@ -80,6 +81,8 @@
 		DB475BF31DB6C23800493693 /* RunnerCell.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = RunnerCell.h; sourceTree = "<group>"; };
 		DB475BF41DB8073100493693 /* RunnerOrder.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = RunnerOrder.m; sourceTree = "<group>"; };
 		DB475BF61DB8073F00493693 /* RunnerOrder.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = RunnerOrder.h; sourceTree = "<group>"; };
+		DB580F1D2147451100291F92 /* AddResultCell.m */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.objc; path = AddResultCell.m; sourceTree = "<group>"; };
+		DB580F1F2147451A00291F92 /* AddResultCell.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = AddResultCell.h; sourceTree = "<group>"; };
 		DB7E17141DB8538400562CD2 /* LogRace.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = LogRace.m; sourceTree = "<group>"; };
 		DB7E17161DB8539200562CD2 /* LogRace.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = LogRace.h; sourceTree = "<group>"; };
 		DB7E17171DB857EB00562CD2 /* RaceCell.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = RaceCell.h; sourceTree = "<group>"; };
@@ -181,6 +184,8 @@
 				DB475BF11DB6C22A00493693 /* RunnerCell.m */,
 				DB7E176C1DB96DFE00562CD2 /* RaceResultsCell.h */,
 				DB7E176D1DB96E2000562CD2 /* RaceResultsCell.m */,
+				DB580F1F2147451A00291F92 /* AddResultCell.h */,
+				DB580F1D2147451100291F92 /* AddResultCell.m */,
 			);
 			name = Cells;
 			sourceTree = "<group>";
@@ -512,6 +517,7 @@
 				DB7E17741DB9AC5800562CD2 /* Model.xcdatamodeld in Sources */,
 				DB7E17151DB8538400562CD2 /* LogRace.m in Sources */,
 				DB7E176A1DB96B1800562CD2 /* RaceResults.m in Sources */,
+				DB580F1E2147451100291F92 /* AddResultCell.m in Sources */,
 				DB475BF51DB8073100493693 /* RunnerOrder.m in Sources */,
 				DB426ABB2144A1C7005B4949 /* Coaches.m in Sources */,
 				DB7E177C1DBA70B000562CD2 /* SavedRaceCell.m in Sources */,

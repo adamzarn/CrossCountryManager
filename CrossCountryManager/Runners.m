@@ -379,27 +379,6 @@
 -(void)getRunners {
     NSArray *results = [GlobalFunctions getData:@"Runner" context:self.context];
     allRunners = [results mutableCopy];
-    
-    BOOL printedSectionals = NO;
-    for (RunnerClass*runner in allRunners) {
-        NSLog(@" ");
-        NSLog(@"%@", runner.name);
-        NSLog(@" ");
-        NSArray *predArray = [NSArray arrayWithObjects:runner, nil];
-        NSArray *results = [[GlobalFunctions getData:@"Result" pred:@"resultToRunner = %@" predArray:predArray context:self.context] mutableCopy];
-        for (ResultClass *result in results) {
-            if ([result.dateString isEqualToString:@"10/12/2017"]) {
-                NSLog(@"10/7/2017 - Sectionals - ");
-                printedSectionals = YES;
-            }
-            NSLog(@"%@ - %@ - %@ (%@ per mile)", result.dateString, result.meet, result.time, result.pace);
-        }
-        if (!printedSectionals) {
-            NSLog(@"10/7/2017 - Sectionals - ");
-        }
-        printedSectionals = NO;
-    }
-    
 }
 
 -(void)updateTableView { //filter and sort runners, then reload tableView

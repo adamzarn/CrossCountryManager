@@ -25,6 +25,7 @@
 
 @property (weak, nonatomic) IBOutlet UIButton *cancelButton;
 
+@property (weak, nonatomic) IBOutlet UITextField *nameTextField;
 @property (weak, nonatomic) IBOutlet UITextField *timeTextField;
 
 @property (weak, nonatomic) IBOutlet UITextField *lap1TextField;
