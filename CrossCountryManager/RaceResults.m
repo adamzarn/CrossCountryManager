@@ -106,7 +106,7 @@
 -(UIView *)createNameInputView {
     UIToolbar *toolbar = [self createDoneToolbar];
     
-    namePickerView = [[UIPickerView alloc] initWithFrame:CGRectMake(0, toolbar.frame.size.height, screenWidth, 200)];
+    namePickerView = [[UIPickerView alloc] initWithFrame:CGRectMake(0, toolbar.frame.size.height, screenWidth, 150)];
     namePickerView.delegate = self;
     namePickerView.dataSource = self;
     namePickerView.showsSelectionIndicator = YES;
@@ -138,7 +138,7 @@
     [labelSeconds setText:@"Seconds"];
     [labelSeconds setTextAlignment:NSTextAlignmentCenter];
     
-    timePickerView = [[UIPickerView alloc] initWithFrame:CGRectMake(0, toolbar.frame.size.height + labelMinutes.frame.size.height, screenWidth, 200)];
+    timePickerView = [[UIPickerView alloc] initWithFrame:CGRectMake(0, toolbar.frame.size.height + labelMinutes.frame.size.height, screenWidth, 150)];
     timePickerView.delegate = self;
     timePickerView.dataSource = self;
     timePickerView.showsSelectionIndicator = YES;
