@@ -149,8 +149,8 @@
     self.myTableView.tableHeaderView = bannerView;
 }
 
-- (void)adView:(GADBannerView *)bannerView didFailToReceiveAdWithError:(GADRequestError *)error {
-}
+//- (void)adView:(GADBannerView *)bannerView didFailToReceiveAdWithError:(GADRequestError *)error {
+//}
 
 - (void)viewWillAppear:(BOOL)animated {
     NSInteger racesSegmentSelectedIndex = [NSUserDefaults.standardUserDefaults integerForKey:@"racesSegmentSelectedIndex"];

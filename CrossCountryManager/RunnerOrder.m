@@ -212,6 +212,7 @@
     LogRace *vc = [[nc viewControllers] objectAtIndex:0];
     vc.allRunners = self.presentRunners;
     vc.savedRace = self.savedRace;
+    vc.modalPresentationStyle = UIModalPresentationCustom;
     
     [self presentViewController:nc animated:true completion:nil];
     

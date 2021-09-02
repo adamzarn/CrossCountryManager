@@ -107,9 +107,8 @@
     self.myTableView.tableHeaderView = bannerView;
 }
 
-- (void)adView:(GADBannerView *)bannerView didFailToReceiveAdWithError:(GADRequestError *)error {
-}
-
+//- (void)adView:(GADBannerView *)bannerView didFailToReceiveAdWithError:(GADRequestError *)error {
+//}
 
 //UITableViewDelegate Methods*********************************************************************************
 

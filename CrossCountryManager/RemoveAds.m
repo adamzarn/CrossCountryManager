@@ -91,6 +91,10 @@
     [productsRequest start];
 }
 
+- (void)request:(SKRequest *)request didFailWithError:(NSError *)error {
+    NSLog([error debugDescription]);
+}
+
 - (BOOL)canMakePurchases
 {
     return [SKPaymentQueue canMakePayments];

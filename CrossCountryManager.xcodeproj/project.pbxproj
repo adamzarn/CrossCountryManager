@@ -402,6 +402,7 @@
 			developmentRegion = English;
 			hasScannedForEncodings = 0;
 			knownRegions = (
+				English,
 				en,
 				Base,
 			);
@@ -696,12 +697,14 @@
 			baseConfigurationReference = D8A71165C147134B0D856222 /* Pods-CrossCountryManager.debug.xcconfig */;
 			buildSettings = {
 				ASSETCATALOG_COMPILER_APPICON_NAME = AppIcon;
+				CURRENT_PROJECT_VERSION = 3;
 				DEVELOPMENT_TEAM = QA67695N79;
 				INFOPLIST_FILE = CrossCountryManager/Info.plist;
 				LD_RUNPATH_SEARCH_PATHS = "$(inherited) @executable_path/Frameworks";
+				MARKETING_VERSION = 3.3;
 				PRODUCT_BUNDLE_IDENTIFIER = AJZ.CrossCountryManager;
 				PRODUCT_NAME = "$(TARGET_NAME)";
-				SWIFT_VERSION = 3.2;
+				SWIFT_VERSION = 4.0;
 			};
 			name = Debug;
 		};
@@ -710,12 +713,14 @@
 			baseConfigurationReference = B41742C4A56EC8D4400C0184 /* Pods-CrossCountryManager.release.xcconfig */;
 			buildSettings = {
 				ASSETCATALOG_COMPILER_APPICON_NAME = AppIcon;
+				CURRENT_PROJECT_VERSION = 3;
 				DEVELOPMENT_TEAM = QA67695N79;
 				INFOPLIST_FILE = CrossCountryManager/Info.plist;
 				LD_RUNPATH_SEARCH_PATHS = "$(inherited) @executable_path/Frameworks";
+				MARKETING_VERSION = 3.3;
 				PRODUCT_BUNDLE_IDENTIFIER = AJZ.CrossCountryManager;
 				PRODUCT_NAME = "$(TARGET_NAME)";
-				SWIFT_VERSION = 3.2;
+				SWIFT_VERSION = 4.0;
 			};
 			name = Release;
 		};

@@ -7,7 +7,7 @@ target 'CrossCountryManager' do
 
   # Pods for CrossCountryManager
 
-	pod 'Google-Mobile-Ads-SDK', '~> 7.32.0'
+	pod 'Google-Mobile-Ads-SDK'
 
   target 'CrossCountryManagerTests' do
     inherit! :search_paths
